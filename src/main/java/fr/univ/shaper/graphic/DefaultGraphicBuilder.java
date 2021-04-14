@@ -16,19 +16,22 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
     }
 
     @Override
-    public void setGraphicFactory(@NotNull GraphicFactory factory) {
+    public GraphicBuilder setGraphicFactory(@NotNull GraphicFactory factory) {
         this.factory = factory;
+        return this;
     }
 
     @Override
-    public void startContext(@NotNull GraphicContext context) {
+    public GraphicBuilder startContext(@NotNull GraphicContext context) {
         this.context = context;
         this.points.clear();
+        return this;
     }
 
     @Override
-    public void appendPoint(@NotNull Point point) {
+    public GraphicBuilder appendPoint(@NotNull Point point) {
         points.add(point);
+        return this;
     }
 
     @Override
@@ -37,7 +40,6 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
             throw new BadGraphicContextException("Context have to be set");
         }
 
-        // TODO Doit être traité différemment des autres !
         if (context == GraphicContext.LAYER) {
             return factory.createLayer();
         }
@@ -59,6 +61,7 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
                 double radius = Math.abs(p0.getX() - p1.getX());
                 return factory.createCircle(p0.getX(), p0.getY(), radius, null);
         }
+
         throw new BadGraphicContextException("Context " + context.name() + " not supported by this builder");
     }
 }

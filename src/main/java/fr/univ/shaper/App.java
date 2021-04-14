@@ -1,9 +1,6 @@
 package fr.univ.shaper;
 
-import fr.univ.shaper.graphic.DefaultGraphicFactory;
-import fr.univ.shaper.graphic.GraphicElement;
-import fr.univ.shaper.graphic.GraphicFactory;
-import fr.univ.shaper.graphic.GraphicVisitor;
+import fr.univ.shaper.graphic.*;
 import fr.univ.shaper.gui.Client;
 import fr.univ.shaper.gui.GraphicViewer;
 import fr.univ.shaper.visitor.DefaultGraphicVisitor;
@@ -17,7 +14,7 @@ public class App {
         GraphicViewer gv = new GraphicViewer();
 
         // On crée la factory
-        GraphicFactory factory = new DefaultGraphicFactory();
+        GraphicFactory factory = new NoisyGraphicFactory();
 //		AbstractFactory factory = new HandFactory();
 
         // On crée le visiteur

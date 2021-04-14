@@ -1,6 +1,7 @@
 package fr.univ.shaper.graphic.shape;
 
 import fr.univ.shaper.graphic.GraphicVisitor;
+
 import java.awt.Color;
 
 public abstract class Line extends Shape {
@@ -47,8 +48,9 @@ public abstract class Line extends Shape {
         this.y1 = y1;
     }
 
-    @Override
-    public void accept(GraphicVisitor visitor) {
-        visitor.visitLine(this);
+    public double getLength() {
+        double dx=Math.abs(x1-x0);
+        double dy=Math.abs(y1-y0);
+        return Math.sqrt(dx*dx+dy*dy);
     }
 }

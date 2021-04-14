@@ -39,9 +39,4 @@ public abstract class Circle extends Shape {
     public void setRadius(double radius) {
         this.radius = radius;
     }
-
-    @Override
-    public void accept(GraphicVisitor visitor) {
-        visitor.visitCircle(this);
-    }
 }

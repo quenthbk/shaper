@@ -1,6 +1,7 @@
 package fr.univ.shaper.graphic.shape;
 
 import fr.univ.shaper.graphic.GraphicVisitor;
+
 import java.awt.Color;
 
 public abstract class Rectangle extends Shape {
@@ -47,8 +48,7 @@ public abstract class Rectangle extends Shape {
         this.y1 = y1;
     }
 
-    @Override
-    public void accept(GraphicVisitor visitor) {
-        visitor.visitRectangle(this);
-    }
+    public double getWidth() { return Math.abs(x1-x0); }
+
+    public double getHeight() { return Math.abs(y1-y0); }
 }

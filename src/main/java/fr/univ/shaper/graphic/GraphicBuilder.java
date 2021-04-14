@@ -1,11 +1,11 @@
 package fr.univ.shaper.graphic;
 
 public interface GraphicBuilder {
-    void setGraphicFactory(GraphicFactory factory);
+    GraphicBuilder setGraphicFactory(GraphicFactory factory);
 
-    void startContext(GraphicContext context);
+    GraphicBuilder startContext(GraphicContext context);
 
-    void appendPoint(Point point);
+    GraphicBuilder appendPoint(Point point);
 
     GraphicElement build() throws BadGraphicContextException;
 }
