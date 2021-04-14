@@ -20,11 +20,11 @@ public class Layer implements GraphicElement {
         graphicElements.remove(graphicElement);
     }
 
-    synchronized public GraphicElement get(int i) {
+    synchronized public GraphicElement getChild(int i) {
         return graphicElements.get(i);
     }
 
-    synchronized public Collection<GraphicElement> getElements() {
+    synchronized public Collection<GraphicElement> getChildren() {
         return new ArrayList<GraphicElement>(graphicElements);
     }
 

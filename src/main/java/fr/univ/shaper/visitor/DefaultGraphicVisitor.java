@@ -38,7 +38,7 @@ public class DefaultGraphicVisitor implements GraphicVisitor {
     }
 
     public void visitLayer(Layer layer) {
-        for(GraphicElement ge : layer.getElements()) {
+        for(GraphicElement ge : layer.getChildren()) {
             ge.accept(this);
         }
     }
