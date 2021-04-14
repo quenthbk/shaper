@@ -10,4 +10,6 @@ public interface GraphicVisitor {
     void visitCircle(Circle element);
 
     void visitLine(Line element);
+
+    void visitLayer(Layer element);
 }

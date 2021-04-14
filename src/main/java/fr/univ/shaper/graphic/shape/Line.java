@@ -1,12 +1,14 @@
 package fr.univ.shaper.graphic.shape;
 
 import fr.univ.shaper.graphic.GraphicVisitor;
+import java.awt.Color;
 
 public abstract class Line extends Shape {
 
     double x0, y0, x1, y1;
 
-    public Line(double x0, double y0, double x1, double y1) {
+    public Line(double x0, double y0, double x1, double y1, Color color) {
+        super(color);
         this.x0 = x0;
         this.y0 = y0;
         this.x1 = x1;

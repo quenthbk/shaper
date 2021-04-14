@@ -2,11 +2,17 @@ package fr.univ.shaper.graphic.shape;
 
 import fr.univ.shaper.graphic.GraphicVisitor;
 
+import java.awt.Color;
+
 public abstract class Circle extends Shape {
 
     private double cx, cy, radius;
 
-    public Circle(double cx, double cy, double radius) {
+    public Circle(double cx, double cy, double radius, Color color) {
+        super(color);
+        this.cx = cx;
+        this.cy = cy;
+        this.radius = radius;
 
     }
 

@@ -1,6 +1,7 @@
 package fr.univ.shaper.graphic;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Layer implements GraphicElement {
@@ -23,10 +24,12 @@ public class Layer implements GraphicElement {
         return graphicElements.get(i);
     }
 
+    synchronized public Collection<GraphicElement> getElements() {
+        return new ArrayList<GraphicElement>(graphicElements);
+    }
+
     @Override
     synchronized public void accept(GraphicVisitor visitor) {
-        graphicElements.forEach((e) -> {
-            e.accept(visitor);
-        });
+        visitor.visitLayer(this);
     }
 }

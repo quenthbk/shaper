@@ -42,6 +42,7 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
             return factory.createLayer();
         }
 
+        // Vérification des éléments à disposition avant la création d'un Shape
         if (points.size() < 2) {
             throw new BadGraphicContextException("Context " + context.name() + " must have two points added");
         }
@@ -51,12 +52,12 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
 
         switch (context) {
             case LINE:
-                return factory.createLine(p0.getX(), p0.getY(), p1.getX(), p1.getY());
+                return factory.createLine(p0.getX(), p0.getY(), p1.getX(), p1.getY(), null);
             case RECTANGLE:
-                return factory.createRectangle(p0.getX(), p0.getY(), p1.getX(), p1.getY());
+                return factory.createRectangle(p0.getX(), p0.getY(), p1.getX(), p1.getY(), null);
             case CIRCLE:
                 double radius = Math.abs(p0.getX() - p1.getX());
-                return factory.createCircle(p0.getX(), p0.getY(), radius);
+                return factory.createCircle(p0.getX(), p0.getY(), radius, null);
         }
         throw new BadGraphicContextException("Context " + context.name() + " not supported by this builder");
     }
