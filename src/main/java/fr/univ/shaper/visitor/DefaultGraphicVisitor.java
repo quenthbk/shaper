@@ -7,8 +7,13 @@ import java.awt.geom.Rectangle2D;
 
 import fr.univ.shaper.graphic.GraphicElement;
 import fr.univ.shaper.graphic.GraphicVisitor;
-import fr.univ.shaper.graphic.Layer;
-import fr.univ.shaper.graphic.shape.*;
+import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.graphic.element.noisy.NoisyCircle;
+import fr.univ.shaper.graphic.element.noisy.NoisyLine;
+import fr.univ.shaper.graphic.element.noisy.NoisyRectangle;
+import fr.univ.shaper.graphic.element.perfect.PerfectCircle;
+import fr.univ.shaper.graphic.element.perfect.PerfectLine;
+import fr.univ.shaper.graphic.element.perfect.PerfectRectangle;
 
 public class DefaultGraphicVisitor implements GraphicVisitor {
     private final Graphics2D screen;
@@ -34,7 +39,6 @@ public class DefaultGraphicVisitor implements GraphicVisitor {
     public void visitPerfectLine(PerfectLine line) {
         screen.setColor(line.getColor());
         screen.draw(new Line2D.Double(line.getX0(), line.getY0(), line.getX1(), line.getY1()));
-
     }
 
     @Override

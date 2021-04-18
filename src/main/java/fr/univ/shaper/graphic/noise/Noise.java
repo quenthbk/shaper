@@ -12,9 +12,5 @@ public class Noise {
 	public static double getNoise(double variant) {
 		return (2*r.nextDouble()-1)*variant/5;
 	}
-
-	public static double getNoise(double noise, double variant) {
-		return (2*(noise/10+5)-1)*variant/5;
-	}
 }
 

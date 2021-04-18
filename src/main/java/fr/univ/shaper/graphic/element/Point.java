@@ -1,4 +1,4 @@
-package fr.univ.shaper.graphic;
+package fr.univ.shaper.graphic.element;
 
 public class Point {
 
@@ -24,5 +24,13 @@ public class Point {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

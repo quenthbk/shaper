@@ -1,6 +1,7 @@
 package fr.univ.shaper;
 
 import fr.univ.shaper.graphic.*;
+import fr.univ.shaper.graphic.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.gui.Client;
 import fr.univ.shaper.gui.GraphicViewer;
 import fr.univ.shaper.visitor.DefaultGraphicVisitor;

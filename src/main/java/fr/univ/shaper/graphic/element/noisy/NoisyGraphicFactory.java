@@ -1,7 +1,8 @@
-package fr.univ.shaper.graphic;
+package fr.univ.shaper.graphic.element.noisy;
 
+import fr.univ.shaper.graphic.GraphicFactory;
+import fr.univ.shaper.graphic.element.*;
 import fr.univ.shaper.graphic.noise.NoiseGraphicVisitor;
-import fr.univ.shaper.graphic.shape.*;
 
 import java.awt.Color;
 
@@ -9,9 +10,9 @@ public class NoisyGraphicFactory implements GraphicFactory {
 
     private final NoiseGraphicVisitor visitor = new NoiseGraphicVisitor();
 
-    private boolean generateNoise = true;
+    private boolean generateNoise = false;
 
-    public void generateNoise(boolean value) {
+    public void setGenerateNoise(boolean value) {
         generateNoise = value;
     }
 

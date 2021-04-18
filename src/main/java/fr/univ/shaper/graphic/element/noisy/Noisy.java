@@ -1,8 +1,8 @@
-package fr.univ.shaper.graphic.shape;
+package fr.univ.shaper.graphic.element.noisy;
 
 import fr.univ.shaper.graphic.GraphicElement;
 
-public interface NoisyShape extends GraphicElement {
+public interface Noisy extends GraphicElement {
 
     double getNoiseX();
 

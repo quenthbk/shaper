@@ -1,11 +1,17 @@
-package fr.univ.shaper.graphic;
+package fr.univ.shaper.graphic.element.perfect;
 
-import fr.univ.shaper.graphic.shape.*;
-import fr.univ.shaper.graphic.shape.Rectangle;
+import fr.univ.shaper.graphic.GraphicFactory;
+import fr.univ.shaper.graphic.element.Circle;
+import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.graphic.element.Line;
+import fr.univ.shaper.graphic.element.perfect.PerfectCircle;
+import fr.univ.shaper.graphic.element.perfect.PerfectLine;
+import fr.univ.shaper.graphic.element.perfect.PerfectRectangle;
+import fr.univ.shaper.graphic.element.Rectangle;
 
 import java.awt.*;
 
-public class DefaultGraphicFactory implements GraphicFactory {
+public class PerfectGraphicFactory implements GraphicFactory {
 
     @Override
     public Layer createLayer() {

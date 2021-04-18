@@ -1,8 +1,14 @@
 package fr.univ.shaper.graphic.noise;
 
 import fr.univ.shaper.graphic.GraphicVisitor;
-import fr.univ.shaper.graphic.Layer;
-import fr.univ.shaper.graphic.shape.*;
+import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.graphic.element.noisy.NoisyCircle;
+import fr.univ.shaper.graphic.element.noisy.NoisyLine;
+import fr.univ.shaper.graphic.element.noisy.NoisyRectangle;
+import fr.univ.shaper.graphic.element.noisy.Noisy;
+import fr.univ.shaper.graphic.element.perfect.PerfectCircle;
+import fr.univ.shaper.graphic.element.perfect.PerfectLine;
+import fr.univ.shaper.graphic.element.perfect.PerfectRectangle;
 
 public class NoiseGraphicVisitor implements GraphicVisitor {
 
@@ -82,7 +88,7 @@ public class NoiseGraphicVisitor implements GraphicVisitor {
         element.setNoiseY(Noise.getNoise(element.getLength()));
     }
 
-    private void setNoise(NoisyShape shape) {
+    private void setNoise(Noisy shape) {
         assert noiseX != null;
         assert noiseY != null;
         shape.setNoiseX(noiseX);

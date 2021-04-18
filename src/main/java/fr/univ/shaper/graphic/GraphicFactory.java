@@ -1,8 +1,9 @@
 package fr.univ.shaper.graphic;
 
-import fr.univ.shaper.graphic.shape.Circle;
-import fr.univ.shaper.graphic.shape.Line;
-import fr.univ.shaper.graphic.shape.Rectangle;
+import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.graphic.element.Circle;
+import fr.univ.shaper.graphic.element.Line;
+import fr.univ.shaper.graphic.element.Rectangle;
 
 import java.awt.*;
 
