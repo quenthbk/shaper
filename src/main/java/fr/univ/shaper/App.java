@@ -1,17 +1,20 @@
 package fr.univ.shaper;
 
 import fr.univ.shaper.graphic.*;
+import fr.univ.shaper.graphic.element.Layer;
 import fr.univ.shaper.graphic.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.gui.Client;
 import fr.univ.shaper.gui.GraphicViewer;
 import fr.univ.shaper.visitor.DefaultGraphicVisitor;
+import fr.univ.shaper.xml.DirectorXML;
+import fr.univ.shaper.xml.DrawingListener;
 
 /**
  * Hello world!
  *
  */
 public class App {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         GraphicViewer gv = new GraphicViewer();
 
         // On crée la factory
@@ -25,17 +28,14 @@ public class App {
         //GraphicFactory builder = new ConcreteDrawableBuilder(factory);
 
         // On crée le directeur
-        //DirectorXML director = new DirectorXML(builder, "pencil.xml");
-
-
-
-        //director.construct();
-//		java.util.List<Drawable> demo=getDemo(factory);
-        //java.util.List<GraphicElement> demo = director.getProduct();
-        GraphicElement demo2 = Client.getDemoGroups(factory);
-
-
-
-        gv.draw(demo2, visitor);
+        DirectorXML director = new DirectorXML(
+                new DefaultGraphicBuilder(GraphicFactoryHandler.newInstance()),
+                "drawing.xml");
+        director.construct(new DrawingListener() {
+            @Override
+            public void event(Layer result) {
+                gv.draw(result, new DefaultGraphicVisitor(gv.getOnscreen()));
+            }
+        });
     }
 }

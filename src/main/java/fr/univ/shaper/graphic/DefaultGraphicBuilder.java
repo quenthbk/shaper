@@ -67,6 +67,8 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
 
     @Override
     public GraphicElement build() throws BadGraphicContextException {
+        Contract.assertThat(name != null, "Le nom de l'élément à construire n'a pas été spécifié");
+
         // Récupération de la factory par rapport au type Graphic
         GraphicFactory factory;
         if (type == null) {
@@ -107,7 +109,8 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
             throw new BadGraphicContextException("Les arguments sont invalides pour l'élément '" + name +
                     "' de type '" + type + "'\n" +
                     "Nombre de paramètres attendus : " + method.getParameterCount() + '\n' +
-                    "Nombre de paramètres donnés : " + arguments.length
+                    "Nombre de paramètres donnés : " + arguments.length + '\n' +
+                    "Liste des paramètres donnés :" + Arrays.toString(arguments)
                     , e);
         }
 
@@ -139,6 +142,7 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
             }
         }
 
+        reset();
         return graphicElement;
     }
 
@@ -172,16 +176,29 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
 
     private String getCheckup(GraphicElement e) {
         StringBuilder str = new StringBuilder();
-        str.append("-----------------------\n")
-                .append("Nom de la classe : ")
-                .append(e.getClass().getName())
-                .append('\n')
-                .append("Type de l'élément : ")
+        str.append("-----------------------\n");
+        if (e != null) {
+            str.append("Nom de la classe : ")
+                    .append(e.getClass().getName())
+                    .append('\n');
+        }
+
+        str.append("Type de l'élément : ")
                 .append(type)
                 .append('\n')
                 .append("Nom de l'élément: ")
                 .append(name)
-                .append('\n');
+                .append('\n')
+                .append("---- parametres----");
+
+        for (Point p : points) {
+            str.append(p.toString());
+        }
+
+        for (String s : attributes.keySet()) {
+            str.append(s).append(" : ").append(attributes.get(s).getValue().toString());
+        }
+
         return str.toString();
     }
 }

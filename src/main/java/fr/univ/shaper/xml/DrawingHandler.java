@@ -1,0 +1,145 @@
+package fr.univ.shaper.xml;
+
+import fr.univ.shaper.graphic.GraphicBuilder;
+import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.graphic.element.Point;
+import fr.univ.shaper.graphic.exception.BadGraphicContextException;
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import java.awt.Color;
+import java.lang.reflect.Field;
+import java.util.Stack;
+
+import static fr.univ.shaper.xml.XmlDrawingType.*;
+
+public class DrawingHandler extends DefaultHandler implements ContentHandler {
+
+    public final GraphicBuilder builder;
+
+    public Stack<String> stack;
+
+    public Stack<Layer> layerStack;
+
+    DrawingHandler(GraphicBuilder builder) {
+        super();
+        this.builder = builder;
+    }
+
+    public Layer getDrawing() {
+        return layerStack.pop();
+    }
+
+    @Override
+    public void startDocument() throws SAXException {
+        System.out.println("Chargement de l'image xml en cours...");
+        layerStack = new Stack<>();
+        stack = new Stack<>();
+        try {
+            layerStack.push((Layer)
+                    builder.setGraphicName(XML_LAYER).build());
+        } catch (BadGraphicContextException e) {
+            throw new SAXException(e);
+        }
+    }
+
+    @Override
+    public void endDocument() throws SAXException {
+        System.out.println("Chargement terminé.");
+    }
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
+        String name = qName.trim();
+        stack.push(name);
+        switch (name) {
+            case XML_RADIUS:
+            case XML_ROOT_ELEMENT:
+                break;
+            case XML_LAYER:
+                try {
+                    layerStack.push((Layer) builder.setGraphicName(localName).build());
+                } catch (BadGraphicContextException e) {
+                    throw new SAXException(e);
+                }
+                break;
+            case XML_POINT:
+                double x = Double.parseDouble(attrs.getValue(XML_POINT_X));
+                double y = Double.parseDouble(attrs.getValue(XML_POINT_Y));
+                builder.appendPoint(new Point(x, y));
+                break;
+            default:
+                builder.setGraphicName(name);
+        }
+
+        for (int i = 0; i < attrs.getLength(); i++) {
+            if (attrs.getLocalName(i).equals(XML_COLOR)) {
+                String colorValue = attrs.getValue(i);
+                Color color = stringToColor(colorValue);
+
+                if (color == null) {
+                    throw new SAXException("La couleur " + colorValue + " est invalide");
+                }
+
+                builder.setGraphicAttribute(XML_COLOR,
+                        color,
+                        Color.class);
+            }
+        }
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        String name = stack.pop();
+        System.err.println(name);
+        switch (name) {
+            // Dans le cas ou ce n'est pas un GraphicElement on break
+            case XML_POINT :
+            case XML_RADIUS:
+            case XML_ROOT_ELEMENT:
+                break;
+            case XML_LAYER:
+                Layer layer = layerStack.pop();
+                // On ajoute le dernier calque au calque qui l'englobe
+                layerStack.peek().append(layer);
+                break;
+                // Cnstructions des autres formes. (circle, rectangle ...)
+            default:
+                try {
+                    layerStack.peek().append(builder.build());
+                } catch (BadGraphicContextException e) {
+                    throw new SAXException(e);
+                }
+        }
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        String name = stack.peek();
+        if (name.equals(XML_RADIUS)) {
+            double value = Double.parseDouble(new String(ch, start, length));
+            builder.setGraphicAttribute(name, value, double.class);
+        }
+    }
+
+    private Color stringToColor(String colorValue) {
+
+        Color color;
+        color = Color.getColor(colorValue);
+
+        if (color != null) {
+            return color;
+        }
+
+        try {
+            Field field = Color.class.getField(colorValue);
+            color = (Color) field.get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return null;
+        }
+
+        return color;
+    }
+}
