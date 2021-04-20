@@ -1,6 +1,7 @@
 package fr.univ.shaper.core.noise;
 
 import fr.univ.shaper.core.GraphicVisitor;
+import fr.univ.shaper.core.GraphicVisitorAdapter;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.noisy.NoisyCircle;
 import fr.univ.shaper.core.element.noisy.NoisyLine;
@@ -10,7 +11,7 @@ import fr.univ.shaper.core.element.perfect.PerfectCircle;
 import fr.univ.shaper.core.element.perfect.PerfectLine;
 import fr.univ.shaper.core.element.perfect.PerfectRectangle;
 
-public class NoiseGraphicVisitor implements GraphicVisitor {
+public class NoiseGraphicVisitor extends GraphicVisitorAdapter {
 
     private final Double noiseX;
     private final Double noiseY;
@@ -28,21 +29,6 @@ public class NoiseGraphicVisitor implements GraphicVisitor {
     @Override
     public void visitLayer(Layer element) {
         element.getChildren().forEach(child -> child.accept(this));
-    }
-
-    @Override
-    public void visitPerfectRectangle(PerfectRectangle element) {
-
-    }
-
-    @Override
-    public void visitPerfectCircle(PerfectCircle element) {
-
-    }
-
-    @Override
-    public void visitPerfectLine(PerfectLine element) {
-
     }
 
     @Override

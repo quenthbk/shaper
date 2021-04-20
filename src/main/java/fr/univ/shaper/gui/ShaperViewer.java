@@ -14,6 +14,11 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ *  Tips pour dessiner avec Swing:
+ *
+ *  https://tips4java.wordpress.com/2009/05/08/custom-painting-approaches/
+ */
 public class ShaperViewer {
 
     static public final String TITLE = "Shaper";

@@ -1,6 +1,6 @@
 package fr.univ.shaper.core.element.perfect;
 
-import fr.univ.shaper.core.GraphicFactory;
+import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.Circle;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Line;

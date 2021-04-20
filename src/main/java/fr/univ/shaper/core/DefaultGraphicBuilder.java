@@ -1,5 +1,6 @@
 package fr.univ.shaper.core;
 
+import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
 import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;

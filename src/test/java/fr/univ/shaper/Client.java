@@ -1,49 +1,12 @@
-package fr.univ.shaper.gui;
+package fr.univ.shaper;
 
 import fr.univ.shaper.core.GraphicElement;
-import fr.univ.shaper.core.GraphicFactory;
+import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.Layer;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Client {
-    public static java.util.List<GraphicElement> getDemo(GraphicFactory factory) {
-        java.util.List<GraphicElement> ls= new ArrayList<>();
-        ls.add(factory.createLine(0, 500, 800, 500, Color.GREEN));
-        ls.add(factory.createLine(300, 0, 0, 300, Color.YELLOW));
-
-        ls.add(factory.createLine(30, 300, 180, 200, Color.BLUE));
-        ls.add(factory.createLine(330, 300, 180, 200, Color.BLUE));
-        ls.add(factory.createRectangle(30, 300,330, 500, Color.RED));
-
-        double sunX = 600;
-        double sunY = 120;
-        double sunRad = 60;
-        ls.add(factory.createCircle(sunX, sunY, sunRad, Color.BLACK));
-        int sunRay = 20;
-        for (int i=0; i<sunRay; ++i) {
-            double tau=i*2*Math.PI/sunRay;
-            ls.add(factory.createLine(sunX+(sunRad+5)*Math.cos(tau),
-                    sunY-(sunRad+5)*Math.sin(tau),
-                    sunX+(1.5*sunRad+5)*Math.cos(tau),
-                    sunY-(1.5*sunRad+5)*Math.sin(tau),
-                    Color.BLACK));
-        }
-
-        double manX=600;
-        double manY=450;
-        ls.add(factory.createLine(manX, manY-70, manX-40, manY-110, Color.RED));
-        ls.add(factory.createLine(manX, manY-70, manX+40, manY-110, Color.RED));
-        ls.add(factory.createCircle(manX, manY-120, 20, Color.GRAY));
-        ls.add(factory.createLine(manX, manY, manX, manY-100, Color.BLUE));
-        ls.add(factory.createLine(manX, manY, manX-20, manY+50, Color.BLACK));
-        ls.add(factory.createLine(manX, manY, manX+20, manY+50, Color.BLACK));
-
-
-        return ls;
-    }
-
     public static GraphicElement getDemoGroups(GraphicFactory factory) {
         Layer result = factory.createLayer();
         Layer person =factory.createLayer();

@@ -1,5 +1,6 @@
 package fr.univ.shaper.core;
 
+import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;
 import org.assertj.core.api.Assertions;

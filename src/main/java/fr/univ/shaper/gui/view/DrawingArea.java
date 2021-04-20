@@ -91,7 +91,6 @@ public class DrawingArea extends JPanel {
         public void mousePressed(MouseEvent mouseEvent) {
             startPoint = mouseEvent.getPoint();
             controller.startDrawingPosition(mouseEvent.getPoint());
-            //shape = new Rectangle();
         }
 
         public void mouseDragged(MouseEvent mouseEvent) {
@@ -106,12 +105,6 @@ public class DrawingArea extends JPanel {
         }
 
         public void mouseReleased(MouseEvent mouseEvent) {
-            /*
-            TODO à faire dans le contrôleur
-            if (shape.width != 0 || shape.height != 0) {
-                addRectangle(shape, e.getComponent().getForeground());
-            }
-            */
             controller.endDrawingPosition(mouseEvent.getPoint());
         }
     }

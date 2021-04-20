@@ -1,5 +1,6 @@
 package fr.univ.shaper.core;
 
+import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.core.element.perfect.PerfectGraphicFactory;
 import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;
@@ -50,8 +51,8 @@ public class GraphicFactoryHandler {
         if (factory != null) {
             return factory;
         }
-        throw new GraphicTypeNotFoundException("La factory du type " + type + " est inconnue ou n'a pas été ajouté à " +
-                "la liste des usines connues.");
+        throw new GraphicTypeNotFoundException("La factory du type " + type + " est inconnue " +
+                "ou n'a pas été ajouté à la liste des usines connues.");
     }
 
     public GraphicFactory getDefaultFactory() {

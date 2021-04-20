@@ -1,6 +1,6 @@
 package fr.univ.shaper.core.element.noisy;
 
-import fr.univ.shaper.core.GraphicFactory;
+import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.*;
 import fr.univ.shaper.core.noise.NoiseGraphicVisitor;
 

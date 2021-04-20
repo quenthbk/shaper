@@ -1,4 +1,4 @@
-package fr.univ.shaper.core;
+package fr.univ.shaper.core.element;
 
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Circle;

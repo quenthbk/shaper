@@ -2,7 +2,6 @@ package fr.univ.shaper.gui.view;
 
 import fr.univ.shaper.file.FileType;
 import fr.univ.shaper.gui.controller.DrawController;
-import fr.univ.shaper.util.Contract;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,12 +21,9 @@ public class Menu extends JMenuBar {
     public Menu(DrawController controller) {
         this.controller = controller;
         // Listener générique qui affiche l'action du menu utilisé
-        afficherMenuListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+        afficherMenuListener = event ->
                 System.out.println("Elément de menu [" + event.getActionCommand()
-                        + "] utilisé.");
-            }
-        };
+                + "] utilisé.");
 
         openFile = new JMenuItem("Ouvrir", 'O');
 
@@ -52,7 +48,7 @@ public class Menu extends JMenuBar {
         item.addActionListener(afficherMenuListener);
         fichierMenu.add(item);
 
-        // Création du menu Editer
+        // Création du menu Editer (Conversion Noise vers perfect et inversement ?)
         JMenu editerMenu = new JMenu("Editer");
         item = new JMenuItem("Copier");
         item.addActionListener(afficherMenuListener);
