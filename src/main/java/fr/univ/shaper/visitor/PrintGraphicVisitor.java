@@ -1,13 +1,13 @@
 package fr.univ.shaper.visitor;
 
-import fr.univ.shaper.graphic.GraphicVisitor;
-import fr.univ.shaper.graphic.element.Layer;
-import fr.univ.shaper.graphic.element.noisy.NoisyCircle;
-import fr.univ.shaper.graphic.element.noisy.NoisyLine;
-import fr.univ.shaper.graphic.element.noisy.NoisyRectangle;
-import fr.univ.shaper.graphic.element.perfect.PerfectCircle;
-import fr.univ.shaper.graphic.element.perfect.PerfectLine;
-import fr.univ.shaper.graphic.element.perfect.PerfectRectangle;
+import fr.univ.shaper.core.GraphicVisitor;
+import fr.univ.shaper.core.element.Layer;
+import fr.univ.shaper.core.element.noisy.NoisyCircle;
+import fr.univ.shaper.core.element.noisy.NoisyLine;
+import fr.univ.shaper.core.element.noisy.NoisyRectangle;
+import fr.univ.shaper.core.element.perfect.PerfectCircle;
+import fr.univ.shaper.core.element.perfect.PerfectLine;
+import fr.univ.shaper.core.element.perfect.PerfectRectangle;
 
 import java.io.PrintStream;
 

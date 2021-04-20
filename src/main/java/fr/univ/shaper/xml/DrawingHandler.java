@@ -1,9 +1,9 @@
 package fr.univ.shaper.xml;
 
-import fr.univ.shaper.graphic.GraphicBuilder;
-import fr.univ.shaper.graphic.element.Layer;
-import fr.univ.shaper.graphic.element.Point;
-import fr.univ.shaper.graphic.exception.BadGraphicContextException;
+import fr.univ.shaper.core.GraphicBuilder;
+import fr.univ.shaper.core.element.Layer;
+import fr.univ.shaper.core.element.Point;
+import fr.univ.shaper.core.exception.BadGraphicContextException;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;

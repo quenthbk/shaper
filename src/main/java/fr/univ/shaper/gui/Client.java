@@ -1,8 +1,8 @@
 package fr.univ.shaper.gui;
 
-import fr.univ.shaper.graphic.GraphicElement;
-import fr.univ.shaper.graphic.GraphicFactory;
-import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.GraphicFactory;
+import fr.univ.shaper.core.element.Layer;
 
 import java.awt.*;
 import java.util.ArrayList;

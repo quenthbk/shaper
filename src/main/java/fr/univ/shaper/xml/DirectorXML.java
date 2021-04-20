@@ -1,8 +1,7 @@
 package fr.univ.shaper.xml;
 
 
-import fr.univ.shaper.graphic.GraphicBuilder;
-import fr.univ.shaper.graphic.element.Layer;
+import fr.univ.shaper.core.GraphicBuilder;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -10,11 +9,9 @@ import org.xml.sax.XMLReader;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.EventListener;
 
 public class DirectorXML {
 
