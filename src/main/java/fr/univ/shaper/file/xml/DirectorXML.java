@@ -3,7 +3,7 @@ package fr.univ.shaper.file.xml;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
-import fr.univ.shaper.file.ShaperFileLoader;
+import fr.univ.shaper.file.Director;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -15,15 +15,15 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ShaperFileLoaderXML implements ShaperFileLoader {
+public class DirectorXML implements Director {
 
     private final GraphicBuilder builder;
 
-    public ShaperFileLoaderXML(GraphicBuilder builder) {
+    public DirectorXML(GraphicBuilder builder) {
         this.builder = builder;
     }
 
-    public GraphicElement read(String filename) {
+    public GraphicElement load(String filename) {
         InputSource is = null;
         try {
             is = new InputSource(new BufferedInputStream(new
@@ -59,6 +59,16 @@ public class ShaperFileLoaderXML implements ShaperFileLoader {
         }
 
         return handler.getDrawing();
+    }
+
+    @Override
+    public void save(GraphicElement element) {
+        // TODO save
+    }
+
+    @Override
+    public void saveAs(String filename, GraphicElement element) {
+        // TODO save as
     }
 }
 

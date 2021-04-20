@@ -4,6 +4,7 @@ import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.gui.controller.DrawController;
 import fr.univ.shaper.gui.controller.DrawControllerImpl;
+import fr.univ.shaper.gui.controller.KeyController;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
@@ -11,8 +12,7 @@ import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 /**
  *  Tips pour dessiner avec Swing:
@@ -66,14 +66,6 @@ public class ShaperViewer {
         controller.addDrawingListener(result -> {
             result.accept(new DrawGraphicVisitor(draw.getGraphic()));
             draw.repaint(100);
-        });
-    }
-
-    public void configure() {
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
         });
     }
 }

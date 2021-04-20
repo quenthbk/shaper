@@ -9,6 +9,8 @@ import java.awt.geom.Point2D;
 
 public interface DrawController {
 
+    // TODO Méthode accepte au contrôleur pour lui envoyer n'importe qu'elle commande supplémentaire
+
     // --------------------------------------------------- //
     //                  Avant le dessin                    //
     // --------------------------------------------------- //
