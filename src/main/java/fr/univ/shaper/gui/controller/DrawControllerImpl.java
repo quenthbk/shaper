@@ -8,7 +8,7 @@ import fr.univ.shaper.core.exception.BadGraphicContextException;
 import fr.univ.shaper.file.FileType;
 import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
-import fr.univ.shaper.xml.DirectorXML;
+import fr.univ.shaper.file.xml.ShaperFileLoaderXML;
 import fr.univ.shaper.core.GraphicStateListener;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -108,8 +108,8 @@ public class DrawControllerImpl implements DrawController {
         Contract.assertThat(filename != null, "Le paramètre filename ne doit pas être null");
 
         if (format == FileType.XML) {
-            DirectorXML directorXml = new DirectorXML(builder, filename);
-            directorXml.load(graphicStateListener);
+            ShaperFileLoaderXML directorXml = new ShaperFileLoaderXML(builder);
+            graphicStateListener.event(directorXml.read(filename));
         }
     }
 

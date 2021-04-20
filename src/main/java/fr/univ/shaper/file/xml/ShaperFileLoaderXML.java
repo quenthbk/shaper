@@ -1,8 +1,9 @@
-package fr.univ.shaper.xml;
+package fr.univ.shaper.file.xml;
 
 
 import fr.univ.shaper.core.GraphicBuilder;
-import fr.univ.shaper.core.GraphicStateListener;
+import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.file.ShaperFileLoader;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -14,18 +15,15 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class DirectorXML {
+public class ShaperFileLoaderXML implements ShaperFileLoader {
 
     private final GraphicBuilder builder;
 
-    private String filename;
-
-    public DirectorXML (GraphicBuilder builder, String filename) {
+    public ShaperFileLoaderXML(GraphicBuilder builder) {
         this.builder = builder;
-        this.filename = filename;
     }
 
-    public void load(GraphicStateListener listener) {
+    public GraphicElement read(String filename) {
         InputSource is = null;
         try {
             is = new InputSource(new BufferedInputStream(new
@@ -60,7 +58,7 @@ public class DirectorXML {
             e.printStackTrace();
         }
 
-        listener.event(handler.getDrawing());
+        return handler.getDrawing();
     }
 }
 

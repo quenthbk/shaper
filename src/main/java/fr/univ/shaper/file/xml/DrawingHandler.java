@@ -1,4 +1,4 @@
-package fr.univ.shaper.xml;
+package fr.univ.shaper.file.xml;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.element.Layer;
