@@ -1,4 +1,4 @@
-package fr.univ.shaper.visitor;
+package fr.univ.shaper.gui.render;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -15,10 +15,10 @@ import fr.univ.shaper.core.element.perfect.PerfectCircle;
 import fr.univ.shaper.core.element.perfect.PerfectLine;
 import fr.univ.shaper.core.element.perfect.PerfectRectangle;
 
-public class DefaultGraphicVisitor implements GraphicVisitor {
+public class DrawGraphicVisitor implements GraphicVisitor {
     private Graphics2D screen;
 
-    public DefaultGraphicVisitor(Graphics2D screen) {
+    public DrawGraphicVisitor(Graphics2D screen) {
         this.screen = screen;
     }
 

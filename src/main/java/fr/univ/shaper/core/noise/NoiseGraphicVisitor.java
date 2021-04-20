@@ -1,15 +1,11 @@
 package fr.univ.shaper.core.noise;
 
-import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.GraphicVisitorAdapter;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.noisy.NoisyCircle;
 import fr.univ.shaper.core.element.noisy.NoisyLine;
 import fr.univ.shaper.core.element.noisy.NoisyRectangle;
 import fr.univ.shaper.core.element.noisy.Noisy;
-import fr.univ.shaper.core.element.perfect.PerfectCircle;
-import fr.univ.shaper.core.element.perfect.PerfectLine;
-import fr.univ.shaper.core.element.perfect.PerfectRectangle;
 
 public class NoiseGraphicVisitor extends GraphicVisitorAdapter {
 

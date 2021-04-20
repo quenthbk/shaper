@@ -2,6 +2,7 @@ package fr.univ.shaper.xml;
 
 
 import fr.univ.shaper.core.GraphicBuilder;
+import fr.univ.shaper.core.GraphicStateListener;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -24,7 +25,7 @@ public class DirectorXML {
         this.filename = filename;
     }
 
-    public void construct(DrawingListener listener) {
+    public void load(GraphicStateListener listener) {
         InputSource is = null;
         try {
             is = new InputSource(new BufferedInputStream(new

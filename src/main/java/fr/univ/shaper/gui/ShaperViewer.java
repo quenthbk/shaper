@@ -7,7 +7,7 @@ import fr.univ.shaper.gui.controller.DrawControllerImpl;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
-import fr.univ.shaper.visitor.DefaultGraphicVisitor;
+import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +64,7 @@ public class ShaperViewer {
 
     private void configureController() {
         controller.addDrawingListener(result -> {
-            result.accept(new DefaultGraphicVisitor(draw.getGraphic()));
+            result.accept(new DrawGraphicVisitor(draw.getGraphic()));
             draw.repaint(100);
         });
     }

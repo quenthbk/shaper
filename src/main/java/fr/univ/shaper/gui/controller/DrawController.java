@@ -2,7 +2,7 @@ package fr.univ.shaper.gui.controller;
 
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.file.FileType;
-import fr.univ.shaper.xml.DrawingListener;
+import fr.univ.shaper.core.GraphicStateListener;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -51,5 +51,5 @@ public interface DrawController {
     //                   Configuration                      //
     // ---------------------------------------------------- //
 
-    void addDrawingListener(DrawingListener listener);
+    void addDrawingListener(GraphicStateListener listener);
 }

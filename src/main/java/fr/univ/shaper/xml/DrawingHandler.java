@@ -13,7 +13,7 @@ import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.Stack;
 
-import static fr.univ.shaper.xml.XmlDrawingType.*;
+import static fr.univ.shaper.core.element.DrawingConstants.*;
 
 public class DrawingHandler extends DefaultHandler implements ContentHandler {
 
@@ -39,7 +39,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
         stack = new Stack<>();
         try {
             layerStack.push((Layer)
-                    builder.setGraphicName(XML_LAYER).build());
+                    builder.setGraphicName(LAYER).build());
         } catch (BadGraphicContextException e) {
             throw new SAXException(e);
         }
@@ -55,19 +55,19 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
         String name = qName.trim();
         stack.push(name);
         switch (name) {
-            case XML_RADIUS:
-            case XML_ROOT_ELEMENT:
+            case RADIUS:
+            case ROOT_ELEMENT:
                 break;
-            case XML_LAYER:
+            case LAYER:
                 try {
                     layerStack.push((Layer) builder.setGraphicName(localName).build());
                 } catch (BadGraphicContextException e) {
                     throw new SAXException(e);
                 }
                 break;
-            case XML_POINT:
-                double x = Double.parseDouble(attrs.getValue(XML_POINT_X));
-                double y = Double.parseDouble(attrs.getValue(XML_POINT_Y));
+            case POINT:
+                double x = Double.parseDouble(attrs.getValue(POINT_X));
+                double y = Double.parseDouble(attrs.getValue(POINT_Y));
                 builder.appendPoint(new Point(x, y));
                 break;
             default:
@@ -75,7 +75,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
         }
 
         for (int i = 0; i < attrs.getLength(); i++) {
-            if (attrs.getLocalName(i).equals(XML_COLOR)) {
+            if (attrs.getLocalName(i).equals(COLOR)) {
                 String colorValue = attrs.getValue(i);
                 Color color = stringToColor(colorValue);
 
@@ -83,7 +83,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
                     throw new SAXException("La couleur " + colorValue + " est invalide");
                 }
 
-                builder.setGraphicAttribute(XML_COLOR,
+                builder.setGraphicAttribute(COLOR,
                         color,
                         Color.class);
             }
@@ -96,11 +96,11 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
         System.err.println(name);
         switch (name) {
             // Dans le cas ou ce n'est pas un GraphicElement on break
-            case XML_POINT :
-            case XML_RADIUS:
-            case XML_ROOT_ELEMENT:
+            case POINT:
+            case RADIUS:
+            case ROOT_ELEMENT:
                 break;
-            case XML_LAYER:
+            case LAYER:
                 Layer layer = layerStack.pop();
                 // On ajoute le dernier calque au calque qui l'englobe
                 layerStack.peek().append(layer);
@@ -118,7 +118,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         String name = stack.peek();
-        if (name.equals(XML_RADIUS)) {
+        if (name.equals(RADIUS)) {
             double value = Double.parseDouble(new String(ch, start, length));
             builder.setGraphicAttribute(name, value, double.class);
         }

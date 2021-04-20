@@ -1,9 +1,8 @@
 package fr.univ.shaper.gui.view;
 
 import fr.univ.shaper.core.GraphicElement;
-import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.gui.controller.DrawController;
-import fr.univ.shaper.visitor.DefaultGraphicVisitor;
+import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -27,7 +26,7 @@ public class DrawingArea extends JPanel {
     /**
      * Un visiteur permettant de dessiner un forme "DragAndDrop"
      */
-    private DefaultGraphicVisitor visitor;
+    private DrawGraphicVisitor visitor;
 
     private int width = 800;
 
@@ -37,7 +36,7 @@ public class DrawingArea extends JPanel {
         setBackground(Color.WHITE);
         this.controller = controller;
         createEmptyImage();
-        visitor = new DefaultGraphicVisitor(getGraphic());
+        visitor = new DrawGraphicVisitor(getGraphic());
 
         MouseInputAdapter listener = new DrawingMouseListener();
         addMouseListener(listener);

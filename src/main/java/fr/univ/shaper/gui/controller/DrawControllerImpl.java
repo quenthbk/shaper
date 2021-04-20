@@ -9,7 +9,7 @@ import fr.univ.shaper.file.FileType;
 import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
 import fr.univ.shaper.xml.DirectorXML;
-import fr.univ.shaper.xml.DrawingListener;
+import fr.univ.shaper.core.GraphicStateListener;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
@@ -19,7 +19,7 @@ public class DrawControllerImpl implements DrawController {
 
     private final GraphicBuilder builder;
 
-    private DrawingListener drawingListener;
+    private GraphicStateListener graphicStateListener;
 
     private GraphicElement draggedElement;
 
@@ -84,7 +84,7 @@ public class DrawControllerImpl implements DrawController {
 
         if (element != null) {
             rootGraphicElement.append(element);
-            drawingListener.event(element);
+            graphicStateListener.event(element);
         }
 
         draggedElement = null;
@@ -109,14 +109,14 @@ public class DrawControllerImpl implements DrawController {
 
         if (format == FileType.XML) {
             DirectorXML directorXml = new DirectorXML(builder, filename);
-            directorXml.construct(drawingListener);
+            directorXml.load(graphicStateListener);
         }
     }
 
     @Override
-    public void addDrawingListener(DrawingListener listener) {
+    public void addDrawingListener(GraphicStateListener listener) {
         Contract.assertThat(listener != null, "L'écouteur ne doit pas être égal à null");
-        drawingListener = listener;
+        graphicStateListener = listener;
     }
 
     // ---------------------------------------------------------- //
