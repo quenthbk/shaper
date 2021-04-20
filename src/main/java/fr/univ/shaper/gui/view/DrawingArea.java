@@ -1,6 +1,7 @@
 package fr.univ.shaper.gui.view;
 
 import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.gui.controller.DrawController;
 import fr.univ.shaper.visitor.DefaultGraphicVisitor;
 
@@ -11,12 +12,21 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 
-public class DrawingArea extends JLabel {
+public class DrawingArea extends JPanel {
 
+    /**
+     * L'image permettant d'afficher le contenu dessiné
+     */
     private BufferedImage image;
 
+    /**
+     * Le contrôleur de dessin
+     */
     private final DrawController controller;
 
+    /**
+     * Un visiteur permettant de dessiner un forme "DragAndDrop"
+     */
     private DefaultGraphicVisitor visitor;
 
     private int width = 800;
@@ -24,16 +34,14 @@ public class DrawingArea extends JLabel {
     private int height = 600;
 
     public DrawingArea(DrawController controller) {
-        setBackground(Color.WHITE); // Ne fonctionne pas ici ??
-
+        setBackground(Color.WHITE);
         this.controller = controller;
-
         createEmptyImage();
-        configure();
-    }
+        visitor = new DefaultGraphicVisitor(getGraphic());
 
-    public Graphics2D getGraphic() {
-        return (Graphics2D) image.getGraphics();
+        MouseInputAdapter listener = new DrawingMouseListener();
+        addMouseListener(listener);
+        addMouseMotionListener(listener);
     }
 
     @Override
@@ -46,22 +54,21 @@ public class DrawingArea extends JLabel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // paint le layer déjà existant
-
-        // peindre la figure en cours de dessin
-
-        //  Custom code to support painting from the BufferedImage
-
         if (image != null) {
             g.drawImage(image, 0, 0, null);
         }
 
-        //  Paint the Rectangle as the mouse is being dragged
-
         GraphicElement elementDragged = controller.getDraggedElement();
-        if (elementDragged != null && visitor != null) {
+
+        if (elementDragged != null) {
+            // Créer une méthode setGraphic pour le visiteur ?
+            visitor.setGraphics((Graphics2D) g);
             elementDragged.accept(visitor);
         }
+    }
+
+    public Graphics2D getGraphic() {
+        return image.createGraphics();
     }
 
     public void clear() {
@@ -72,18 +79,10 @@ public class DrawingArea extends JLabel {
     private void createEmptyImage() {
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         getGraphic().setColor(Color.BLACK);
-        visitor = new DefaultGraphicVisitor(getGraphic());
-    }
-
-    private void configure() {
-        // Configuration des commandes avec la souris
-        MouseInputAdapter listener = new DrawingMouseListener();
-        addMouseListener(listener);
-        addMouseMotionListener(listener);
     }
 
     /**
-     * Définission de chaque commande
+     * Définission des commandes avec la souris
      */
     private class DrawingMouseListener extends MouseInputAdapter {
 

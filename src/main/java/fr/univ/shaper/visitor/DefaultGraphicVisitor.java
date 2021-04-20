@@ -16,9 +16,13 @@ import fr.univ.shaper.core.element.perfect.PerfectLine;
 import fr.univ.shaper.core.element.perfect.PerfectRectangle;
 
 public class DefaultGraphicVisitor implements GraphicVisitor {
-    private final Graphics2D screen;
+    private Graphics2D screen;
 
     public DefaultGraphicVisitor(Graphics2D screen) {
+        this.screen = screen;
+    }
+
+    public void setGraphics(Graphics2D screen) {
         this.screen = screen;
     }
 
