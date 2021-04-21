@@ -97,6 +97,7 @@ public class DrawControllerImpl implements DrawController {
         pencil.upPencil(point);
         GraphicElement element = buildGraphicElement();
 
+
         if (element != null) {
             rootGraphicElement.append(element);
             graphicStateListener.event(element);
@@ -127,7 +128,8 @@ public class DrawControllerImpl implements DrawController {
 
         if (format == FileType.XML) {
             director = new DirectorXML(builder);
-            graphicStateListener.event(director.load(filename));
+            GraphicElement ge = director.load(filename);
+            graphicStateListener.event(ge);
         }
     }
 

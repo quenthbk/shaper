@@ -10,7 +10,7 @@ public class NoisyGraphicFactory implements GraphicFactory {
 
     private final NoiseGraphicVisitor visitor = new NoiseGraphicVisitor();
 
-    private boolean generateNoise = false;
+    private boolean generateNoise = true;
 
     public void setGenerateNoise(boolean value) {
         generateNoise = value;

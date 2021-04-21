@@ -70,6 +70,11 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
                 double y = Double.parseDouble(attrs.getValue(POINT_Y));
                 builder.appendPoint(new Point(x, y));
                 break;
+            case NOISE:
+                builder.setGraphicType(NOISE);
+                builder.setGraphicAttribute(NOISE_X, Double.parseDouble(attrs.getValue(NOISE_X)), double.class);
+                builder.setGraphicAttribute(NOISE_Y, Double.parseDouble(attrs.getValue(NOISE_Y)), double.class);
+                break;
             default:
                 builder.setGraphicName(name);
         }
@@ -98,6 +103,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
             // Dans le cas ou ce n'est pas un GraphicElement on break
             case POINT:
             case RADIUS:
+            case NOISE:
             case ROOT_ELEMENT:
                 break;
             case LAYER:

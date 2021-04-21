@@ -15,7 +15,7 @@ public class PrintGraphicVisitor implements GraphicVisitor {
 
     private final PrintStream out;
 
-    PrintGraphicVisitor(PrintStream out) {
+    public PrintGraphicVisitor(PrintStream out) {
         this.out = out;
     }
 
