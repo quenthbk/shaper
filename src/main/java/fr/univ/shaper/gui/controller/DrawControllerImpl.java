@@ -2,9 +2,12 @@ package fr.univ.shaper.gui.controller;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Point;
+import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
+import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.file.FileType;
 import fr.univ.shaper.gui.model.Pencil;
@@ -30,6 +33,13 @@ public class DrawControllerImpl implements DrawController {
 
     public DrawControllerImpl(GraphicBuilder builder) {
         Contract.assertThat(builder != null, "Le builder ne doit pas être null");
+        try {
+            NoisyGraphicFactory config =(NoisyGraphicFactory) GraphicFactoryHandler
+                    .newInstance().getFactoryOf("Noisy");
+            config.setGenerateNoise(true);
+        } catch (GraphicTypeNotFoundException e) {
+            e.printStackTrace();
+        }
         this.builder = builder;
         rootGraphicElement = new Layer();
         pencil = new Pencil();
