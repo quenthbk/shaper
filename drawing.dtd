@@ -2,7 +2,7 @@
 <!ELEMENT drawing (circle|line|rectangle)*>
 <!ATTLIST drawing xmlns CDATA #FIXED "http://www.univ-rouen.fr/drawing">
 
-<!ENTITY % color "(black|red|green|blue)">
+<!ENTITY % color SYSTEM CDATA>
 
 <!ELEMENT circle (noisy*,point,radius)>
 	<!ATTLIST circle color %color; #REQUIRED>

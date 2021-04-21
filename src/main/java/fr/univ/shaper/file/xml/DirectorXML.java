@@ -91,7 +91,10 @@ public class DirectorXML implements Director {
         writer.println("<?xml version=\"1.0\" encoding=\""+ charset +"\"?>");
         writer.println("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">");
         writer.println("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\">");
-
+        StringBuilder builder = new StringBuilder();
+        XmlGraphicVisitor v = new XmlGraphicVisitor(builder);
+        element.accept(v);
+        writer.println(builder.toString());
 
         writer.println("</drawing>");
         writer.close();
