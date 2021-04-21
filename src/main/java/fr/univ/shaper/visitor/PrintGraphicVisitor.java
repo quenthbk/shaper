@@ -19,7 +19,7 @@ public class PrintGraphicVisitor implements GraphicVisitor {
         this.out = out;
     }
 
-    PrintGraphicVisitor() {
+    public PrintGraphicVisitor() {
         this.out = System.out;
     }
 

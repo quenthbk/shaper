@@ -14,6 +14,8 @@ import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
 import fr.univ.shaper.file.xml.DirectorXML;
 import fr.univ.shaper.core.GraphicStateListener;
+import fr.univ.shaper.visitor.PrintGraphicVisitor;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 
@@ -98,6 +100,7 @@ public class DrawControllerImpl implements DrawController {
         if (element != null) {
             rootGraphicElement.append(element);
             graphicStateListener.event(element);
+            element.accept(new PrintGraphicVisitor());
         }
 
         draggedElement = null;
