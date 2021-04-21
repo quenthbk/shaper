@@ -5,6 +5,7 @@ import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
+import fr.univ.shaper.file.Director;
 import fr.univ.shaper.file.FileType;
 import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
@@ -24,6 +25,8 @@ public class DrawControllerImpl implements DrawController {
     private GraphicElement draggedElement;
 
     private final Pencil pencil;
+
+    private Director director;
 
     public DrawControllerImpl(GraphicBuilder builder) {
         Contract.assertThat(builder != null, "Le builder ne doit pas être null");
@@ -100,6 +103,8 @@ public class DrawControllerImpl implements DrawController {
     public void saveDrawing(FileType format, String filename) {
         Contract.assertThat(format != null, "Le paramètre format ne doit pas être null");
         Contract.assertThat(filename != null, "Le paramètre filename ne doit pas être null");
+
+        // TODO test si director exist pour saveAs ou save !
     }
 
     @Override
@@ -108,8 +113,8 @@ public class DrawControllerImpl implements DrawController {
         Contract.assertThat(filename != null, "Le paramètre filename ne doit pas être null");
 
         if (format == FileType.XML) {
-            DirectorXML directorXml = new DirectorXML(builder);
-            graphicStateListener.event(directorXml.load(filename));
+            director = new DirectorXML(builder);
+            graphicStateListener.event(director.load(filename));
         }
     }
 
