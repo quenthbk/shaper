@@ -72,7 +72,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
                 break;
             case NOISE:
                 builder.setGraphicType(NOISE);
-                builder.setGraphicAttribute(NOISE_X, Double.parseDouble(attrs.getValue(NOISE_X)), double.class);
+                builder.setGraphicAttribute(NOISE_X, Double.parseDouble(attrs.getValue(NOISE_X)), Double.class);
                 builder.setGraphicAttribute(NOISE_Y, Double.parseDouble(attrs.getValue(NOISE_Y)), double.class);
                 break;
             default:
