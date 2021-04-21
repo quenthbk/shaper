@@ -128,6 +128,7 @@ public class DrawControllerImpl implements DrawController {
         if (format == FileType.XML) {
             director = new DirectorXML(builder);
             GraphicElement ge = director.load(filename);
+            ge.accept(new PrintGraphicVisitor());
             graphicStateListener.event(ge);
         }
     }

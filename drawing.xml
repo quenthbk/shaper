@@ -8,26 +8,15 @@
    <radius>200</radius>
 </circle>
 
-<line color="red">
-   <noisy noiseX="50" noiseY="-46"/>
-   <point x="400" y="90" />
-   <point x="600" y="500" />
-</line>
-
-<line color="red">
-   <point x="400" y="90" />
-   <point x="200" y="500" />
-</line>
-
-<line color="red">
-   <point x="200" y="400" />
-   <point x="600" y="400" />
-</line>
-
-   <rectangle color="black">
-      <noisy noiseX="60" noiseY="-36"/>
-      <point x="400" y="90"/>
-      <point x="600" y="500"/>
-   </rectangle>
+<layer>
+   <line color="black">
+      <point x="300" y="80" />
+      <point x="100" y="400" />
+   </line>
+   <circle color="black">
+      <point x="200" y="250" />
+      <radius>200</radius>
+   </circle>
+</layer>
 
 </drawing>
