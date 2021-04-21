@@ -5,6 +5,7 @@ import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
+import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.util.Contract;
 import org.xml.sax.InputSource;
@@ -69,12 +70,18 @@ public class DirectorXML implements Director {
             ngf = (NoisyGraphicFactory) GraphicFactoryHandler
                     .newInstance().getFactoryOf("Noisy");
             ngf.setGenerateNoise(false);
+        } catch (GraphicTypeNotFoundException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+        try {
             xr.parse(is) ;
-            ngf.setGenerateNoise(true);
         } catch ( Exception e ) {
             System.out.println("Exception capturée xr.parse : ");
             e.printStackTrace();
         }
+
+        ngf.setGenerateNoise(true);
 
         return handler.getDrawing();
     }
