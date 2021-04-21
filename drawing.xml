@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE drawing SYSTEM "drawing.dtd">
 <drawing xmlns="http://www.univ-rouen.fr/drawing">
-
-<circle color="blue">
-   <noisy noiseX="60" noiseY="-86"/>
-   <point x="400" y="300" />
-   <radius>200</radius>
-</circle>
-
 <layer>
-   <line color="black">
-      <point x="300" y="80" />
-      <point x="100" y="400" />
-   </line>
-   <circle color="black">
-      <point x="200" y="250" />
-      <radius>200</radius>
-   </circle>
+  <circle color="-16777216" >
+    <point y="168.0" x="309.0" />
+    <radius>50.93132631298737</radius>
+  </circle>
+  <line color="-16777216" >
+    <point x="303.0" y="219.0" />
+    <point x="300.0" y="421.0" />
+  </line>
+  <line color="-16777216" >
+    <point y="302.674210672023" x="300.3013784207316" />
+    <point x="379.22657277713114" y="238.457135714297" />
+    <noisy noiseX="-2.011606468023352" noiseY="4.004263467255538" />
+  </line>
+  <line color="-16777216" >
+    <point x="304.89564477798007" y="305.8959956473818" />
+    <point y="217.99508195776122" x="216.06351417650154" />
+    <noisy noiseX="2.9991546542338026" noiseY="23.056321782685508" />
+  </line>
+  <line color="-16777216" >
+    <point y="416.18365299616426" x="301.40458667876544" />
+    <point y="545.6964943040127" x="197.63595853602766" />
+    <noisy noiseX="20.615400836368252" noiseY="-6.441310265893234" />
+  </line>
+  <line color="-16777216" >
+    <point x="298.15417412916844" y="416.1450897156298" />
+    <point x="376.6781764708666" y="542.2453570736465" />
+    <noisy noiseX="-24.154164000177207" noiseY="-25.158319015387487" />
+  </line>
+  <rectangle color="-16777216" >
+    <point x="510.58386537782553" y="412.1783443795616" />
+    <point x="700.3918116495222" y="550.5070746598285" />
+    <noisy noiseY="-13.427312504539795" noiseX="36.24130037017831" />
+  </rectangle>
 </layer>
-
 </drawing>

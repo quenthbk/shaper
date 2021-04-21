@@ -5,6 +5,7 @@ import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.gui.controller.DrawController;
 import fr.univ.shaper.gui.controller.DrawControllerImpl;
 //import fr.univ.shaper.gui.controller.KeyController;
+import fr.univ.shaper.gui.view.LayerPanel;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
@@ -33,6 +34,9 @@ public class ShaperViewer {
 
     private final DrawController controller;
 
+    private final LayerPanel layer;
+
+
 
     public ShaperViewer() {
         controller = new DrawControllerImpl(
@@ -42,6 +46,7 @@ public class ShaperViewer {
         draw = new DrawingArea(controller);
         toolPanel = new ToolPanel(controller);
         menu = new Menu(controller);
+        layer = new LayerPanel(controller);
 
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame(TITLE);
@@ -60,6 +65,7 @@ public class ShaperViewer {
         frame.setJMenuBar(menu);
         frame.getContentPane().add(draw);
         frame.getContentPane().add(toolPanel, BorderLayout.WEST);
+        frame.getContentPane().add(layer, BorderLayout.EAST);
     }
 
     private void configureController() {
