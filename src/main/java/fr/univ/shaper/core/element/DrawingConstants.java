@@ -8,4 +8,7 @@ public class DrawingConstants {
     static final public String LAYER = "layer";
     static final public String COLOR = "color";
     static final public String ROOT_ELEMENT = "drawing";
+    static final public String NOISE_X = "noiseX";
+    static final public String NOISE_Y = "noiseY";
+    static final public String NOISE = "noisy";
 }

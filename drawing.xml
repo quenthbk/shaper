@@ -2,12 +2,14 @@
 <!DOCTYPE drawing SYSTEM "drawing.dtd">
 <drawing xmlns="http://www.univ-rouen.fr/drawing">
 
-<circle color="blue" noise="2">
+<circle color="blue">
+   <noisy noiseX="60" noiseY="-86"/>
    <point x="400" y="300" />
    <radius>200</radius>
 </circle>
 
 <line color="red">
+   <noisy noiseX="50" noiseY="-46"/>
    <point x="400" y="90" />
    <point x="600" y="500" />
 </line>
@@ -21,5 +23,11 @@
    <point x="200" y="400" />
    <point x="600" y="400" />
 </line>
+
+   <rectangle color="black">
+      <noisy noiseX="60" noiseY="-36"/>
+      <point x="400" y="90"/>
+      <point x="600" y="500"/>
+   </rectangle>
 
 </drawing>

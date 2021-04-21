@@ -4,20 +4,22 @@
 
 <!ENTITY % color "(black|red|green|blue)">
 
-<!ELEMENT circle (point,radius)>
+<!ELEMENT circle (noisy*,point,radius)>
 	<!ATTLIST circle color %color; #REQUIRED>
-	<!ATTLIST circle noise CDATA #IMPLIED>
 
-<!ELEMENT line (point,point)>
+<!ELEMENT line (noisy*,point,point)>
 	<!ATTLIST line color %color; #REQUIRED>
-	<!ATTLIST line  noise CDATA #IMPLIED>
 
-<!ELEMENT rectangle (point,point)>
+<!ELEMENT rectangle (noisy*,point,point)>
 	<!ATTLIST rectangle color %color; #REQUIRED>
-	<!ATTLIST rectangle noise CDATA #IMPLIED>
+
 
 <!ELEMENT point EMPTY>
 	<!ATTLIST point x CDATA #REQUIRED>
 	<!ATTLIST point y CDATA #REQUIRED>
+
+<!ELEMENT noisy EMPTY>
+	<!ATTLIST noisy noiseX CDATA #IMPLIED>
+	<!ATTLIST noisy noiseY CDATA #IMPLIED>
 
 <!ELEMENT radius (#PCDATA)>
