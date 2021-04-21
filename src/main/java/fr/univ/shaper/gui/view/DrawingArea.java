@@ -2,7 +2,7 @@ package fr.univ.shaper.gui.view;
 
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.gui.controller.DrawController;
-import fr.univ.shaper.gui.controller.KeyController;
+//import fr.univ.shaper.gui.controller.KeyController;
 import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;

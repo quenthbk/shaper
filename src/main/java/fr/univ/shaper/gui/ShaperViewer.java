@@ -4,7 +4,7 @@ import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.gui.controller.DrawController;
 import fr.univ.shaper.gui.controller.DrawControllerImpl;
-import fr.univ.shaper.gui.controller.KeyController;
+//import fr.univ.shaper.gui.controller.KeyController;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
