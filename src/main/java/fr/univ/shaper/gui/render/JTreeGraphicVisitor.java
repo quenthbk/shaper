@@ -1,5 +1,6 @@
 package fr.univ.shaper.gui.render;
 
+import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.noisy.NoisyCircle;
@@ -26,7 +27,7 @@ public class JTreeGraphicVisitor implements GraphicVisitor {
 
     @Override
     public void visitLayer(Layer layer) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(layer);
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode("layer");
         stack.peek().add(node);
         stack.push(node);
         layer.getChildren().forEach(e -> e.accept(this));
@@ -35,37 +36,40 @@ public class JTreeGraphicVisitor implements GraphicVisitor {
 
     @Override
     public void visitPerfectRectangle(PerfectRectangle element) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(element, false);
-        stack.peek().add(node);
+        visit(element);
     }
 
     @Override
     public void visitPerfectCircle(PerfectCircle element) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(element, false);
-        stack.peek().add(node);
+        visit(element);
     }
 
     @Override
     public void visitPerfectLine(PerfectLine element) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(element, false);
-        stack.peek().add(node);
+        visit(element);
     }
 
     @Override
     public void visitNoisyRectangle(NoisyRectangle element) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(element, false);
-        stack.peek().add(node);
+        visit(element);
     }
 
     @Override
     public void visitNoisyCircle(NoisyCircle element) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(element, false);
-        stack.peek().add(node);
+        visit(element);
     }
 
     @Override
     public void visitNoisyLine(NoisyLine element) {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(element, false);
+        visit(element);
+    }
+
+    private void visit(GraphicElement e) {
+        assert e != null;
+        String[] classpath = e.getClass().getName().split("\\.");
+        String className = classpath[classpath.length - 1];
+
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(className, false);
         stack.peek().add(node);
     }
 }
