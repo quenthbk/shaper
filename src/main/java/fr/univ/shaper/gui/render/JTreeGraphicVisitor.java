@@ -9,6 +9,7 @@ import fr.univ.shaper.core.element.noisy.NoisyRectangle;
 import fr.univ.shaper.core.element.perfect.PerfectCircle;
 import fr.univ.shaper.core.element.perfect.PerfectLine;
 import fr.univ.shaper.core.element.perfect.PerfectRectangle;
+import fr.univ.shaper.gui.model.TreeObject;
 import fr.univ.shaper.util.Contract;
 
 import javax.swing.*;
@@ -69,7 +70,8 @@ public class JTreeGraphicVisitor implements GraphicVisitor {
         String[] classpath = e.getClass().getName().split("\\.");
         String className = classpath[classpath.length - 1];
 
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(className, false);
+        TreeObject<GraphicElement> leaf = new TreeObject<GraphicElement>(className, e);
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(leaf, false);
         stack.peek().add(node);
     }
 }

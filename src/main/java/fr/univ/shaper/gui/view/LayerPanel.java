@@ -10,6 +10,8 @@ import fr.univ.shaper.gui.controller.DrawController;
 import fr.univ.shaper.gui.render.JTreeGraphicVisitor;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
@@ -19,9 +21,13 @@ public class LayerPanel extends JPanel {
 
     private JTree tree;
 
+    private DrawController controller;
+
     public LayerPanel(DrawController controller) {
+        this.controller = controller;
         tree = new JTree(new DefaultMutableTreeNode());
         add(tree);
+        tree.addTreeSelectionListener(new SelectionListener());
         performJTree();
         ((DefaultTreeModel)tree.getModel()).reload();
     }
@@ -77,5 +83,16 @@ public class LayerPanel extends JPanel {
         result.append(person);
 
         return result;
+    }
+
+    private class SelectionListener implements TreeSelectionListener {
+
+        @Override
+        public void valueChanged(TreeSelectionEvent treeSelectionEvent) {
+            DefaultMutableTreeNode node;
+            DefaultMutableTreeNode selectedNode =
+                    (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+            System.out.println(selectedNode);
+        }
     }
 }

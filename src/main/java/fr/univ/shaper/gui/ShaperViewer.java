@@ -65,7 +65,12 @@ public class ShaperViewer {
         frame.setJMenuBar(menu);
         frame.getContentPane().add(draw);
         frame.getContentPane().add(toolPanel, BorderLayout.WEST);
-        frame.getContentPane().add(layer, BorderLayout.EAST);
+        JPanel panel = new JPanel();
+        panel.add(layer);
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setPreferredSize(new Dimension(250, -1));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        frame.getContentPane().add(scrollPane, BorderLayout.EAST);
     }
 
     private void configureController() {
