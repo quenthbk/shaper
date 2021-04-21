@@ -67,5 +67,19 @@ public class ShaperViewer {
             result.accept(new DrawGraphicVisitor(draw.getGraphic()));
             draw.repaint(100);
         });
+
+        controller.addLayerRootChangeListener(result -> {
+            draw.clear();
+            result.accept(new DrawGraphicVisitor(draw.getGraphic()));
+            draw.repaint(100);
+        });
+
+        controller.addDirectorChangeListener(result -> {
+            if (result != null) {
+                frame.setTitle(TITLE + " - " + result.getFile().getName());
+            } else {
+                frame.setTitle(TITLE);
+            }
+        });
     }
 }

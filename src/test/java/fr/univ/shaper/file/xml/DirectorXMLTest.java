@@ -15,16 +15,16 @@ public class DirectorXMLTest {
 
     private final GraphicFactoryHandler handler = GraphicFactoryHandler.newInstance();
 
-    private final DirectorXML director = new DirectorXML(new DefaultGraphicBuilder(handler));
+    private final DirectorXML director = new DirectorXML();
 
-    private final GraphicElement element = getDemoGroups(handler.getDefaultFactory());
+    private final Layer element = getDemoGroups(handler.getDefaultFactory());
 
 
     @Test
     public void saveAs_shouldSaveWithFilenameValid() throws FileNotFoundException {
         // GIVEN
         File file = new File( "test.xml");
-        GraphicElement layer = element;
+        Layer layer = element;
 
         // WHEN
         director.saveAs(file, element);
@@ -33,7 +33,7 @@ public class DirectorXMLTest {
 
     }
 
-    private static GraphicElement getDemoGroups(GraphicFactory factory) {
+    private static Layer getDemoGroups(GraphicFactory factory) {
         Layer result = factory.createLayer();
         Layer person =factory.createLayer();
         Layer rest = factory.createLayer();

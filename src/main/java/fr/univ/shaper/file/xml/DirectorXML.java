@@ -4,6 +4,7 @@ package fr.univ.shaper.file.xml;
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.GraphicFactoryHandler;
+import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;
 import fr.univ.shaper.file.Director;
@@ -23,15 +24,26 @@ public class DirectorXML implements Director {
 
     private final Charset charset = StandardCharsets.UTF_8;
 
-    private final GraphicBuilder builder;
-
     private File file;
 
-    public DirectorXML(GraphicBuilder builder) {
-        this.builder = builder;
+    @Override
+    public boolean fileIsPresent() {
+        return file != null;
     }
 
-    public GraphicElement load(File file) {
+    @Override
+    public File getFile() {
+        return file;
+    }
+
+    @Override
+    public void save(Layer element) {
+        Contract.assertThat(fileIsPresent(), "Aucun fichier disponible, utilisez la méthode saveAs");
+        saveAs(file, element);
+    }
+
+    public Layer load(File file, GraphicBuilder builder) {
+        this.file = file;
         InputSource is = null;
         try {
             is = new InputSource(new BufferedInputStream(new
@@ -75,43 +87,39 @@ public class DirectorXML implements Director {
         }
 
         try {
+            System.out.println("Loading file...");
             xr.parse(is) ;
         } catch ( Exception e ) {
             System.out.println("Exception capturée xr.parse : ");
             e.printStackTrace();
+            return null;
         }
 
         ngf.setGenerateNoise(true);
-
+        System.out.println("File loaded.");
         return handler.getDrawing();
     }
 
     @Override
-    public void save(GraphicElement element) {
-        // TODO save
-
-    }
-
-    @Override
-    public void saveAs(File file, GraphicElement element) {
+    public void saveAs(File file, Layer layerRoot) {
         Contract.assertThat(file != null, "Filename ne doit pas être null");
-        Contract.assertThat(element != null, "element ne doit pas être null");
-        // TODO la condition particulière ?!
+        Contract.assertThat(layerRoot != null, "element ne doit pas être null");
+        this.file = file;
+
         PrintWriter writer;
         try {
             writer = new PrintWriter(file, charset.toString());
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
             // TODO gérer les erreurs
             e.printStackTrace();
             return; // TODO très mauvais
-        } catch (FileNotFoundException e) {
-            return;
         }
 
         // ----------------------------------------------- //
         //                      HEAD                       //
         // ----------------------------------------------- //
 
+        System.out.println("Saving file...");
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"")
                 .append(charset)
@@ -119,10 +127,11 @@ public class DirectorXML implements Director {
                 .append("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">\n")
                 .append("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\">\n");
         XmlGraphicVisitor v = new XmlGraphicVisitor(builder);
-        element.accept(v);
+        layerRoot.getChildren().forEach(child -> child.accept(v));
         builder.append("</drawing>");
         writer.println(builder.toString());
         writer.close();
+        System.out.println("File Saved.");
     }
 }
 

@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE drawing SYSTEM "drawing.dtd">
 <drawing xmlns="http://www.univ-rouen.fr/drawing">
-
-<circle color="blue">
-   <noisy noiseX="60" noiseY="-86"/>
-   <point x="400" y="300" />
-   <radius>200</radius>
-</circle>
-
 <layer>
-   <line color="black">
-      <point x="300" y="80" />
-      <point x="100" y="400" />
-   </line>
-   <circle color="black">
-      <point x="200" y="250" />
-      <radius>200</radius>
-   </circle>
 </layer>
-
 </drawing>

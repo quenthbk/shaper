@@ -1,16 +1,32 @@
 package fr.univ.shaper.gui.controller;
 
+import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
-import fr.univ.shaper.file.FileType;
+import fr.univ.shaper.core.element.Layer;
+import fr.univ.shaper.file.Director;
 import fr.univ.shaper.core.GraphicStateListener;
+import fr.univ.shaper.gui.controller.command.DrawCommand;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.io.File;
 
 public interface DrawController {
 
     // TODO Méthode accepte au contrôleur pour lui envoyer n'importe qu'elle commande supplémentaire
+
+    // --------------------------------------------------- //
+    //                      ACCESSEURS                     //
+    // --------------------------------------------------- //
+
+    GraphicBuilder getBuilder();
+
+    Layer getLayerRoot();
+
+    void setLayerRoot(Layer root);
+
+    Director getDirector();
+
+    void setDirector(Director director);
 
     // --------------------------------------------------- //
     //                  Avant le dessin                    //
@@ -41,18 +57,24 @@ public interface DrawController {
     // --------------------------------------------------- //
     //                Après le dessin                      //
     // --------------------------------------------------- //
-    void saveDrawing(FileType format, File file);
 
-    void loadDrawing(FileType format, File file);
+    void run(DrawCommand command);
 
     // ---------------------------------------------------- //
     //                       Flags                          //
     // ---------------------------------------------------- //
     boolean canDraw();
 
+    boolean fileIsPresent();
+
     // ---------------------------------------------------- //
     //                   Configuration                      //
     // ---------------------------------------------------- //
 
     void addDrawingListener(GraphicStateListener listener);
+
+    void addDirectorChangeListener(ChangeListener<Director> listener);
+
+    void addLayerRootChangeListener(ChangeListener<Layer> listener);
 }
+

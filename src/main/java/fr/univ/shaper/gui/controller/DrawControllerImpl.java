@@ -2,27 +2,22 @@ package fr.univ.shaper.gui.controller;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
-import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Point;
-import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
-import fr.univ.shaper.core.exception.GraphicTypeNotFoundException;
 import fr.univ.shaper.file.Director;
-import fr.univ.shaper.file.FileType;
+import fr.univ.shaper.gui.controller.command.DrawCommand;
 import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
-import fr.univ.shaper.file.xml.DirectorXML;
 import fr.univ.shaper.core.GraphicStateListener;
 import fr.univ.shaper.visitor.PrintGraphicVisitor;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.io.File;
 
 public class DrawControllerImpl implements DrawController {
 
-    private final Layer rootGraphicElement;
+    private Layer layerRoot;
 
     private final GraphicBuilder builder;
 
@@ -34,17 +29,14 @@ public class DrawControllerImpl implements DrawController {
 
     private Director director;
 
+    private ChangeListener<Director> directorChangeListener;
+
+    private ChangeListener<Layer> layerRootChangeListener;
+
     public DrawControllerImpl(GraphicBuilder builder) {
         Contract.assertThat(builder != null, "Le builder ne doit pas être null");
-        try {
-            NoisyGraphicFactory config =(NoisyGraphicFactory) GraphicFactoryHandler
-                    .newInstance().getFactoryOf("Noisy");
-            config.setGenerateNoise(true);
-        } catch (GraphicTypeNotFoundException e) {
-            e.printStackTrace();
-        }
         this.builder = builder;
-        rootGraphicElement = new Layer();
+        layerRoot = new Layer();
         pencil = new Pencil();
     }
 
@@ -66,6 +58,38 @@ public class DrawControllerImpl implements DrawController {
     public void pickColor(Color color) {
         Contract.assertThat(color != null, "Le paramètre color ne doit pas être null");
         pencil.setColor(color);
+    }
+
+    @Override
+    public GraphicBuilder getBuilder() {
+        return builder;
+    }
+
+    @Override
+    public Layer getLayerRoot() {
+        return layerRoot;
+    }
+
+    @Override
+    public void setLayerRoot(Layer root) {
+        Contract.assertThat(root != null, "Le Layer situé à la racine ne peut pas être null");
+        layerRoot = root;
+        if (layerRootChangeListener != null) {
+            layerRootChangeListener.stateChanged(root);
+        }
+    }
+
+    @Override
+    public Director getDirector() {
+        return director;
+    }
+
+    @Override
+    public void setDirector(Director director) {
+        this.director = director;
+        if (directorChangeListener != null) {
+            directorChangeListener.stateChanged(director);
+        }
     }
 
     @Override
@@ -100,7 +124,7 @@ public class DrawControllerImpl implements DrawController {
 
 
         if (element != null) {
-            rootGraphicElement.append(element);
+            layerRoot.append(element);
             graphicStateListener.event(element);
             element.accept(new PrintGraphicVisitor());
         }
@@ -115,37 +139,32 @@ public class DrawControllerImpl implements DrawController {
     }
 
     @Override
-    public void saveDrawing(FileType format, File file) {
-        Contract.assertThat(format != null, "Le paramètre format ne doit pas être null");
-        Contract.assertThat(file != null, "Le paramètre filename ne doit pas être null");
-
-        if (director == null) {
-            if (format == FileType.XML) {
-                director = new DirectorXML(builder);
-                director.saveAs(file, rootGraphicElement);
-            }
-        }
-
-        // TODO test si director exist pour saveAs ou save !
+    public void run(DrawCommand command) {
+        Contract.assertThat(command != null, "Le commande ne doit pas être null");
+        command.runCommand(this);
     }
 
     @Override
-    public void loadDrawing(FileType format, File file) {
-        Contract.assertThat(format != null, "Le paramètre format ne doit pas être null");
-        Contract.assertThat(file != null, "Le paramètre filename ne doit pas être null");
-
-        if (format == FileType.XML) {
-            director = new DirectorXML(builder);
-            GraphicElement ge = director.load(file);
-            ge.accept(new PrintGraphicVisitor());
-            graphicStateListener.event(ge);
-        }
+    public boolean fileIsPresent() {
+        return director != null && director.fileIsPresent();
     }
 
     @Override
     public void addDrawingListener(GraphicStateListener listener) {
         Contract.assertThat(listener != null, "L'écouteur ne doit pas être égal à null");
         graphicStateListener = listener;
+    }
+
+    @Override
+    public void addDirectorChangeListener(ChangeListener<Director> listener) {
+        Contract.assertThat(listener != null, "Le listener ne doit pas être null");
+        this.directorChangeListener = listener;
+    }
+
+    @Override
+    public void addLayerRootChangeListener(ChangeListener<Layer> listener) {
+        Contract.assertThat(listener != null, "Le listener ne doit pas être null");
+        this.layerRootChangeListener = listener;
     }
 
     // ---------------------------------------------------------- //
