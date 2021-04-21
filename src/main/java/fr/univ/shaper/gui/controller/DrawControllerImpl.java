@@ -18,6 +18,7 @@ import fr.univ.shaper.visitor.PrintGraphicVisitor;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public class DrawControllerImpl implements DrawController {
 
@@ -114,21 +115,28 @@ public class DrawControllerImpl implements DrawController {
     }
 
     @Override
-    public void saveDrawing(FileType format, String filename) {
+    public void saveDrawing(FileType format, File file) {
         Contract.assertThat(format != null, "Le paramètre format ne doit pas être null");
-        Contract.assertThat(filename != null, "Le paramètre filename ne doit pas être null");
+        Contract.assertThat(file != null, "Le paramètre filename ne doit pas être null");
+
+        if (director == null) {
+            if (format == FileType.XML) {
+                director = new DirectorXML(builder);
+                director.saveAs(file, rootGraphicElement);
+            }
+        }
 
         // TODO test si director exist pour saveAs ou save !
     }
 
     @Override
-    public void loadDrawing(FileType format, String filename) {
+    public void loadDrawing(FileType format, File file) {
         Contract.assertThat(format != null, "Le paramètre format ne doit pas être null");
-        Contract.assertThat(filename != null, "Le paramètre filename ne doit pas être null");
+        Contract.assertThat(file != null, "Le paramètre filename ne doit pas être null");
 
         if (format == FileType.XML) {
             director = new DirectorXML(builder);
-            GraphicElement ge = director.load(filename);
+            GraphicElement ge = director.load(file);
             ge.accept(new PrintGraphicVisitor());
             graphicStateListener.event(ge);
         }

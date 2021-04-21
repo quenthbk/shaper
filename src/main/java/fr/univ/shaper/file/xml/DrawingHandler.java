@@ -53,6 +53,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
         String name = qName.trim();
+        System.out.println("\t".repeat(stack.size()) + name);
         stack.push(name);
         switch (name) {
             case RADIUS:
@@ -72,7 +73,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
                 break;
             case NOISE:
                 builder.setGraphicType(NOISE);
-                builder.setGraphicAttribute(NOISE_X, Double.parseDouble(attrs.getValue(NOISE_X)), Double.class);
+                builder.setGraphicAttribute(NOISE_X, Double.parseDouble(attrs.getValue(NOISE_X)), double.class);
                 builder.setGraphicAttribute(NOISE_Y, Double.parseDouble(attrs.getValue(NOISE_Y)), double.class);
                 break;
             default:
@@ -98,7 +99,7 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         String name = stack.pop();
-        System.err.println(name);
+        System.out.println("\t".repeat(stack.size()) + "/" + name);
         switch (name) {
             // Dans le cas ou ce n'est pas un GraphicElement on break
             case POINT:
@@ -131,6 +132,10 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
     }
 
     private Color stringToColor(String colorValue) {
+        // Essaie de décoder la couleur
+        try {
+            return Color.decode(colorValue);
+        } catch (NumberFormatException ignored) { }
 
         Color color;
         color = Color.getColor(colorValue);

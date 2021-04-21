@@ -3,6 +3,8 @@ package fr.univ.shaper.file.xml;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.GraphicFactoryHandler;
+import fr.univ.shaper.core.element.noisy.NoisyGraphicFactory;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.util.Contract;
 import org.xml.sax.InputSource;
@@ -13,10 +15,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class DirectorXML implements Director {
 
-    private final String charset = "UTF-8";
+    private final Charset charset = StandardCharsets.UTF_8;
 
     private final GraphicBuilder builder;
 
@@ -26,13 +30,14 @@ public class DirectorXML implements Director {
         this.builder = builder;
     }
 
-    public GraphicElement load(String filename) {
+    public GraphicElement load(File file) {
         InputSource is = null;
         try {
             is = new InputSource(new BufferedInputStream(new
-                    FileInputStream(filename) ) );
+                    FileInputStream(file.getAbsolutePath()) ) );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser sp = null;
@@ -40,22 +45,32 @@ public class DirectorXML implements Director {
             sp = spf.newSAXParser();
         } catch (ParserConfigurationException e) {
             System.out.println("Exception capturée newSAXParser 1 : " + e);
+            return null;
         } catch (SAXException e) {
             System.out.println("Exception capturée newSAXParser 2 : " + e);
+            return null;
         }
+
         XMLReader xr = null;
         try {
             assert sp != null;
             xr = sp.getXMLReader();
         } catch (SAXException e) {
             System.out.println("Exception capturée getXMLReader : " + e);
+            return null;
         }
         DrawingHandler handler = new DrawingHandler(builder);
         assert xr != null;
         xr.setContentHandler(handler) ;
         xr.setErrorHandler(handler) ;
+
+        NoisyGraphicFactory ngf;
         try {
+            ngf = (NoisyGraphicFactory) GraphicFactoryHandler
+                    .newInstance().getFactoryOf("Noisy");
+            ngf.setGenerateNoise(false);
             xr.parse(is) ;
+            ngf.setGenerateNoise(true);
         } catch ( Exception e ) {
             System.out.println("Exception capturée xr.parse : ");
             e.printStackTrace();
@@ -71,32 +86,35 @@ public class DirectorXML implements Director {
     }
 
     @Override
-    public void saveAs(String filename, GraphicElement element) {
-        Contract.assertThat(filename != null, "Filename ne doit pas être null");
+    public void saveAs(File file, GraphicElement element) {
+        Contract.assertThat(file != null, "Filename ne doit pas être null");
         Contract.assertThat(element != null, "element ne doit pas être null");
         // TODO la condition particulière ?!
         PrintWriter writer;
         try {
-            writer = new PrintWriter(filename, charset);
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            writer = new PrintWriter(file, charset.toString());
+        } catch (UnsupportedEncodingException e) {
             // TODO gérer les erreurs
             e.printStackTrace();
             return; // TODO très mauvais
+        } catch (FileNotFoundException e) {
+            return;
         }
 
         // ----------------------------------------------- //
         //                      HEAD                       //
         // ----------------------------------------------- //
 
-        writer.println("<?xml version=\"1.0\" encoding=\""+ charset +"\"?>");
-        writer.println("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">");
-        writer.println("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\">");
         StringBuilder builder = new StringBuilder();
+        builder.append("<?xml version=\"1.0\" encoding=\"")
+                .append(charset)
+                .append("\"?>\n")
+                .append("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">\n")
+                .append("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\">\n");
         XmlGraphicVisitor v = new XmlGraphicVisitor(builder);
         element.accept(v);
+        builder.append("</drawing>");
         writer.println(builder.toString());
-
-        writer.println("</drawing>");
         writer.close();
     }
 }

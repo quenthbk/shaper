@@ -3,7 +3,10 @@ package fr.univ.shaper.gui.view;
 import fr.univ.shaper.file.FileType;
 import fr.univ.shaper.gui.controller.DrawController;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 import static java.awt.event.KeyEvent.CTRL_DOWN_MASK;
 
 public class Menu extends JMenuBar {
@@ -11,6 +14,8 @@ public class Menu extends JMenuBar {
     private final ActionListener afficherMenuListener;
 
     private final DrawController controller;
+
+    private final JFileChooser fileChooser = new JFileChooser();
 
     public Menu(DrawController controller) {
         this.controller = controller;
@@ -27,9 +32,8 @@ public class Menu extends JMenuBar {
         JMenu menu = new JMenu("Fichier"); {
             menu.add(createItem("Nouveau", 'N', afficherMenuListener, CTRL_DOWN_MASK, 'N'));
             menu.insertSeparator(1);
-            menu.add(createItem("Sauver", 'S', afficherMenuListener, CTRL_DOWN_MASK, 'S'));
-            menu.add(createItem("Ouvrir", 'O', actionEvent ->
-                    controller.loadDrawing(FileType.XML, "drawing.xml"), CTRL_DOWN_MASK, 'O'));
+            menu.add(createItem("Sauver", 'S', new OpenFileListener(), CTRL_DOWN_MASK, 'S'));
+            menu.add(createItem("Ouvrir", 'O', new OpenFileListener(), CTRL_DOWN_MASK, 'O'));
             menu.add(createItem("Quitter", 'Q', afficherMenuListener, null, null));
         }
 
@@ -59,5 +63,44 @@ public class Menu extends JMenuBar {
         }
         item.addActionListener(a);
         return  item;
+    }
+
+    private class OpenFileListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            // TODO ne pas mettre à null pour le parent !
+
+            JMenuItem item = (JMenuItem) actionEvent.getSource();
+
+            int r = JFileChooser.UNDEFINED_CONDITION;
+
+            switch (item.getMnemonic()) {
+                case 'O':
+                    r = fileChooser.showOpenDialog(null);
+                    break;
+                case 'S':
+                    r = fileChooser.showSaveDialog(null);
+                    break;
+            }
+
+            if (r != JFileChooser.APPROVE_OPTION) {
+                System.out.println("Fenêtre FileChooser fermée");
+                return;
+            }
+
+            switch (item.getMnemonic()) {
+                case 'O':
+                    File file = fileChooser.getSelectedFile();
+                    controller.loadDrawing(FileType.XML, file);
+                    break;
+                case 'S':
+                    file = fileChooser.getSelectedFile();
+                    controller.saveDrawing(FileType.XML, file);
+                    break;
+                default:
+                    System.out.println("Oups mnmonic inconnu");
+            }
+        }
     }
 }

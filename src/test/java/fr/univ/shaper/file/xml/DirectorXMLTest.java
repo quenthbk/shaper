@@ -8,6 +8,8 @@ import fr.univ.shaper.core.element.Layer;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class DirectorXMLTest {
 
@@ -19,13 +21,13 @@ public class DirectorXMLTest {
 
 
     @Test
-    public void saveAs_shouldSaveWithFilenameValid() {
+    public void saveAs_shouldSaveWithFilenameValid() throws FileNotFoundException {
         // GIVEN
-        String filename = "test.xml";
+        File file = new File( "test.xml");
         GraphicElement layer = element;
 
         // WHEN
-        director.saveAs(filename, element);
+        director.saveAs(file, element);
 
         // THEN
 

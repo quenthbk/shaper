@@ -46,5 +46,4 @@ public class ToolPanel extends JPanel {
         button.addActionListener(act);
         return button;
     }
-
 }

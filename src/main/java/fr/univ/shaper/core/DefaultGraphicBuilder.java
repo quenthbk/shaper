@@ -38,6 +38,7 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
     @Override
     public GraphicBuilder setGraphicName(String name) {
         Contract.assertThat(name != null, "Le paramètre name ne doit pas être null");
+        reset();
         this.name = StringExt.capitalize(name);
         return this;
     }
@@ -194,14 +195,15 @@ public class DefaultGraphicBuilder implements GraphicBuilder {
                 .append("Nom de l'élément: ")
                 .append(name)
                 .append('\n')
-                .append("---- parametres----");
+                .append("---- parametres ----\n");
 
         for (Point p : points) {
             str.append(p.toString());
+            str.append('\n');
         }
 
         for (String s : attributes.keySet()) {
-            str.append(s).append(" : ").append(attributes.get(s).getValue().toString());
+            str.append(s).append(" : ").append(attributes.get(s).getValue().toString()).append('\n');
         }
 
         return str.toString();

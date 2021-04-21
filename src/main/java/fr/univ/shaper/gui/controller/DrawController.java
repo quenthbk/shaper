@@ -6,6 +6,7 @@ import fr.univ.shaper.core.GraphicStateListener;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public interface DrawController {
 
@@ -40,9 +41,9 @@ public interface DrawController {
     // --------------------------------------------------- //
     //                Après le dessin                      //
     // --------------------------------------------------- //
-    void saveDrawing(FileType format, String filename);
+    void saveDrawing(FileType format, File file);
 
-    void loadDrawing(FileType format, String filename);
+    void loadDrawing(FileType format, File file);
 
     // ---------------------------------------------------- //
     //                       Flags                          //
