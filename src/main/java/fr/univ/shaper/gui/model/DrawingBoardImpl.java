@@ -59,9 +59,6 @@ public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard
         Contract.assertThat(root != null, "Le Layer situé à la racine ne peut pas être null");
         Layer old = layerRoot;
         layerRoot = root;
-        if (layerRootChangeListener != null) {
-            layerRootChangeListener.stateChanged(root);
-        }
         firePropertyChange("layerRoot", old, layerRoot);
     }
 
@@ -74,9 +71,6 @@ public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard
     public void setDirector(Director director) {
         Director old = this.director;
         this.director = director;
-        if (directorChangeListener != null) {
-            directorChangeListener.stateChanged(director);
-        }
         firePropertyChange("director", old, director);
     }
 
