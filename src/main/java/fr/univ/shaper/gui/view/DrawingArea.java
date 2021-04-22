@@ -1,14 +1,18 @@
 package fr.univ.shaper.gui.view;
 
+import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
-import fr.univ.shaper.gui.controller.DrawController;
+import fr.univ.shaper.core.GraphicFactoryHandler;
+import fr.univ.shaper.gui.model.DrawingBoard;
 //import fr.univ.shaper.gui.controller.KeyController;
+import fr.univ.shaper.gui.command.AddElementCommand;
+import fr.univ.shaper.gui.command.BuildElementCommand;
+import fr.univ.shaper.gui.command.StartDrawingCommand;
 import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
@@ -23,7 +27,7 @@ public class DrawingArea extends JPanel {
     /**
      * Le contrôleur de dessin
      */
-    private final DrawController controller;
+    private final DrawingBoard controller;
 
     /**
      * Un visiteur permettant de dessiner un forme "DragAndDrop"
@@ -34,7 +38,7 @@ public class DrawingArea extends JPanel {
 
     private int height = 600;
 
-    public DrawingArea(DrawController controller) {
+    public DrawingArea(DrawingBoard controller) {
         setBackground(Color.WHITE);
         this.controller = controller;
         createEmptyImage();
@@ -59,10 +63,9 @@ public class DrawingArea extends JPanel {
             g.drawImage(image, 0, 0, null);
         }
 
-        GraphicElement elementDragged = controller.getDraggedElement();
+        GraphicElement elementDragged = controller.getSelectedElement();
 
         if (elementDragged != null) {
-            // Créer une méthode setGraphic pour le visiteur ?
             visitor.setGraphics((Graphics2D) g);
             elementDragged.accept(visitor);
         }
@@ -87,26 +90,47 @@ public class DrawingArea extends JPanel {
      */
     private class DrawingMouseListener extends MouseInputAdapter {
 
-        private Point startPoint;
+        private StartDrawingCommand startDrawingCommand;
+
+        private final BuildElementCommand buildElementCommand;
+
+        private final DrawGraphicVisitor drawGraphicVisitor;
+
+        DrawingMouseListener() {
+            buildElementCommand = new BuildElementCommand(
+                    new DefaultGraphicBuilder(GraphicFactoryHandler.newInstance())
+            );
+
+            drawGraphicVisitor = new DrawGraphicVisitor(getGraphic());
+        }
 
         public void mousePressed(MouseEvent mouseEvent) {
-            startPoint = mouseEvent.getPoint();
-            controller.startDrawingPosition(mouseEvent.getPoint());
+            Point startPoint = mouseEvent.getPoint();
+            if (startDrawingCommand == null) {
+                startDrawingCommand = new StartDrawingCommand(startPoint);
+            } else {
+                startDrawingCommand.setPoint(startPoint);
+            }
+            controller.run(startDrawingCommand);
         }
 
         public void mouseDragged(MouseEvent mouseEvent) {
-            // TODO calculer de nouveau le "start point" à faire dans le contrôleur
-            int x = Math.min(startPoint.x, mouseEvent.getX());
-            int y = Math.min(startPoint.y, mouseEvent.getY());
-            int width = Math.abs(startPoint.x - mouseEvent.getX());
-            int height = Math.abs(startPoint.y - mouseEvent.getY());
+            // TODO calculer ça ailleurs !
+            //int x = Math.min(startPoint.x, mouseEvent.getX());
+            //int y = Math.min(startPoint.y, mouseEvent.getY());
+            //int width = Math.abs(startPoint.x - mouseEvent.getX());
+            //int height = Math.abs(startPoint.y - mouseEvent.getY());
 
-            controller.computeDragEndDropper(mouseEvent.getPoint());
+            controller.getPencil().upPencil(mouseEvent.getPoint());
+            controller.run(buildElementCommand);
+
+            // Repeindre seulement le composant sans changer le dessin
             repaint();
         }
 
         public void mouseReleased(MouseEvent mouseEvent) {
-            controller.endDrawingPosition(mouseEvent.getPoint());
+            drawGraphicVisitor.setGraphics(getGraphic());
+            controller.run(new AddElementCommand(drawGraphicVisitor));
         }
     }
 }

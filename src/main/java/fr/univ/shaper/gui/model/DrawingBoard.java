@@ -1,24 +1,20 @@
-package fr.univ.shaper.gui.controller;
+package fr.univ.shaper.gui.model;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
-import fr.univ.shaper.core.GraphicStateListener;
-import fr.univ.shaper.gui.controller.command.DrawCommand;
+import fr.univ.shaper.gui.command.Command;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
-public interface DrawController {
-
-    // TODO Méthode accepte au contrôleur pour lui envoyer n'importe qu'elle commande supplémentaire
+public interface DrawingBoard {
 
     // --------------------------------------------------- //
     //                      ACCESSEURS                     //
     // --------------------------------------------------- //
 
-    GraphicBuilder getBuilder();
+    Pencil getPencil();
 
     Layer getLayerRoot();
 
@@ -27,6 +23,16 @@ public interface DrawController {
     Director getDirector();
 
     void setDirector(Director director);
+
+    void setSelectedElement(GraphicElement element);
+
+    /**
+     * Renvoie l'élément graphique qui est en train d'être dessiné
+     *
+     * @return l'élément graphique qui est en train d'être dessiné
+     *      null si rien n'est en cours de dessin.
+     */
+    GraphicElement getSelectedElement();
 
     // --------------------------------------------------- //
     //                  Avant le dessin                    //
@@ -37,28 +43,12 @@ public interface DrawController {
 
     void pickColor(Color color);
 
-    // --------------------------------------------------- //
-    //                Pendant le dessin                    //
-    // --------------------------------------------------- //
-    void startDrawingPosition(Point2D point);
-
-    void computeDragEndDropper(Point2D point);
-
     /**
-     * Renvoie l'élément graphique qui est en train d'être dessiné
+     * Permet d'exécuter une commande sur la plache de dessin
      *
-     * @return l'élément graphique qui est en train d'être dessiné
-     *      null si rien n'est en cours de dessin.
+     * @param command à éxécuter
      */
-    GraphicElement getDraggedElement();
-
-    void endDrawingPosition(Point2D point);
-
-    // --------------------------------------------------- //
-    //                Après le dessin                      //
-    // --------------------------------------------------- //
-
-    void run(DrawCommand command);
+    void run(Command command);
 
     // ---------------------------------------------------- //
     //                       Flags                          //
@@ -70,8 +60,6 @@ public interface DrawController {
     // ---------------------------------------------------- //
     //                   Configuration                      //
     // ---------------------------------------------------- //
-
-    void addDrawingListener(GraphicStateListener listener);
 
     void addDirectorChangeListener(ChangeListener<Director> listener);
 

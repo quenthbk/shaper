@@ -2,8 +2,8 @@ package fr.univ.shaper.gui;
 
 import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.GraphicFactoryHandler;
-import fr.univ.shaper.gui.controller.DrawController;
-import fr.univ.shaper.gui.controller.DrawControllerImpl;
+import fr.univ.shaper.gui.model.DrawingBoard;
+import fr.univ.shaper.gui.model.DrawingBoardImpl;
 //import fr.univ.shaper.gui.controller.KeyController;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
@@ -12,7 +12,6 @@ import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
  *  Tips pour dessiner avec Swing:
@@ -31,13 +30,11 @@ public class ShaperViewer {
 
     private final Menu menu;
 
-    private final DrawController controller;
+    private final DrawingBoard controller;
 
 
     public ShaperViewer() {
-        controller = new DrawControllerImpl(
-                new DefaultGraphicBuilder(GraphicFactoryHandler.newInstance())
-        );
+        controller = new DrawingBoardImpl();
 
         draw = new DrawingArea(controller);
         toolPanel = new ToolPanel(controller);
@@ -46,7 +43,7 @@ public class ShaperViewer {
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        configureController();
+        createController();
     }
 
     public void show() {
@@ -62,12 +59,7 @@ public class ShaperViewer {
         frame.getContentPane().add(toolPanel, BorderLayout.WEST);
     }
 
-    private void configureController() {
-        controller.addDrawingListener(result -> {
-            result.accept(new DrawGraphicVisitor(draw.getGraphic()));
-            draw.repaint(100);
-        });
-
+    private void createController() {
         controller.addLayerRootChangeListener(result -> {
             draw.clear();
             result.accept(new DrawGraphicVisitor(draw.getGraphic()));

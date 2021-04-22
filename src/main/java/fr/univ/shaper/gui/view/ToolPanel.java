@@ -1,6 +1,6 @@
 package fr.univ.shaper.gui.view;
 
-import fr.univ.shaper.gui.controller.DrawController;
+import fr.univ.shaper.gui.model.DrawingBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,11 +8,24 @@ import java.awt.event.ActionListener;
 
 public class ToolPanel extends JPanel {
 
-    public ToolPanel(DrawController controller) {
+    public ToolPanel(DrawingBoard controller) {
         super(new GridLayout(0, 1));
 
         // ------------------------------------------------- //
-        //               SELECT GRAPHIC ELEMENT              //
+        //                   EDIT THE DRAW                   //
+        // ------------------------------------------------- //
+
+        ActionListener actionSelectTool = actionEvent -> {
+            JButton j = (JButton) actionEvent.getSource();
+            System.out.println("Graphic Tool : " + j.getName());
+            controller.selectGraphicElementName(j.getName());
+        };
+
+        add(createButton("select", "select", actionSelectTool));
+
+
+        // ------------------------------------------------- //
+        //           SELECT GRAPHIC ELEMENT NAME             //
         // ------------------------------------------------- //
 
         ActionListener actionSelectName = actionEvent -> {

@@ -16,14 +16,6 @@ public class Pencil {
 
     private Color color;
 
-    public Pencil() {
-
-    }
-
-    public Pencil(String shapeName) {
-        this.shapeName = shapeName;
-    }
-
     public void reset() {
         startPoint = null;
         endPoint = null;

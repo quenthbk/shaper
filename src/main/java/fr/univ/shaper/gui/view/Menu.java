@@ -1,10 +1,13 @@
 package fr.univ.shaper.gui.view;
 
-import fr.univ.shaper.gui.controller.DrawController;
-import fr.univ.shaper.gui.controller.command.NewDrawCommand;
-import fr.univ.shaper.gui.controller.command.OpenFileXmlCommand;
-import fr.univ.shaper.gui.controller.command.SaveAsXmlCommand;
-import fr.univ.shaper.gui.controller.command.SaveDrawCommand;
+import fr.univ.shaper.core.DefaultGraphicBuilder;
+import fr.univ.shaper.core.GraphicBuilder;
+import fr.univ.shaper.core.GraphicFactoryHandler;
+import fr.univ.shaper.gui.model.DrawingBoard;
+import fr.univ.shaper.gui.command.NewCommand;
+import fr.univ.shaper.gui.command.OpenFileXmlCommand;
+import fr.univ.shaper.gui.command.SaveAsXmlCommand;
+import fr.univ.shaper.gui.command.SaveCommand;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +20,11 @@ public class Menu extends JMenuBar {
 
     private final ActionListener afficherMenuListener;
 
-    private final DrawController controller;
+    private final DrawingBoard controller;
 
     private final JFileChooser fileChooser = new JFileChooser();
 
-    public Menu(DrawController controller) {
+    public Menu(DrawingBoard controller) {
         this.controller = controller;
         // Listener générique qui affiche l'action du menu utilisé
         afficherMenuListener = event ->
@@ -73,6 +76,10 @@ public class Menu extends JMenuBar {
 
     private class OpenFileListener implements ActionListener {
 
+        private final GraphicBuilder builder = new DefaultGraphicBuilder(
+                GraphicFactoryHandler.newInstance()
+        );
+
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             JMenuItem item = (JMenuItem) actionEvent.getSource();
@@ -85,13 +92,13 @@ public class Menu extends JMenuBar {
                     break;
                 case 'S':
                     if (controller.fileIsPresent()) {
-                        controller.run(new SaveDrawCommand());
+                        controller.run(new SaveCommand());
                         break;
                     }
                     r = fileChooser.showSaveDialog(getParent());
                     break;
                 case 'N':
-                    controller.run(new NewDrawCommand());
+                    controller.run(new NewCommand());
                     return;
             }
 
@@ -103,7 +110,7 @@ public class Menu extends JMenuBar {
             switch (item.getMnemonic()) {
                 case 'O':
                     File file = fileChooser.getSelectedFile();
-                    controller.run(new OpenFileXmlCommand(file));
+                    controller.run(new OpenFileXmlCommand(file, builder));
                     break;
                 case 'S':
                     file = fileChooser.getSelectedFile();

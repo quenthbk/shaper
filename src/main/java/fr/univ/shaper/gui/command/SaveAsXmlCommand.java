@@ -1,13 +1,13 @@
-package fr.univ.shaper.gui.controller.command;
+package fr.univ.shaper.gui.command;
 
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.file.xml.DirectorXML;
-import fr.univ.shaper.gui.controller.DrawController;
+import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.util.Contract;
 
 import java.io.File;
 
-public class SaveAsXmlCommand implements DrawCommand {
+public class SaveAsXmlCommand implements Command {
 
     private final File file;
 
@@ -17,7 +17,7 @@ public class SaveAsXmlCommand implements DrawCommand {
     }
 
     @Override
-    public void runCommand(DrawController controller) {
+    public void runCommand(DrawingBoard controller) {
         Director director = controller.getDirector();
         if (!(director instanceof DirectorXML)) {
             director = new DirectorXML();
