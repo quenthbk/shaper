@@ -10,7 +10,8 @@ public class DrawingConstants {
     static final public String ROOT_ELEMENT = "drawing";
     static final public String NOISE_X = "noiseX";
     static final public String NOISE_Y = "noiseY";
-    static final public String NOISE = "noisy";
+    static final public String NOISY = "noisy";
+    static final public String PERFECT = "perfect";
     static final public String CIRCLE = "circle";
     static final public String RECTANGLE = "rectangle";
     static final public String LINE = "line";

@@ -6,6 +6,6 @@ import javax.swing.SwingUtilities;
 
 public class App {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new ShaperViewer().show());
+        SwingUtilities.invokeLater(() -> new ShaperViewer().display());
     }
 }

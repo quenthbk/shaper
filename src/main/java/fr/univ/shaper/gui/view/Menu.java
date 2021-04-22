@@ -91,7 +91,7 @@ public class Menu extends JMenuBar {
                     r = fileChooser.showOpenDialog(getParent());
                     break;
                 case 'S':
-                    if (controller.isNew()) {
+                    if (! controller.isNew()) {
                         controller.run(new SaveCommand());
                         break;
                     }

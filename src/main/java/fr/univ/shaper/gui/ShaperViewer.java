@@ -4,6 +4,8 @@ import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.gui.model.DrawingBoardImpl;
+import fr.univ.shaper.gui.model.Pencil;
+import fr.univ.shaper.gui.model.PencilImpl;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
@@ -21,35 +23,39 @@ public class ShaperViewer {
 
     static public final String TITLE = "Shaper";
 
-    private final JFrame frame;
+    private JFrame frame;
 
-    private final DrawingArea draw;
+    private DrawingArea draw;
 
-    private final ToolPanel toolPanel;
+    private ToolPanel toolPanel;
 
-    private final Menu menu;
+    private Menu menu;
 
     private final DrawingBoard drawingBoard;
 
+    private final Pencil pencil;
+
 
     public ShaperViewer() {
-        drawingBoard = new DrawingBoardImpl();
-
-        draw = new DrawingArea(drawingBoard);
-        toolPanel = new ToolPanel(drawingBoard);
-        menu = new Menu(drawingBoard);
-
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pencil = new PencilImpl();
+        drawingBoard = new DrawingBoardImpl(pencil);
+        createView();
         createController();
+        placeComponent();
     }
 
-    public void show() {
-        placeComponent();
+    public void display() {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public void createView() {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        frame = new JFrame(TITLE);
+        draw = new DrawingArea(drawingBoard);
+        toolPanel = new ToolPanel(pencil);
+        menu = new Menu(drawingBoard);
     }
 
     private void placeComponent() {
@@ -59,6 +65,8 @@ public class ShaperViewer {
     }
 
     private void createController() {
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         drawingBoard.addPropertyChangeListener("layerRoot", event -> {
             draw.clear();
             Layer layer = (Layer) event.getNewValue();

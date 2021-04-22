@@ -5,15 +5,9 @@ import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.command.Command;
 
-import java.awt.*;
-
 public interface DrawingBoard extends Listenable {
 
-    // --------------------------------------------------- //
-    //                      ACCESSEURS                     //
-    // --------------------------------------------------- //
-
-    PencilImpl getPencil();
+    Pencil getPencil();
 
     Layer getLayerRoot();
 
@@ -33,14 +27,6 @@ public interface DrawingBoard extends Listenable {
      */
     GraphicElement getSelectedElement();
 
-    // --------------------------------------------------- //
-    //                  Avant le dessin                    //
-    // --------------------------------------------------- //
-    void selectGraphicElementName(String name);
-
-    void selectGraphicElementType(String type);
-
-    void pickColor(Color color);
 
     /**
      * Permet d'exécuter une commande sur la plache de dessin
@@ -48,10 +34,6 @@ public interface DrawingBoard extends Listenable {
      * @param command à éxécuter
      */
     void run(Command command);
-
-    // ---------------------------------------------------- //
-    //                       Flags                          //
-    // ---------------------------------------------------- //
 
     /**
      * Indique s'il est possible de dessiner

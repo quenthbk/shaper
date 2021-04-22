@@ -8,6 +8,8 @@ import java.awt.geom.Point2D;
 
 public class PencilImpl extends AbstractListenable implements Pencil {
 
+    private final Object lock = new Object();
+
     private Color color;
 
     private String graphicElementName;
@@ -26,8 +28,7 @@ public class PencilImpl extends AbstractListenable implements Pencil {
     public boolean canDraw() {
         return startPoint != null &&
                 endPoint != null &&
-                graphicElementName != null &&
-                graphicElementType != null;
+                graphicElementName != null;
     }
 
     @Override
@@ -37,7 +38,9 @@ public class PencilImpl extends AbstractListenable implements Pencil {
 
     @Override
     public Color getColor() {
-        return color;
+        synchronized (lock) {
+            return color;
+        }
     }
 
     @Override

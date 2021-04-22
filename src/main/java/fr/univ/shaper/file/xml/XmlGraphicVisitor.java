@@ -152,7 +152,7 @@ public class XmlGraphicVisitor implements GraphicVisitor {
             attrs = new Attributes();
             attrs.add(NOISE_X, element.getNoiseX());
             attrs.add(NOISE_Y, element.getNoiseY());
-            xmlStartElement(NOISE, attrs, null, false);
+            xmlStartElement(NOISY, attrs, null, false);
             xmlEndElement(name);
         }
     }
@@ -181,7 +181,7 @@ public class XmlGraphicVisitor implements GraphicVisitor {
             attrs = new Attributes();
             attrs.add(NOISE_X, element.getNoiseX());
             attrs.add(NOISE_Y, element.getNoiseY());
-            xmlStartElement(NOISE, attrs, null, false);
+            xmlStartElement(NOISY, attrs, null, false);
 
             xmlEndElement(name);
         }
@@ -211,7 +211,7 @@ public class XmlGraphicVisitor implements GraphicVisitor {
             attrs = new Attributes();
             attrs.add(NOISE_X, element.getNoiseX());
             attrs.add(NOISE_Y, element.getNoiseY());
-            xmlStartElement(NOISE, attrs, null, false);
+            xmlStartElement(NOISY, attrs, null, false);
             xmlEndElement(name);
         }
     }

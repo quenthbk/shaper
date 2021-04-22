@@ -2,13 +2,16 @@ package fr.univ.shaper.gui.command;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.DrawingConstants;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
 import fr.univ.shaper.gui.model.DrawingBoard;
-import fr.univ.shaper.gui.model.PencilImpl;
+import fr.univ.shaper.gui.model.DrawingBoardImpl;
+import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class BuildElementCommand implements Command {
 
@@ -21,14 +24,26 @@ public class BuildElementCommand implements Command {
 
     @Override
     public void runCommand(DrawingBoard controller) {
-        PencilImpl pencil = controller.getPencil();
+        Pencil pencil = controller.getPencil();
         Contract.assertThat(pencil.getEndPoint() != null,
                 "Le paramètre point ne doit pas être null");
-        Contract.assertThat(pencil.canDraw(), "Le crayon n'est pas en train de dessiner.");
+        Contract.assertThat(pencil.canDraw(), "Le crayon n'a pas les éléments necessaire pour " +
+                "finaliser le dessin. : " + pencil);
 
-        Point firstPoint = new Point(
-                Math.min(pencil.getStartPoint().getX(), pencil.getEndPoint().getX()),
-                Math.min(pencil.getStartPoint().getY(), pencil.getEndPoint().getY()));
+        Point firstPoint;
+        Point lastPoint;
+        // Calcul des points pour correctement dessiner un rectangle.
+        if (DrawingConstants.RECTANGLE.equals(pencil.getGraphicElementName())) {
+            firstPoint = new Point(
+                    Math.min(pencil.getStartPoint().getX(), pencil.getEndPoint().getX()),
+                    Math.min(pencil.getStartPoint().getY(), pencil.getEndPoint().getY()));
+            lastPoint = new Point(
+                    Math.max(pencil.getStartPoint().getX(), pencil.getEndPoint().getX()),
+                    Math.max(pencil.getStartPoint().getY(), pencil.getEndPoint().getY()));
+        } else {
+            firstPoint = new Point(pencil.getStartPoint().getX(), pencil.getStartPoint().getY());
+            lastPoint = new Point(pencil.getEndPoint().getX(), pencil.getEndPoint().getY());
+        }
 
         builder.setGraphicName(pencil.getGraphicElementName())
                 .setGraphicType(pencil.getGraphicElementType())
@@ -38,9 +53,6 @@ public class BuildElementCommand implements Command {
         if (pencil.hasRadius()) {
             builder.setGraphicAttribute("radius", pencil.getDistance(), double.class);
         } else {
-            Point lastPoint = new Point(
-                    Math.max(pencil.getStartPoint().getX(), pencil.getEndPoint().getX()),
-                    Math.max(pencil.getStartPoint().getY(), pencil.getEndPoint().getY()));
             builder.appendPoint(lastPoint);
         }
 

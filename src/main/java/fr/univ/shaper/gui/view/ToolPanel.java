@@ -1,62 +1,83 @@
 package fr.univ.shaper.gui.view;
 
-import fr.univ.shaper.gui.model.DrawingBoard;
+import fr.univ.shaper.core.element.DrawingConstants;
+import fr.univ.shaper.gui.model.Pencil;
+import fr.univ.shaper.util.Contract;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ToolPanel extends JPanel {
 
-    public ToolPanel(DrawingBoard controller) {
+    private static final int BUTTON_SELECT = 0;
+    private static final int BUTTON_SHAPE = 1;
+    private static final int BUTTON_TYPE = 2;
+
+    private final Map<Integer, List<JButton>> buttons;
+
+    private final Pencil pencil;
+
+    public ToolPanel(Pencil pencil) {
         super(new GridLayout(0, 1));
-
-        // ------------------------------------------------- //
-        //                   EDIT THE DRAW                   //
-        // ------------------------------------------------- //
-
-        ActionListener actionSelectTool = actionEvent -> {
-            JButton j = (JButton) actionEvent.getSource();
-            System.out.println("Graphic Tool : " + j.getName());
-            controller.selectGraphicElementName(j.getName());
-        };
-
-        add(createButton("select", "select", actionSelectTool));
-
-
-        // ------------------------------------------------- //
-        //           SELECT GRAPHIC ELEMENT NAME             //
-        // ------------------------------------------------- //
-
-        ActionListener actionSelectName = actionEvent -> {
-            JButton j = (JButton) actionEvent.getSource();
-            System.out.println("Graphic Name : " + j.getName());
-            controller.selectGraphicElementName(j.getName());
-        };
-
-        add(createButton("circle", "circle", actionSelectName));
-        add(createButton("rectangle", "rectangle", actionSelectName));
-        add(createButton("line", "line", actionSelectName));
-        add(createButton("layer", "layer", actionSelectName));
-
-        // ------------------------------------------------- //
-        //               SELECT GRAPHIC TYPE                 //
-        // ------------------------------------------------- //
-
-        ActionListener actionSelectType = actionEvent -> {
-            JButton j = (JButton) actionEvent.getSource();
-            System.out.println("Graphic Type : " + j.getName());
-            controller.selectGraphicElementType(j.getName());
-        };
-
-        add(createButton("perfect", "perfect", actionSelectType));
-        add(createButton("noisy", "noisy", actionSelectType));
+        Contract.assertThat(pencil != null, "Le model ne doit pas être null");
+        this.pencil = pencil;
+        buttons = new HashMap<>();
+        createView();
+        createController();
+        placeComponent();
     }
 
-    private JButton createButton(String text, String id, ActionListener act) {
+    private void createView() {
+        createButton(BUTTON_SELECT, "select", "select");
+        createButton(BUTTON_SHAPE, "cercle", DrawingConstants.CIRCLE);
+        createButton(BUTTON_SHAPE, "rectangle", DrawingConstants.RECTANGLE);
+        createButton(BUTTON_SHAPE, "ligne", DrawingConstants.LINE);
+        createButton(BUTTON_TYPE, "Perfect", DrawingConstants.PERFECT);
+        createButton(BUTTON_TYPE, "Noisy", DrawingConstants.NOISY);
+    }
+
+    private void createController() {
+        for (JButton button : buttons.get(BUTTON_SELECT)) {
+            button.addActionListener(actionEvent -> {
+                JButton j = (JButton) actionEvent.getSource();
+                System.out.println("Graphic Tool : " + j.getName());
+            });
+        }
+
+        for (JButton button : buttons.get(BUTTON_SHAPE)) {
+            button.addActionListener(actionEvent -> {
+                JButton j = (JButton) actionEvent.getSource();
+                System.out.println("Graphic Name : " + j.getName());
+                pencil.setGraphicElementName(j.getName());
+            });
+        }
+
+        for (JButton button : buttons.get(BUTTON_TYPE)) {
+            button.addActionListener(actionEvent -> {
+                JButton j = (JButton) actionEvent.getSource();
+                System.out.println("Graphic Type : " + j.getName());
+                pencil.setGraphicElementType(j.getName());
+            });
+        }
+    }
+
+    private void placeComponent() {
+        for (int key : buttons.keySet()) {
+            for (JButton button : buttons.get(key)) {
+                add(button);
+            }
+        }
+    }
+
+    private void createButton(int type, String text, String name) {
+        List<JButton> list = buttons.computeIfAbsent(type, k -> new ArrayList<>());
         JButton button = new JButton(text);
-        button.setName(id);
-        button.addActionListener(act);
-        return button;
+        button.setName(name);
+        list.add(button);
     }
 }

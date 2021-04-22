@@ -6,44 +6,24 @@ import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.command.Command;
 import fr.univ.shaper.util.Contract;
 
-import java.awt.*;
-
 public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard {
 
     private Layer layerRoot;
 
     private GraphicElement selectedElement;
 
-    private PencilImpl pencil;
+    private final Pencil pencil;
 
     private Director director;
 
-    public DrawingBoardImpl() {
+    public DrawingBoardImpl(Pencil pencil) {
+        Contract.assertThat(pencil != null, "le crayon ne doit pas être null");
         layerRoot = new Layer();
-        pencil = new PencilImpl();
+        this.pencil = pencil;
     }
 
     @Override
-    public void selectGraphicElementName(String name) {
-        Contract.assertThat(name != null, "Le paramètre name ne doit pas être null");
-        pencil.setGraphicElementName(name);
-        pickColor(Color.BLACK);
-    }
-
-    @Override
-    public void selectGraphicElementType(String type) {
-        Contract.assertThat(type != null, "Le paramètre type ne doit pas être null");
-        pencil.setGraphicElementType(type);
-    }
-
-    @Override
-    public void pickColor(Color color) {
-        Contract.assertThat(color != null, "Le paramètre color ne doit pas être null");
-        pencil.setColor(color);
-    }
-
-    @Override
-    public PencilImpl getPencil() {
+    public Pencil getPencil() {
         return pencil;
     }
 
