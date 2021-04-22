@@ -1,4 +1,4 @@
-package fr.univ.shaper.gui.util;
+package fr.univ.shaper.gui.model;
 
 import java.beans.PropertyChangeListener;
 

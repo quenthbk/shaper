@@ -21,9 +21,10 @@ public class AddElementCommand implements Command {
 
     @Override
     public void runCommand(DrawingBoard controller) {
-        Contract.assertThat(controller.getSelectedElement() != null,
-                "L'élément ne doit pas être null");
         GraphicElement element = controller.getSelectedElement();
+        Contract.assertThat(element != null,
+                "L'élément ne doit pas être null");
+
         controller.getLayerRoot().append(element);
         controller.getPencil().reset();
         controller.setSelectedElement(null);

@@ -55,14 +55,19 @@ public interface DrawingBoard {
     // ---------------------------------------------------- //
     boolean canDraw();
 
-    boolean fileIsPresent();
+    /**
+     * Indique si c'est un nouveau dessin
+     *
+     * @return true si ce dessin est nouveau et n'a pas été enregistré
+     */
+    boolean isNew();
 
-    // ---------------------------------------------------- //
-    //                   Configuration                      //
-    // ---------------------------------------------------- //
-
-    void addDirectorChangeListener(ChangeListener<Director> listener);
-
-    void addLayerRootChangeListener(ChangeListener<Layer> listener);
+    /**
+     * Indique si le dessin n'a pas été sauvegardé
+     *
+     * @return true si le dessin a été modifié et qu'il n'a pas été
+     *      sauvegardé.
+     */
+    boolean unsaved();
 }
 

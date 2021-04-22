@@ -27,7 +27,7 @@ public class DrawingArea extends JPanel {
     /**
      * Le contrôleur de dessin
      */
-    private final DrawingBoard controller;
+    private final DrawingBoard drawingBoard;
 
     /**
      * Un visiteur permettant de dessiner un forme "DragAndDrop"
@@ -38,9 +38,9 @@ public class DrawingArea extends JPanel {
 
     private int height = 600;
 
-    public DrawingArea(DrawingBoard controller) {
+    public DrawingArea(DrawingBoard drawingBoard) {
         setBackground(Color.WHITE);
-        this.controller = controller;
+        this.drawingBoard = drawingBoard;
         createEmptyImage();
         visitor = new DrawGraphicVisitor(getGraphic());
 
@@ -63,7 +63,7 @@ public class DrawingArea extends JPanel {
             g.drawImage(image, 0, 0, null);
         }
 
-        GraphicElement elementDragged = controller.getSelectedElement();
+        GraphicElement elementDragged = drawingBoard.getSelectedElement();
 
         if (elementDragged != null) {
             visitor.setGraphics((Graphics2D) g);
@@ -111,7 +111,7 @@ public class DrawingArea extends JPanel {
             } else {
                 startDrawingCommand.setPoint(startPoint);
             }
-            controller.run(startDrawingCommand);
+            drawingBoard.run(startDrawingCommand);
         }
 
         public void mouseDragged(MouseEvent mouseEvent) {
@@ -121,16 +121,18 @@ public class DrawingArea extends JPanel {
             //int width = Math.abs(startPoint.x - mouseEvent.getX());
             //int height = Math.abs(startPoint.y - mouseEvent.getY());
 
-            controller.getPencil().upPencil(mouseEvent.getPoint());
-            controller.run(buildElementCommand);
+            drawingBoard.getPencil().upPencil(mouseEvent.getPoint());
+            drawingBoard.run(buildElementCommand);
 
             // Repeindre seulement le composant sans changer le dessin
             repaint();
         }
 
         public void mouseReleased(MouseEvent mouseEvent) {
-            drawGraphicVisitor.setGraphics(getGraphic());
-            controller.run(new AddElementCommand(drawGraphicVisitor));
+            if(drawingBoard.getSelectedElement() != null) {
+                drawGraphicVisitor.setGraphics(getGraphic());
+                drawingBoard.run(new AddElementCommand(drawGraphicVisitor));
+            }
         }
     }
 }

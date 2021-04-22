@@ -8,7 +8,7 @@ public class SaveCommand implements Command {
 
     @Override
     public void runCommand(DrawingBoard controller) {
-        Contract.assertThat(controller.fileIsPresent(), "Aucun fichier n'est présent." +
+        Contract.assertThat(! controller.isNew(), "Aucun fichier n'est présent." +
                 " Impossible de l'enregister.");
         Director director = controller.getDirector();
         director.save(controller.getLayerRoot());

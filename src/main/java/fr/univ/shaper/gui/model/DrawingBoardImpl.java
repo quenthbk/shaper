@@ -9,7 +9,7 @@ import fr.univ.shaper.util.Contract;
 
 import java.awt.*;
 
-public class DrawingBoardImpl implements DrawingBoard {
+public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard {
 
     private Layer layerRoot;
 
@@ -18,10 +18,6 @@ public class DrawingBoardImpl implements DrawingBoard {
     private Pencil pencil;
 
     private Director director;
-
-    private ChangeListener<Director> directorChangeListener;
-
-    private ChangeListener<Layer> layerRootChangeListener;
 
     public DrawingBoardImpl() {
         layerRoot = new Layer();
@@ -61,10 +57,12 @@ public class DrawingBoardImpl implements DrawingBoard {
     @Override
     public void setLayerRoot(Layer root) {
         Contract.assertThat(root != null, "Le Layer situé à la racine ne peut pas être null");
+        Layer old = layerRoot;
         layerRoot = root;
         if (layerRootChangeListener != null) {
             layerRootChangeListener.stateChanged(root);
         }
+        firePropertyChange("layerRoot", old, layerRoot);
     }
 
     @Override
@@ -74,16 +72,19 @@ public class DrawingBoardImpl implements DrawingBoard {
 
     @Override
     public void setDirector(Director director) {
+        Director old = this.director;
         this.director = director;
         if (directorChangeListener != null) {
             directorChangeListener.stateChanged(director);
         }
+        firePropertyChange("director", old, director);
     }
 
     @Override
     public void setSelectedElement(GraphicElement element) {
+        GraphicElement old = this.selectedElement;
         this.selectedElement = element;
-        // fireStateChange()
+        firePropertyChange("selectedElement", old, element);
     }
 
     @Override
@@ -103,19 +104,12 @@ public class DrawingBoardImpl implements DrawingBoard {
     }
 
     @Override
-    public boolean fileIsPresent() {
-        return director != null && director.fileIsPresent();
+    public boolean isNew() {
+        return director == null || ! director.fileIsPresent();
     }
 
     @Override
-    public void addDirectorChangeListener(ChangeListener<Director> listener) {
-        Contract.assertThat(listener != null, "Le listener ne doit pas être null");
-        this.directorChangeListener = listener;
-    }
-
-    @Override
-    public void addLayerRootChangeListener(ChangeListener<Layer> listener) {
-        Contract.assertThat(listener != null, "Le listener ne doit pas être null");
-        this.layerRootChangeListener = listener;
+    public boolean unsaved() {
+        return true;
     }
 }

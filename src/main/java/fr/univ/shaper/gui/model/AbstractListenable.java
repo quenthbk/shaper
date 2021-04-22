@@ -1,11 +1,11 @@
-package fr.univ.shaper.gui.util;
+package fr.univ.shaper.gui.model;
 
 import fr.univ.shaper.util.Contract;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class AbstractListenable implements Listenable {
+public abstract class AbstractListenable implements Listenable {
 
     private PropertyChangeSupport support;
 

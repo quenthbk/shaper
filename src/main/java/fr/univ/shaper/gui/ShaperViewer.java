@@ -1,10 +1,8 @@
 package fr.univ.shaper.gui;
 
-import fr.univ.shaper.core.DefaultGraphicBuilder;
-import fr.univ.shaper.core.GraphicFactoryHandler;
-import fr.univ.shaper.gui.model.DrawingBoard;
+import fr.univ.shaper.core.element.Layer;
+import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.model.DrawingBoardImpl;
-//import fr.univ.shaper.gui.controller.KeyController;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
@@ -12,6 +10,8 @@ import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  *  Tips pour dessiner avec Swing:
@@ -30,15 +30,15 @@ public class ShaperViewer {
 
     private final Menu menu;
 
-    private final DrawingBoard controller;
+    private final DrawingBoardImpl drawingBoard;
 
 
     public ShaperViewer() {
-        controller = new DrawingBoardImpl();
+        drawingBoard = new DrawingBoardImpl();
 
-        draw = new DrawingArea(controller);
-        toolPanel = new ToolPanel(controller);
-        menu = new Menu(controller);
+        draw = new DrawingArea(drawingBoard);
+        toolPanel = new ToolPanel(drawingBoard);
+        menu = new Menu(drawingBoard);
 
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame(TITLE);
@@ -60,15 +60,17 @@ public class ShaperViewer {
     }
 
     private void createController() {
-        controller.addLayerRootChangeListener(result -> {
+        drawingBoard.addPropertyChangeListener("layerRoot", event -> {
             draw.clear();
-            result.accept(new DrawGraphicVisitor(draw.getGraphic()));
+            Layer layer = (Layer) event.getNewValue();
+            layer.accept(new DrawGraphicVisitor(draw.getGraphic()));
             draw.repaint(100);
         });
 
-        controller.addDirectorChangeListener(result -> {
-            if (result != null) {
-                frame.setTitle(TITLE + " - " + result.getFile().getName());
+        drawingBoard.addPropertyChangeListener("director", event -> {
+            Director director = (Director) event.getNewValue();
+            if (director != null) {
+                frame.setTitle(TITLE + " - " + director.getFile().getName());
             } else {
                 frame.setTitle(TITLE);
             }
