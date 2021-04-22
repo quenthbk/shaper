@@ -115,13 +115,7 @@ public class DrawingArea extends JPanel {
         }
 
         public void mouseDragged(MouseEvent mouseEvent) {
-            // TODO calculer ça ailleurs !
-            //int x = Math.min(startPoint.x, mouseEvent.getX());
-            //int y = Math.min(startPoint.y, mouseEvent.getY());
-            //int width = Math.abs(startPoint.x - mouseEvent.getX());
-            //int height = Math.abs(startPoint.y - mouseEvent.getY());
-
-            drawingBoard.getPencil().upPencil(mouseEvent.getPoint());
+            drawingBoard.getPencil().setEndPoint(mouseEvent.getPoint());
             drawingBoard.run(buildElementCommand);
 
             // Repeindre seulement le composant sans changer le dessin

@@ -26,7 +26,7 @@ public class AddElementCommand implements Command {
                 "L'élément ne doit pas être null");
 
         controller.getLayerRoot().append(element);
-        controller.getPencil().reset();
+        //controller.getPencil().reset();
         controller.setSelectedElement(null);
         if (visitor != null) {
             element.accept(visitor);

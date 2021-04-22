@@ -1,95 +1,95 @@
 package fr.univ.shaper.gui.model;
 
-import fr.univ.shaper.util.Contract;
-
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public class Pencil {
-    private Point2D startPoint;
-
-    private Point2D endPoint;
-
-    private String shapeName;
-
-    private String shapeType;
-
-    private Color color;
-
-    public void reset() {
-        startPoint = null;
-        endPoint = null;
-    }
+public interface Pencil extends Listenable {
 
     /**
-     * Indique si le crayon est entrain de dessiner
+     * Indique s'il est possible de dessiner une forme
      *
-     * @return true si getStartPoint(), color, shapeName sont différent de null et endPoint
-     *      égal à null
+     * @return true s'il est possible de dessiner une forme.
      */
-    public boolean isDrawing() {
-        return startPoint != null &&
-                color != null &&
-                shapeName != null;
-    }
+    boolean canDraw();
 
-    public void putPencil(Point2D point) {
-        Contract.assertThat(shapeName != null, "La forme doit être sélectionnée avant " +
-                "de dessiner");
-        Contract.assertThat(endPoint == null, "Pour poser le crayon vous devez d'abord " +
-                "réinitialisé celui-ci");
-        Contract.assertThat(color != null, "La couleur doit être sélectionné avant " +
-                "de dessiner");
-        startPoint = point;
-    }
+    /**
+     * Indique si la forme possède un rayon
+     *
+     * @return true si la forme possède un rayon
+     */
+    boolean hasRadius();
 
-    public void upPencil(Point2D point) {
-        Contract.assertThat(isDrawing(), "isDrawing() doit être égal à true pour relâcher " +
-                "le crayon");
-        endPoint = point;
-    }
+    /**
+     *
+     * @return color la couleur du crayon
+     */
+    Color getColor();
 
-    public Point2D getStartPoint() {
-        return startPoint;
-    }
+    /**
+     *
+     * @return Le point de départ du crayon
+     */
+    Point2D getStartPoint();
 
-    public Point2D getEndPoint() {
-        return endPoint;
-    }
+    /**
+     *
+     * @return Le point d'arrivé du crayon
+     */
+    Point2D getEndPoint();
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+    /**
+     *
+     * @return le nom de l'élément graphique
+     */
+    String getGraphicElementName();
 
-    public Color getColor() {
-        return color;
-    }
+    /**
+     *
+     * @return le type de l'élément graphique
+     */
+    String getGraphicElementType();
 
-    public void setShapeName(String name) {
-        this.shapeName = name;
-    }
+    /**
+     * Renvoie la distance entre le point de départ et d'arrivé.
+     *
+     * Renvoie 0.0 si un deux deux points vaut null.
+     *
+     * @return la distance entre le point de départ et d'arrivé.
+     */
+    double getDistance();
 
-    public void setShapeType(String name) {
-        this.shapeType = name;
-    }
+    /**
+     * Met à jour la couleur.
+     *
+     * @param color à mettre à jour, ne doit pas être null
+     */
+    void setColor(Color color);
 
-    public String getShapeName() {
-        return shapeName;
-    }
+    /**
+     * Met à jour le nom de l'élément graphique.
+     *
+     * @param name à mettre à jour, ne doit pas être null
+     */
+    void setGraphicElementName(String name);
 
-    public String getShapeType() {
-        return shapeType;
-    }
+    /**
+     * Met à jour le type de l'élément graphique.
+     *
+     * @param type à mettre à jour, ne doit pas être null
+     */
+    void setGraphicElementType(String type);
 
-    public double getDistance() {
-        return startPoint.distance(endPoint);
-    }
+    /**
+     * Met à jour le point de départ.
+     *
+     * @param point à mettre à jour
+     */
+    void setStartPoint(Point2D point);
 
-    public boolean hasRadius() {
-        return "circle".equals(shapeName);
-    }
-
-    public boolean canDraw() {
-        return shapeName != null;
-    }
+    /**
+     * Met à jour le point d'arrivé.
+     *
+     * @param point à mettre à jour
+     */
+    void setEndPoint(Point2D point);
 }

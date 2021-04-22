@@ -5,7 +5,7 @@ import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
 import fr.univ.shaper.gui.model.DrawingBoard;
-import fr.univ.shaper.gui.model.Pencil;
+import fr.univ.shaper.gui.model.PencilImpl;
 import fr.univ.shaper.util.Contract;
 
 import java.awt.*;
@@ -21,29 +21,27 @@ public class BuildElementCommand implements Command {
 
     @Override
     public void runCommand(DrawingBoard controller) {
-        Pencil pencil = controller.getPencil();
+        PencilImpl pencil = controller.getPencil();
         Contract.assertThat(pencil.getEndPoint() != null,
                 "Le paramètre point ne doit pas être null");
-        Contract.assertThat(pencil.isDrawing(), "Le crayon n'est pas en train de dessiner." +
-                "Impossible de d'effectuer un rendu...");
+        Contract.assertThat(pencil.canDraw(), "Le crayon n'est pas en train de dessiner.");
 
-        builder.setGraphicName(pencil.getShapeName())
-                .setGraphicType(pencil.getShapeType())
+        Point firstPoint = new Point(
+                Math.min(pencil.getStartPoint().getX(), pencil.getEndPoint().getX()),
+                Math.min(pencil.getStartPoint().getY(), pencil.getEndPoint().getY()));
+
+        builder.setGraphicName(pencil.getGraphicElementName())
+                .setGraphicType(pencil.getGraphicElementType())
                 .setGraphicAttribute("color", pencil.getColor(), Color.class)
-                .appendPoint(new fr.univ.shaper.core.element.Point(
-                                pencil.getStartPoint().getX(),
-                                pencil.getStartPoint().getY()
-                        )
-                );
+                .appendPoint(firstPoint);
 
         if (pencil.hasRadius()) {
             builder.setGraphicAttribute("radius", pencil.getDistance(), double.class);
         } else {
-            builder.appendPoint(new Point(
-                            pencil.getEndPoint().getX(),
-                            pencil.getEndPoint().getY()
-                    )
-            );
+            Point lastPoint = new Point(
+                    Math.max(pencil.getStartPoint().getX(), pencil.getEndPoint().getX()),
+                    Math.max(pencil.getStartPoint().getY(), pencil.getEndPoint().getY()));
+            builder.appendPoint(lastPoint);
         }
 
         GraphicElement element = null;

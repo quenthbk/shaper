@@ -21,6 +21,6 @@ public class StartDrawingCommand implements Command {
 
     @Override
     public void runCommand(DrawingBoard controller) {
-        controller.getPencil().putPencil(point);
+        controller.getPencil().setStartPoint(point);
     }
 }

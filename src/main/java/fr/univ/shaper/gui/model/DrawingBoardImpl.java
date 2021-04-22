@@ -1,6 +1,5 @@
 package fr.univ.shaper.gui.model;
 
-import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
@@ -15,27 +14,26 @@ public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard
 
     private GraphicElement selectedElement;
 
-    private Pencil pencil;
+    private PencilImpl pencil;
 
     private Director director;
 
     public DrawingBoardImpl() {
         layerRoot = new Layer();
-        pencil = new Pencil();
+        pencil = new PencilImpl();
     }
 
     @Override
     public void selectGraphicElementName(String name) {
         Contract.assertThat(name != null, "Le paramètre name ne doit pas être null");
-        pencil.setShapeName(name);
+        pencil.setGraphicElementName(name);
         pickColor(Color.BLACK);
     }
 
     @Override
     public void selectGraphicElementType(String type) {
         Contract.assertThat(type != null, "Le paramètre type ne doit pas être null");
-        Contract.assertThat(canDraw(), "Vous devez selectionner une forme avant de dessiner");
-        pencil.setShapeType(type);
+        pencil.setGraphicElementType(type);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard
     }
 
     @Override
-    public Pencil getPencil() {
+    public PencilImpl getPencil() {
         return pencil;
     }
 

@@ -2,6 +2,7 @@ package fr.univ.shaper.gui;
 
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
+import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.gui.model.DrawingBoardImpl;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
@@ -10,8 +11,6 @@ import fr.univ.shaper.gui.render.DrawGraphicVisitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  *  Tips pour dessiner avec Swing:
@@ -30,7 +29,7 @@ public class ShaperViewer {
 
     private final Menu menu;
 
-    private final DrawingBoardImpl drawingBoard;
+    private final DrawingBoard drawingBoard;
 
 
     public ShaperViewer() {

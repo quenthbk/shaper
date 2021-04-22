@@ -1,6 +1,5 @@
 package fr.univ.shaper.gui.model;
 
-import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
@@ -8,13 +7,13 @@ import fr.univ.shaper.gui.command.Command;
 
 import java.awt.*;
 
-public interface DrawingBoard {
+public interface DrawingBoard extends Listenable {
 
     // --------------------------------------------------- //
     //                      ACCESSEURS                     //
     // --------------------------------------------------- //
 
-    Pencil getPencil();
+    PencilImpl getPencil();
 
     Layer getLayerRoot();
 
@@ -53,6 +52,12 @@ public interface DrawingBoard {
     // ---------------------------------------------------- //
     //                       Flags                          //
     // ---------------------------------------------------- //
+
+    /**
+     * Indique s'il est possible de dessiner
+     *
+     * @return true s'il est possible de dessiner
+     */
     boolean canDraw();
 
     /**
