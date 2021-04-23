@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE drawing SYSTEM "drawing.dtd">
 <drawing xmlns="http://www.univ-rouen.fr/drawing">
-  <circle color="-16777216" >
-    <point x="346.0" y="261.0" />
-    <radius>189.62067397834025</radius>
-  </circle>
-  <circle color="-16777216" >
-    <point x="172.0" y="179.0" />
-    <radius>85.70880934886448</radius>
-  </circle>
-  <circle color="-16777216" >
-    <point x="539.0" y="273.0" />
-    <radius>78.16009211867653</radius>
-  </circle>
   <line color="-16777216" >
     <point y="317.49266967361837" x="267.4693194901601" />
     <point x="373.81249596353643" y="363.7902007168376" />
     <noisy noiseY="10.59749061210154" noiseX="1.9652832482880078" />
   </line>
+  <layer width="500" height="500">
+    <circle color="-16777216" >
+      <point x="250.0" y="250.0" />
+      <radius>78.16009211867653</radius>
+    </circle>
+  </layer>
 </drawing>
