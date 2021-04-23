@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ELEMENT drawing (circle|line|rectangle|layer)*>
 <!ATTLIST drawing xmlns CDATA #FIXED "http://www.univ-rouen.fr/drawing">
-
+<!ATTLIST drawing width CDATA #REQUIRED>
+<!ATTLIST drawing height CDATA #REQUIRED>
 
 <!ENTITY % color "CDATA">
 
