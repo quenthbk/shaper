@@ -1,21 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE drawing SYSTEM "drawing.dtd">
 <drawing xmlns="http://www.univ-rouen.fr/drawing">
-  <circle color="-16777216" >
-    <point x="346.0" y="261.0" />
-    <radius>189.62067397834025</radius>
-  </circle>
-  <circle color="-16777216" >
-    <point x="172.0" y="179.0" />
-    <radius>85.70880934886448</radius>
-  </circle>
-  <circle color="-16777216" >
-    <point x="539.0" y="273.0" />
-    <radius>78.16009211867653</radius>
-  </circle>
-  <line color="-16777216" >
-    <point y="317.49266967361837" x="267.4693194901601" />
-    <point x="373.81249596353643" y="363.7902007168376" />
-    <noisy noiseY="10.59749061210154" noiseX="1.9652832482880078" />
-  </line>
+<line color="-16777216" >
+  <point x="346.0" y="285.0" />
+  <point x="498.0" y="220.0" />
+</line>
+<line color="-52480" >
+  <point x="260.0" y="311.0" />
+  <point x="422.0" y="333.0" />
+</line>
+<line color="-52480" >
+  <point x="260.0" y="194.0" />
+  <point y="125.0" x="388.0" />
+</line>
+<line color="-52480" >
+  <point y="197.0" x="349.0" />
+  <point x="380.0" y="243.0" />
+</line>
+<line color="-6723841" >
+  <point y="389.0" x="180.0" />
+  <point y="263.0" x="229.0" />
+</line>
+<line color="-6723841" >
+  <point y="234.0" x="263.0" />
+  <point x="353.0" y="280.0" />
+</line>
+<circle color="-6723841" >
+  <point y="280.0" x="252.0" />
+  <radius>193.42440383777844</radius>
+</circle>
+<circle color="-6723841" >
+  <point x="520.0" y="339.0" />
+  <radius>163.17475294910057</radius>
+</circle>
+<circle color="-8691674" >
+  <point x="490.0" y="62.0" />
+  <radius>37.16180835212409</radius>
+</circle>
+<circle color="-8691674" >
+  <point y="251.0" x="450.0" />
+  <radius>121.03718436910205</radius>
+</circle>
+<rectangle color="-8691674" >
+  <point y="99.0" x="296.0" />
+  <point x="544.0" y="291.0" />
+</rectangle>
+<rectangle color="-205932" >
+  <point y="105.0" x="334.0" />
+  <point x="543.0" y="457.0" />
+</rectangle>
+<rectangle color="-205932" >
+  <point x="226.0" y="357.0" />
+  <point x="467.0" y="519.0" />
+</rectangle>
 </drawing>
