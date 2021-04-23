@@ -1,7 +1,6 @@
 package fr.univ.shaper.file;
 
 import fr.univ.shaper.core.GraphicBuilder;
-import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 
 import java.io.File;

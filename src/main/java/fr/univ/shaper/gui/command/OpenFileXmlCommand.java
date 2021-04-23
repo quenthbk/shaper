@@ -23,10 +23,7 @@ public class OpenFileXmlCommand implements Command {
 
     @Override
     public void runCommand(DrawingBoard controller) {
-        Director director = controller.getDirector();
-        if (! (director instanceof DirectorXML)) {
-            director = new DirectorXML();
-        }
+        Director director = new DirectorXML();
 
         Layer layer = director.load(file, builder);
         if (layer != null) {
