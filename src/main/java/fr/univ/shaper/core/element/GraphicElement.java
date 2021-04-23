@@ -1,6 +1,7 @@
 package fr.univ.shaper.core.element;
 
 import fr.univ.shaper.core.GraphicVisitor;
+import fr.univ.shaper.core.exception.IllegalParentException;
 
 public interface GraphicElement {
     /**
@@ -14,6 +15,7 @@ public interface GraphicElement {
      * Met à jour le parent de l'élément graphique
      *
      * @param element le parent de l'élément graphique
+     * @throws IllegalParentException si le parent n'est pas accepté
      */
     void setParent(Layer element);
 

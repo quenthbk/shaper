@@ -1,6 +1,7 @@
 package fr.univ.shaper.file.xml;
 
 import fr.univ.shaper.core.GraphicBuilder;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
@@ -61,9 +62,16 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
             case ROOT_ELEMENT:
             case LAYER:
                 try {
+                    int width = 0;
+                    int height = 0;
+                    try {
+                        width = Integer.parseInt(attrs.getValue(WIDTH));
+                        height = Integer.parseInt(attrs.getValue(HEIGHT));
+                    } catch (NumberFormatException ignored) { }
+
                     layerStack.push((Layer) builder.setGraphicName(LAYER)
-                            .setGraphicAttribute(WIDTH, Integer.parseInt(attrs.getValue(WIDTH)), int.class)
-                            .setGraphicAttribute(HEIGHT, Integer.parseInt(attrs.getValue(HEIGHT)), int.class)
+                            .setGraphicAttribute(WIDTH, width, int.class)
+                            .setGraphicAttribute(HEIGHT, height, int.class)
                             .build()
                     );
                 } catch (BadGraphicContextException e) {
@@ -113,13 +121,17 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
                 break;
             case LAYER:
                 Layer layer = layerStack.pop();
+                // Le parent de ce calque est le calque au sommet de la pile
+                layer.setParent(layerStack.peek());
                 // On ajoute le dernier calque au calque qui l'englobe
                 layerStack.peek().append(layer);
                 break;
                 // Cnstructions des autres formes. (circle, rectangle ...)
             default:
                 try {
-                    layerStack.peek().append(builder.build());
+                    GraphicElement element = builder.build();
+                    element.setParent(layerStack.peek());
+                    layerStack.peek().append(element);
                 } catch (BadGraphicContextException e) {
                     throw new SAXException(e);
                 }
