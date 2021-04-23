@@ -53,9 +53,11 @@ public class ShaperViewer {
     public void createView() {
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame(TITLE);
+
+        // ATTENTION ICI Interface Segregation Principle ??
+        menu = new Menu(drawingBoard);
         draw = new DrawingArea(drawingBoard);
         toolPanel = new ToolPanel(pencil);
-        menu = new Menu(drawingBoard);
     }
 
     private void placeComponent() {

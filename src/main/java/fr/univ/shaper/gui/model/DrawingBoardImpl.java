@@ -1,6 +1,6 @@
 package fr.univ.shaper.gui.model;
 
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.command.Command;

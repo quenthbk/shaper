@@ -1,6 +1,6 @@
 package fr.univ.shaper.gui.command;
 
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.util.Contract;

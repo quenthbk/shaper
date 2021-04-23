@@ -1,6 +1,9 @@
 package fr.univ.shaper.core.element;
 
 public class DrawingConstants {
+
+    // Dependency Inversion principle non respecté !
+
     static final public String POINT = "point";
     static final public String POINT_X = "x";
     static final public String POINT_Y = "y";

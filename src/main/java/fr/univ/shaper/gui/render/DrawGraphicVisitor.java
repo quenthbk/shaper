@@ -5,7 +5,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.noisy.NoisyCircle;

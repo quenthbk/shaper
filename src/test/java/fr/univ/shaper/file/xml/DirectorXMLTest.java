@@ -1,7 +1,5 @@
 package fr.univ.shaper.file.xml;
 
-import fr.univ.shaper.core.DefaultGraphicBuilder;
-import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.Layer;

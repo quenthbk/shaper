@@ -1,7 +1,7 @@
 package fr.univ.shaper.gui.view;
 
 import fr.univ.shaper.core.DefaultGraphicBuilder;
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.gui.model.DrawingBoard;
 //import fr.univ.shaper.gui.controller.KeyController;

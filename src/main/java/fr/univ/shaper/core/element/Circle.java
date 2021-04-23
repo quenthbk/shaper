@@ -3,16 +3,15 @@ package fr.univ.shaper.core.element;
 import java.awt.Color;
 import java.util.Objects;
 
-public abstract class Circle implements Shape {
+public abstract class Circle extends AbstractShape {
 
     private double cx, cy, radius;
-    private Color color;
 
     public Circle(double cx, double cy, double radius, Color color) {
+        super(color);
         this.cx = cx;
         this.cy = cy;
         this.radius = radius;
-        this.color = color;
     }
 
     public double getCx() {
@@ -37,16 +36,6 @@ public abstract class Circle implements Shape {
 
     public void setRadius(double radius) {
         this.radius = radius;
-    }
-
-    @Override
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     @Override

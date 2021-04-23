@@ -1,5 +1,6 @@
 package fr.univ.shaper.core;
 
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.element.noisy.NoisyLine;

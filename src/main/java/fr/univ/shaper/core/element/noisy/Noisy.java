@@ -1,6 +1,6 @@
 package fr.univ.shaper.core.element.noisy;
 
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 
 public interface Noisy extends GraphicElement {
 

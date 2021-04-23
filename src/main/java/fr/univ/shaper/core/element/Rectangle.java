@@ -3,17 +3,16 @@ package fr.univ.shaper.core.element;
 import java.awt.Color;
 import java.util.Objects;
 
-public abstract class Rectangle implements Shape {
+public abstract class Rectangle extends AbstractShape {
 
     private double x0, y0, x1, y1;
-    private Color color;
 
     public Rectangle(double x0, double y0, double x1, double y1, Color color) {
+        super(color);
         this.x0 = x0;
         this.y0 = y0;
         this.x1 = x1;
         this.y1 = y1;
-        this.color = color;
     }
 
     public double getX0() {
@@ -51,16 +50,6 @@ public abstract class Rectangle implements Shape {
     public double getWidth() { return Math.abs(x1-x0); }
 
     public double getHeight() { return Math.abs(y1-y0); }
-
-    @Override
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     @Override
     public boolean equals(Object o) {

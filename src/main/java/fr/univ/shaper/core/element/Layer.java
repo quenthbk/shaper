@@ -1,16 +1,18 @@
 package fr.univ.shaper.core.element;
 
-import fr.univ.shaper.core.GraphicElement;
 import fr.univ.shaper.core.GraphicVisitor;
+import fr.univ.shaper.core.exception.IllegalParentException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public final class Layer implements GraphicElement {
+public class Layer implements GraphicElement {
 
     private final List<GraphicElement> graphicElements;
+
+    private Layer parent;
 
     public Layer() {
         graphicElements = new ArrayList<>();
@@ -30,6 +32,23 @@ public final class Layer implements GraphicElement {
 
     synchronized public Collection<GraphicElement> getChildren() {
         return new ArrayList<GraphicElement>(graphicElements);
+    }
+
+    @Override
+    public Layer getParent() {
+        return parent;
+    }
+
+    @Override
+    public void setParent(Layer element) {
+        GraphicElement parentVerification = parent;
+        while (parentVerification != null) {
+            if (this == parentVerification) {
+                throw new IllegalParentException("Un fils ne peut pas être son père.");
+            }
+            parentVerification = parentVerification.getParent();
+        }
+        parent = element;
     }
 
     @Override

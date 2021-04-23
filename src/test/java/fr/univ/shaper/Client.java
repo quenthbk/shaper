@@ -1,6 +1,6 @@
 package fr.univ.shaper;
 
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.Layer;
 

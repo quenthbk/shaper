@@ -1,17 +1,15 @@
 package fr.univ.shaper.gui.command;
 
 import fr.univ.shaper.core.GraphicBuilder;
-import fr.univ.shaper.core.GraphicElement;
+import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.DrawingConstants;
 import fr.univ.shaper.core.element.Point;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
 import fr.univ.shaper.gui.model.DrawingBoard;
-import fr.univ.shaper.gui.model.DrawingBoardImpl;
 import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public class BuildElementCommand implements Command {
 
