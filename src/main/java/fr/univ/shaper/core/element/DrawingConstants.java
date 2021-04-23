@@ -18,4 +18,7 @@ public class DrawingConstants {
     static final public String CIRCLE = "circle";
     static final public String RECTANGLE = "rectangle";
     static final public String LINE = "line";
+    static final public String WIDTH = "width";
+    static final public String HEIGHT = "height";
+
 }

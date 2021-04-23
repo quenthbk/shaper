@@ -3,10 +3,7 @@ package fr.univ.shaper.core.element;
 import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.exception.IllegalParentException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Layer implements GraphicElement {
 
@@ -14,24 +11,44 @@ public class Layer implements GraphicElement {
 
     private Layer parent;
 
+    private int width;
+
+    private int height;
+
     public Layer() {
-        graphicElements = new ArrayList<>();
+        graphicElements = Collections.synchronizedList(new ArrayList<>());
     }
 
-    synchronized public void append(GraphicElement graphicElement) {
+    public void append(GraphicElement graphicElement) {
         graphicElements.add(graphicElement);
     }
 
-    synchronized public void remove(GraphicElement graphicElement) {
+    public void remove(GraphicElement graphicElement) {
         graphicElements.remove(graphicElement);
     }
 
-    synchronized public GraphicElement getChild(int i) {
+    public GraphicElement getChild(int i) {
         return graphicElements.get(i);
     }
 
-    synchronized public Collection<GraphicElement> getChildren() {
-        return new ArrayList<GraphicElement>(graphicElements);
+    public Collection<GraphicElement> getChildren() {
+        return graphicElements;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     @Override
@@ -52,7 +69,7 @@ public class Layer implements GraphicElement {
     }
 
     @Override
-    synchronized public void accept(GraphicVisitor visitor) {
+    public void accept(GraphicVisitor visitor) {
         visitor.visitLayer(this);
     }
 

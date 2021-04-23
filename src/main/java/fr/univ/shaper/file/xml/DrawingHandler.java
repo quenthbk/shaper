@@ -57,11 +57,15 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
         stack.push(name);
         switch (name) {
             case RADIUS:
-            case ROOT_ELEMENT:
                 break;
+            case ROOT_ELEMENT:
             case LAYER:
                 try {
-                    layerStack.push((Layer) builder.setGraphicName(localName).build());
+                    layerStack.push((Layer) builder.setGraphicName(LAYER)
+                            .setGraphicAttribute(WIDTH, Integer.parseInt(attrs.getValue(WIDTH)), int.class)
+                            .setGraphicAttribute(HEIGHT, Integer.parseInt(attrs.getValue(HEIGHT)), int.class)
+                            .build()
+                    );
                 } catch (BadGraphicContextException e) {
                     throw new SAXException(e);
                 }
