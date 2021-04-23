@@ -5,8 +5,12 @@ import fr.univ.shaper.gui.model.Pencil;
 import fr.univ.shaper.util.Contract;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +21,7 @@ public class ToolPanel extends JPanel {
     private static final int BUTTON_SELECT = 0;
     private static final int BUTTON_SHAPE = 1;
     private static final int BUTTON_TYPE = 2;
+    private static final int BUTTON_COLOR = 3;
 
     private final Map<Integer, List<JButton>> buttons;
 
@@ -39,6 +44,8 @@ public class ToolPanel extends JPanel {
         createButton(BUTTON_SHAPE, "ligne", DrawingConstants.LINE);
         createButton(BUTTON_TYPE, "Perfect", DrawingConstants.PERFECT);
         createButton(BUTTON_TYPE, "Noisy", DrawingConstants.NOISY);
+        JButton button = createButton(BUTTON_COLOR, "", DrawingConstants.COLOR);
+        button.setBackground(pencil.getColor());
     }
 
     private void createController() {
@@ -64,6 +71,22 @@ public class ToolPanel extends JPanel {
                 pencil.setGraphicElementType(j.getName());
             });
         }
+
+        for (JButton button : buttons.get(BUTTON_COLOR)) {
+            button.addActionListener(actionEvent -> {
+                JButton jb = (JButton) actionEvent.getSource();
+                JFrame colorPicker = new JFrame("Choisi une couleur");
+                colorPicker.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                JColorChooser tcc = new JColorChooser(pencil.getColor());
+                colorPicker.add(tcc);
+                tcc.getSelectionModel().addChangeListener(changeEvent -> {
+                        pencil.setColor(tcc.getColor());
+                        button.setBackground(tcc.getColor());
+                });
+                colorPicker.pack();
+                colorPicker.setVisible(true);
+            });
+        }
     }
 
     private void placeComponent() {
@@ -74,10 +97,11 @@ public class ToolPanel extends JPanel {
         }
     }
 
-    private void createButton(int type, String text, String name) {
+    private JButton createButton(int type, String text, String name) {
         List<JButton> list = buttons.computeIfAbsent(type, k -> new ArrayList<>());
         JButton button = new JButton(text);
         button.setName(name);
         list.add(button);
+        return button;
     }
 }
