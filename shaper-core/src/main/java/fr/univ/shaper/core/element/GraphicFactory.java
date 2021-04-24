@@ -1,11 +1,6 @@
 package fr.univ.shaper.core.element;
 
-import fr.univ.shaper.core.element.Layer;
-import fr.univ.shaper.core.element.Circle;
-import fr.univ.shaper.core.element.Line;
-import fr.univ.shaper.core.element.Rectangle;
-
-import java.awt.*;
+import java.awt.Color;
 
 public interface GraphicFactory {
     Layer createLayer();

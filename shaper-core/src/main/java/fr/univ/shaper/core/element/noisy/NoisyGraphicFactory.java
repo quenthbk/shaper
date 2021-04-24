@@ -1,7 +1,11 @@
 package fr.univ.shaper.core.element.noisy;
 
 import fr.univ.shaper.core.element.GraphicFactory;
-import fr.univ.shaper.core.element.*;
+import fr.univ.shaper.core.element.Rectangle;
+import fr.univ.shaper.core.element.Layer;
+import fr.univ.shaper.core.element.Circle;
+import fr.univ.shaper.core.element.Line;
+import fr.univ.shaper.core.element.Shape;
 import fr.univ.shaper.core.noise.NoiseGraphicVisitor;
 
 import java.awt.Color;
