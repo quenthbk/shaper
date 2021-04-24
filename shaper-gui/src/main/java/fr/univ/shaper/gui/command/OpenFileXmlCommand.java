@@ -8,6 +8,7 @@ import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.util.Contract;
 
 import java.io.File;
+import java.io.IOException;
 
 public class OpenFileXmlCommand implements Command {
 
@@ -25,10 +26,14 @@ public class OpenFileXmlCommand implements Command {
     public void runCommand(DrawingBoard controller) {
         Director director = new DirectorXML();
 
-        Layer layer = director.load(file, builder);
-        if (layer != null) {
-            controller.setLayerRoot(layer);
-            controller.setDirector(director);
+        try {
+            Layer layer = director.load(file, builder);
+            if (layer != null) {
+                controller.setLayerRoot(layer);
+                controller.setDirector(director);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

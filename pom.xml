@@ -22,9 +22,10 @@
   <!-- Modules -->
   <!-- =============================================================== -->
   <modules>
-      <module>shaper-core</module>
-      <module>shaper-xml</module>
-      <module>shaper-gui</module>
+    <module>shaper-core</module>
+    <module>shaper-xml</module>
+    <module>shaper-gui</module>
+    <module>shaper-converter</module>
   </modules>
 
   <!-- =============================================================== -->
@@ -36,12 +37,17 @@
       <dependency>
           <groupId>fr.univ.shaper</groupId>
           <artifactId>shaper-core</artifactId>
-          <version>0.0.1-SNAPSHOT</version>
+          <version>0.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>fr.univ.shaper</groupId>
+        <artifactId>shaper-converter</artifactId>
+        <version>0.1.0</version>
       </dependency>
       <dependency>
           <groupId>fr.univ.shaper</groupId>
           <artifactId>shaper-xml</artifactId>
-          <version>0.0.1-SNAPSHOT</version>
+          <version>0.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
           <groupId>fr.univ.shaper</groupId>

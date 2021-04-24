@@ -6,6 +6,7 @@ import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.util.Contract;
 
 import java.io.File;
+import java.io.IOException;
 
 public class SaveAsXmlCommand implements Command {
 
@@ -22,7 +23,12 @@ public class SaveAsXmlCommand implements Command {
         if (!(director instanceof DirectorXML)) {
             director = new DirectorXML();
         }
-        director.saveAs(file, controller.getLayerRoot());
+        try {
+            director.saveAs(file, controller.getLayerRoot());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         controller.setDirector(director);
     }
 }

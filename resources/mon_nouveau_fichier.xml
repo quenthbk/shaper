@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE drawing SYSTEM "drawing.dtd">
+<drawing xmlns="http://www.univ-rouen.fr/drawing" width="0" height="0">
+<rectangle color="-16777216" >
+  <point y="170.0" x="71.0" />
+  <point y="335.0" x="285.0" />
+</rectangle>
+<rectangle color="-39424" >
+  <point x="284.0" y="296.0" />
+  <point x="455.0" y="410.0" />
+</rectangle>
+<rectangle color="-39424" >
+  <point x="224.0" y="180.0" />
+  <point x="526.0" y="404.0" />
+</rectangle>
+<rectangle color="-39424" >
+  <point x="83.0" y="200.0" />
+  <point x="172.0" y="258.0" />
+</rectangle>
+<circle color="-39424" >
+  <point y="100.0" x="316.0" />
+  <radius>54.70831746635972</radius>
+</circle>
+<circle color="-39424" >
+  <point x="624.0" y="118.0" />
+  <radius>77.79460135510689</radius>
+</circle>
+<line color="-3407668" >
+  <point x="623.0" y="194.0" />
+  <point x="624.0" y="421.0" />
+</line>
+<line color="-3407668" >
+  <point x="621.0" y="261.0" />
+  <point y="441.0" x="516.0" />
+</line>
+<line color="-3407668" >
+  <point x="516.0" y="441.0" />
+  <point x="733.0" y="439.0" />
+</line>
+<line color="-3407668" >
+  <point x="733.0" y="439.0" />
+  <point x="621.0" y="259.0" />
+</line>
+<line color="-3407668" >
+  <point x="590.0" y="441.0" />
+  <point x="542.0" y="541.0" />
+</line>
+<line color="-3407668" >
+  <point y="440.0" x="645.0" />
+  <point x="682.0" y="542.0" />
+</line>
+<line color="-3407668" >
+  <point y="307.0" x="654.0" />
+  <point x="728.0" y="210.0" />
+</line>
+<line color="-3407668" >
+  <point y="312.0" x="592.0" />
+  <point y="203.0" x="494.0" />
+</line>
+<line color="-3407668" >
+  <point x="583.0" y="90.0" />
+  <point x="610.0" y="108.0" />
+</line>
+<line color="-3407668" >
+  <point y="113.0" x="643.0" />
+  <point x="679.0" y="88.0" />
+</line>
+<line color="-3407668" >
+  <point y="161.0527938484715" x="615.003792410693" />
+  <point x="641.3530406520728" y="147.93147760127144" />
+  <noisy noiseY="4.827599841606565" noiseX="3.6927633497377372" />
+</line>
+</drawing>
