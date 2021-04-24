@@ -1,7 +1,7 @@
 package fr.univ.shaper.gui.command;
 
 import fr.univ.shaper.file.Director;
-import fr.univ.shaper.file.xml.DirectorXML;
+import fr.univ.shaper.xml.DirectorXML;
 import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.util.Contract;
 
