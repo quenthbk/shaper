@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>fr.univ</groupId>
+  <groupId>fr.univ.shaper</groupId>
   <artifactId>shaper</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <description>
+    Projet Architecture Logiciel. Patrons de Conception.
+  </description>
 
   <name>shaper</name>
 
@@ -14,25 +16,57 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-    <main.class>fr.univ.shaper.App</main.class>
   </properties>
 
-  <dependencies>
-    <!-- tests -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.7.1</version>
-      <scope>test</scope>
-    </dependency>
+  <!-- =============================================================== -->
+  <!-- Modules -->
+  <!-- =============================================================== -->
+  <modules>
+      <module>shaper-core</module>
+      <module>shaper-xml</module>
+      <module>shaper-gui</module>
+  </modules>
 
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.19.0</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <!-- =============================================================== -->
+  <!-- Gestion des dépendances -->
+  <!-- =============================================================== -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- ===== Modules ===== -->
+      <dependency>
+          <groupId>fr.univ.shaper</groupId>
+          <artifactId>shaper-core</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+          <groupId>fr.univ.shaper</groupId>
+          <artifactId>shaper-xml</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+          <groupId>fr.univ.shaper</groupId>
+          <artifactId>shaper-gui</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+
+        <!-- ===== Bibliothèques tierces ===== -->
+
+        <!-- tests -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.7.1</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.19.0</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <resources>
@@ -41,55 +75,39 @@
         <filtering>true</filtering>
       </resource>
     </resources>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.openjfx</groupId>
-          <artifactId>javafx-maven-plugin</artifactId>
-          <version>0.0.6</version>
-          <configuration>
-            <mainClass>${main.class}</mainClass>
-          </configuration>
-        </plugin>
+        <!-- Packaging JAR -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>2.6</version>
-          <configuration>
-            <archive>
-              <manifest>
-                <addClasspath>true</addClasspath>
-                <mainClass>${main.class}</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
+          <version>3.0.2</version>
         </plugin>
+
+        <!-- Compilation des sources Java -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+        </plugin>
+
+        <!-- Assemblage -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.6</version>
-          <executions>
-            <execution>
-              <id>make-assembly</id>
-              <phase>package</phase>
-              <goals>
-                <goal>single</goal>
-              </goals>
-              <configuration>
-                <archive>
-                  <manifest>
-                    <mainClass>${main.class}</mainClass>
-                  </manifest>
-                </archive>
-                <!--
-                <descriptorRefs>
-                  <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-                -->
-              </configuration>
-            </execution>
-          </executions>
+          <version>3.0.0</version>
         </plugin>
+
+        <!-- Site -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.6</version>
+          <configuration>
+            <locales>fr</locales>
+          </configuration>
+        </plugin>
+
       </plugins>
     </pluginManagement>
   </build>

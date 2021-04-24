@@ -1,4 +1,7 @@
 target/
+/target
+/*-*/target
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -14,6 +17,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+/.idea
 .idea
 *.iws
 *.iml
@@ -35,3 +39,11 @@ build/
 
 ### iOS files ###
 **/.DS_Store
+
+/.settings
+/.project
+/*-*/.project
+/*-*/.settings
+/*-*/.classpath
+/*-*/.checkstyle
+/*-*/.springBeans

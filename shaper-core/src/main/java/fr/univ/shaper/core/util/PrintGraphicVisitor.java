@@ -1,4 +1,4 @@
-package fr.univ.shaper.visitor;
+package fr.univ.shaper.core.util;
 
 import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.element.Layer;
