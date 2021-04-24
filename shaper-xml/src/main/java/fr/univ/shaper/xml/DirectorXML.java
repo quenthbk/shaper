@@ -111,7 +111,7 @@ public class DirectorXML implements Director {
         } catch (UnsupportedEncodingException | FileNotFoundException e) {
             // TODO gérer les erreurs
             e.printStackTrace();
-            return; // TODO très mauvais
+            return;
         }
 
         // ----------------------------------------------- //
@@ -124,7 +124,12 @@ public class DirectorXML implements Director {
                 .append(charset)
                 .append("\"?>\n")
                 .append("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">\n")
-                .append("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\">\n");
+                .append("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\" ")
+                .append("width=\"")
+                .append(layerRoot.getWidth())
+                .append("\" height=\"")
+                .append(layerRoot.getHeight())
+                .append("\">\n");
         XmlGraphicVisitor v = new XmlGraphicVisitor(builder);
         layerRoot.getChildren().forEach(child -> child.accept(v));
         builder.append("</drawing>");
