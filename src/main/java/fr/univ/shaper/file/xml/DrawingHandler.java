@@ -1,9 +1,7 @@
 package fr.univ.shaper.file.xml;
 
 import fr.univ.shaper.core.GraphicBuilder;
-import fr.univ.shaper.core.element.GraphicElement;
-import fr.univ.shaper.core.element.Layer;
-import fr.univ.shaper.core.element.Point;
+import fr.univ.shaper.core.element.*;
 import fr.univ.shaper.core.exception.BadGraphicContextException;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -121,8 +119,6 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
                 break;
             case LAYER:
                 Layer layer = layerStack.pop();
-                // Le parent de ce calque est le calque au sommet de la pile
-                layer.setParent(layerStack.peek());
                 // On ajoute le dernier calque au calque qui l'englobe
                 layerStack.peek().append(layer);
                 break;
@@ -130,7 +126,6 @@ public class DrawingHandler extends DefaultHandler implements ContentHandler {
             default:
                 try {
                     GraphicElement element = builder.build();
-                    element.setParent(layerStack.peek());
                     layerStack.peek().append(element);
                 } catch (BadGraphicContextException e) {
                     throw new SAXException(e);

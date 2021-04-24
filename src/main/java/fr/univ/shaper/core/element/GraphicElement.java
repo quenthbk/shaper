@@ -4,20 +4,14 @@ import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.exception.IllegalParentException;
 
 public interface GraphicElement {
+
+
     /**
-     * Renvoie le parent de l'élément graphique.
+     * Renvoie le parent de l'élément graphique, null s'il n'en posséde pas.
      *
      * @return le parent de l'élément graphique.
      */
     Layer getParent();
-
-    /**
-     * Met à jour le parent de l'élément graphique
-     *
-     * @param element le parent de l'élément graphique
-     * @throws IllegalParentException si le parent n'est pas accepté
-     */
-    void setParent(Layer element);
 
     /**
      * L'élément graphique accepte un visiteur
@@ -25,4 +19,12 @@ public interface GraphicElement {
      * @param visitor le visteur à accepter
      */
     void accept(GraphicVisitor visitor);
+
+    /**
+     * Met à jour le parent
+     *
+     * @param element le parent de l'élément graphique
+     * @throws IllegalParentException si le parent n'est pas accepté
+     */
+    void setParent(Layer element);
 }

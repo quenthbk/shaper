@@ -2,9 +2,9 @@ package fr.univ.shaper.core.element;
 
 import fr.univ.shaper.util.Contract;
 
-import java.awt.*;
+import java.awt.Color;
 
-public abstract class AbstractShape implements Shape {
+abstract class AbstractShape implements Shape {
 
     private Color color;
 

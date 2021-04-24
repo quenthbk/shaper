@@ -25,7 +25,6 @@ public class AddElementCommand implements Command {
         Contract.assertThat(element != null,
                 "L'élément ne doit pas être null");
 
-        element.setParent(controller.getLayerRoot());
         controller.getLayerRoot().append(element);
         controller.setSelectedElement(null);
         if (visitor != null) {

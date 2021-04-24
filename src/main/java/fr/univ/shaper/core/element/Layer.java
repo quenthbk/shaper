@@ -20,11 +20,14 @@ public class Layer implements GraphicElement {
     }
 
     public void append(GraphicElement graphicElement) {
+        graphicElement.setParent(this);
         graphicElements.add(graphicElement);
     }
 
     public void remove(GraphicElement graphicElement) {
-        graphicElements.remove(graphicElement);
+        if (graphicElements.remove(graphicElement)) {
+            graphicElement.setParent(null);
+        }
     }
 
     public GraphicElement getChild(int i) {
@@ -61,7 +64,7 @@ public class Layer implements GraphicElement {
         GraphicElement parentVerification = parent;
         while (parentVerification != null) {
             if (this == parentVerification) {
-                throw new IllegalParentException("Un fils ne peut pas être son père.");
+                throw new IllegalParentException("Un sous calque ne peut pas être lui même un super calque.");
             }
             parentVerification = parentVerification.getParent();
         }
