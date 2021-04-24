@@ -8,9 +8,8 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>fr.univ.shaper</groupId>
   <artifactId>shaper-xml</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>shaper-xml</name>
@@ -23,8 +22,8 @@
   <dependencies>
       <!-- ===== Modules ===== -->
     <dependency>
-        <groupId>fr.univ.shaper</groupId>
-        <artifactId>shaper-core</artifactId>
+      <groupId>fr.univ.shaper</groupId>
+      <artifactId>shaper-core</artifactId>
     </dependency>
     <!-- ===== Bibliothèques tierces ===== -->
     <dependency>

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class DirectorXMLTest {
 
@@ -17,18 +18,15 @@ public class DirectorXMLTest {
 
     private final Layer element = getDemoGroups(handler.getDefaultFactory());
 
-
     @Test
-    public void saveAs_shouldSaveWithFilenameValid() throws FileNotFoundException {
+    public void saveAs_shouldSaveWithFilenameValid() throws IOException {
         // GIVEN
         File file = new File( "test.xml");
         Layer layer = element;
 
         // WHEN
         director.saveAs(file, element);
-
         // THEN
-
     }
 
     private static Layer getDemoGroups(GraphicFactory factory) {

@@ -25,6 +25,12 @@ public class DirectorXML implements Director {
 
     private File file;
 
+    private final SAXParserFactory saxFactory;
+
+    public DirectorXML() {
+        saxFactory =  SAXParserFactory.newInstance();
+    }
+
     @Override
     public boolean fileIsPresent() {
         return file != null;
@@ -36,43 +42,47 @@ public class DirectorXML implements Director {
     }
 
     @Override
-    public void save(Layer element) {
-        Contract.assertThat(fileIsPresent(), "Aucun fichier disponible, utilisez la méthode saveAs");
+    public void save(Layer element) throws IOException {
+        if (! fileIsPresent()) {
+            throw new FileNotFoundException("Aucun fichier n'a été sauvegardé ou ouvert, utilisez la méthode saveAs");
+        }
         saveAs(file, element);
     }
 
-    public Layer load(File file, GraphicBuilder builder) {
+    public Layer load(File file, GraphicBuilder builder) throws IOException {
         this.file = file;
-        InputSource is = null;
+
+        // Chargement de la source
+        InputSource is = new InputSource(
+                new BufferedInputStream(
+                        new FileInputStream(file.getAbsolutePath())
+                )
+        );
+
+        // Récupération d'un parser SAX.
+        SAXParser sp;
         try {
-            is = new InputSource(new BufferedInputStream(new
-                    FileInputStream(file.getAbsolutePath()) ) );
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-        SAXParserFactory spf = SAXParserFactory.newInstance();
-        SAXParser sp = null;
-        try {
-            sp = spf.newSAXParser();
-        } catch (ParserConfigurationException e) {
-            System.out.println("Exception capturée newSAXParser 1 : " + e);
-            return null;
-        } catch (SAXException e) {
-            System.out.println("Exception capturée newSAXParser 2 : " + e);
-            return null;
+            sp = saxFactory.newSAXParser();
+        } catch (ParserConfigurationException | SAXException e) {
+            throw new RuntimeException("Une erreur de configuration est survenu lors de l'instanciation" +
+                    " d'un parser SAX.", e);
         }
 
-        XMLReader xr = null;
+
+
+        // Récupération d'un lecteur XML
+        XMLReader xr;
         try {
-            assert sp != null;
             xr = sp.getXMLReader();
         } catch (SAXException e) {
-            System.out.println("Exception capturée getXMLReader : " + e);
-            return null;
+            throw new RuntimeException("Une erreur est survenu lors de la récupération d'une instance de " +
+                    "XMLReader()", e);
         }
+
+
+
+        // Gestionnaire du lecteur XML
         DrawingHandler handler = new DrawingHandler(builder);
-        assert xr != null;
         xr.setContentHandler(handler) ;
         xr.setErrorHandler(handler) ;
 
@@ -82,25 +92,25 @@ public class DirectorXML implements Director {
                     .newInstance().getFactoryOf("Noisy");
             ngf.setGenerateNoise(false);
         } catch (GraphicTypeNotFoundException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         }
 
         try {
             System.out.println("Loading file...");
             xr.parse(is) ;
-        } catch ( Exception e ) {
-            System.out.println("Exception capturée xr.parse : ");
-            e.printStackTrace();
-            return null;
+        } catch (SAXException e) {
+            throw new IOException("Le directeur n'a pas pu lire le fichier.\n" +
+                    e.getMessage(), e);
+        } finally {
+            ngf.setGenerateNoise(true);
         }
 
-        ngf.setGenerateNoise(true);
         System.out.println("File loaded.");
         return handler.getDrawing();
     }
 
     @Override
-    public void saveAs(File file, Layer layerRoot) {
+    public void saveAs(File file, Layer layerRoot) throws IOException {
         Contract.assertThat(file != null, "Filename ne doit pas être null");
         Contract.assertThat(layerRoot != null, "element ne doit pas être null");
         this.file = file;
@@ -108,10 +118,8 @@ public class DirectorXML implements Director {
         PrintWriter writer;
         try {
             writer = new PrintWriter(file, charset.toString());
-        } catch (UnsupportedEncodingException | FileNotFoundException e) {
-            // TODO gérer les erreurs
-            e.printStackTrace();
-            return;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Erreur d'encodage.", e);
         }
 
         // ----------------------------------------------- //

@@ -47,8 +47,10 @@ public class XmlGraphicVisitor implements GraphicVisitor {
         String name = LAYER;
 
         // Start Element
-        xmlStartElement(name, null, null, true);
-
+        Attributes a = new Attributes();
+        a.add(HEIGHT, element.getHeight());
+        a.add(WIDTH, element.getWidth());
+        xmlStartElement(name, a, null, true);
 
         // Recursion en profondeur
         element.getChildren().forEach(e -> e.accept(this));
