@@ -2,10 +2,7 @@ package fr.univ.shaper.gui;
 
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
-import fr.univ.shaper.gui.model.DrawingBoard;
-import fr.univ.shaper.gui.model.DrawingBoardImpl;
-import fr.univ.shaper.gui.model.Pencil;
-import fr.univ.shaper.gui.model.PencilImpl;
+import fr.univ.shaper.gui.model.*;
 import fr.univ.shaper.gui.view.Menu;
 import fr.univ.shaper.gui.view.ToolPanel;
 import fr.univ.shaper.gui.view.DrawingArea;
@@ -31,14 +28,10 @@ public class ShaperViewer {
 
     private Menu menu;
 
-    private final DrawingBoard drawingBoard;
-
-    private final Pencil pencil;
-
+    private final DrawingBoardHandler drawingBoardHandler;
 
     public ShaperViewer() {
-        pencil = new PencilImpl();
-        drawingBoard = new DrawingBoardImpl(pencil);
+        drawingBoardHandler = new DrawingBoardHandlerImpl();
         createView();
         createController();
         placeComponent();
@@ -54,31 +47,33 @@ public class ShaperViewer {
         JFrame.setDefaultLookAndFeelDecorated(true);
         frame = new JFrame(TITLE);
 
-        // ATTENTION ICI Interface Segregation Principle ??
-        menu = new Menu(drawingBoard);
-        draw = new DrawingArea(drawingBoard);
-        toolPanel = new ToolPanel(pencil);
+        menu = new Menu(drawingBoardHandler);
+        toolPanel = new ToolPanel(drawingBoardHandler.getPencil());
     }
 
     private void placeComponent() {
         frame.setJMenuBar(menu);
-        frame.getContentPane().add(draw);
         frame.getContentPane().add(toolPanel, BorderLayout.WEST);
     }
 
     private void createController() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        drawingBoard.addPropertyChangeListener("layerRoot", event -> {
-            draw.clear();
-            Layer layer = (Layer) event.getNewValue();
-            layer.accept(new DrawGraphicVisitor(draw.getGraphic()));
-            draw.repaint(100);
+        drawingBoardHandler.addPropertyChangeListener("drawingBoard", event -> {
+            if (draw != null) {
+                System.out.println("Supression du dessin en cours..");
+                frame.remove(draw);
+            }
+
+            System.out.println("Création du nouveau dessin");
+            draw = new DrawingArea((DrawingBoard) event.getNewValue());
+            frame.add(draw);
+            frame.pack();
         });
 
-        drawingBoard.addPropertyChangeListener("director", event -> {
+        drawingBoardHandler.addPropertyChangeListener("director", event -> {
             Director director = (Director) event.getNewValue();
-            if (director != null) {
+            if (director != null && director.getFile() != null) {
                 frame.setTitle(TITLE + " - " + director.getFile().getName());
             } else {
                 frame.setTitle(TITLE);

@@ -4,18 +4,17 @@ import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.command.Command;
+import fr.univ.shaper.gui.command.UnperformedCommandException;
+
+import java.awt.*;
 
 public interface DrawingBoard extends Listenable {
+
+    Dimension getDimension();
 
     Pencil getPencil();
 
     Layer getLayerRoot();
-
-    void setLayerRoot(Layer root);
-
-    Director getDirector();
-
-    void setDirector(Director director);
 
     void setSelectedElement(GraphicElement element);
 
@@ -33,7 +32,7 @@ public interface DrawingBoard extends Listenable {
      *
      * @param command à éxécuter
      */
-    void run(Command command);
+    void run(Command command) throws UnperformedCommandException;
 
     /**
      * Indique s'il est possible de dessiner
@@ -41,20 +40,5 @@ public interface DrawingBoard extends Listenable {
      * @return true s'il est possible de dessiner
      */
     boolean canDraw();
-
-    /**
-     * Indique si c'est un nouveau dessin
-     *
-     * @return true si ce dessin est nouveau et n'a pas été enregistré
-     */
-    boolean isNew();
-
-    /**
-     * Indique si le dessin n'a pas été sauvegardé
-     *
-     * @return true si le dessin a été modifié et qu'il n'a pas été
-     *      sauvegardé.
-     */
-    boolean unsaved();
 }
 

@@ -3,12 +3,14 @@ package fr.univ.shaper.gui.view;
 import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.GraphicFactoryHandler;
+import fr.univ.shaper.core.element.Layer;
 import fr.univ.shaper.gui.model.DrawingBoard;
 //import fr.univ.shaper.gui.controller.KeyController;
 import fr.univ.shaper.gui.command.AddElementCommand;
 import fr.univ.shaper.gui.command.BuildElementCommand;
 import fr.univ.shaper.gui.command.StartDrawingCommand;
 import fr.univ.shaper.gui.render.DrawGraphicVisitor;
+import fr.univ.shaper.util.Contract;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -30,29 +32,40 @@ public class DrawingArea extends JPanel {
     private final DrawingBoard drawingBoard;
 
     /**
-     * Un visiteur permettant de dessiner un forme "DragAndDrop"
+     * Un visiteur permettant de dessiner les formes "DragAndDrop"
      */
-    private DrawGraphicVisitor visitor;
-
-    private int width = 800;
-
-    private int height = 600;
+    private final DrawGraphicVisitor visitor;
 
     public DrawingArea(DrawingBoard drawingBoard) {
+        Contract.assertThat(drawingBoard != null, "La planche à dessin ne " +
+                "doit pas être null");
         setBackground(Color.WHITE);
         this.drawingBoard = drawingBoard;
         createEmptyImage();
+
         visitor = new DrawGraphicVisitor(getGraphic());
+        drawingBoard.getLayerRoot().accept(visitor);
+        repaint();
 
         MouseInputAdapter listener = new DrawingMouseListener();
         addMouseListener(listener);
         addMouseMotionListener(listener);
+        createController();
+    }
+
+    private void createController() {
+        drawingBoard.addPropertyChangeListener("layerRoot", event -> {
+            clear();
+            Layer layer = (Layer) event.getNewValue();
+            layer.accept(new DrawGraphicVisitor(getGraphic()));
+            repaint(100);
+        });
     }
 
     @Override
     public Dimension getPreferredSize() {
         return isPreferredSizeSet() ?
-                super.getPreferredSize() : new Dimension(width, height);
+                super.getPreferredSize() : drawingBoard.getDimension();
     }
 
     @Override
@@ -81,7 +94,10 @@ public class DrawingArea extends JPanel {
     }
 
     private void createEmptyImage() {
-        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(
+                drawingBoard.getDimension().width,
+                drawingBoard.getDimension().height,
+                BufferedImage.TYPE_INT_ARGB);
         getGraphic().setColor(Color.BLACK);
     }
 
@@ -111,12 +127,20 @@ public class DrawingArea extends JPanel {
             } else {
                 startDrawingCommand.setPoint(startPoint);
             }
-            drawingBoard.run(startDrawingCommand);
+            try {
+                drawingBoard.run(startDrawingCommand);
+            } catch (fr.univ.shaper.gui.command.UnperformedCommandException e) {
+                e.printStackTrace();
+            }
         }
 
         public void mouseDragged(MouseEvent mouseEvent) {
             drawingBoard.getPencil().setEndPoint(mouseEvent.getPoint());
-            drawingBoard.run(buildElementCommand);
+            try {
+                drawingBoard.run(buildElementCommand);
+            } catch (fr.univ.shaper.gui.command.UnperformedCommandException e) {
+                e.printStackTrace();
+            }
 
             // Repeindre seulement le composant sans changer le dessin
             repaint();
@@ -125,7 +149,11 @@ public class DrawingArea extends JPanel {
         public void mouseReleased(MouseEvent mouseEvent) {
             if(drawingBoard.getSelectedElement() != null) {
                 drawGraphicVisitor.setGraphics(getGraphic());
-                drawingBoard.run(new AddElementCommand(drawGraphicVisitor));
+                try {
+                    drawingBoard.run(new AddElementCommand(drawGraphicVisitor));
+                } catch (fr.univ.shaper.gui.command.UnperformedCommandException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

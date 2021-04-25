@@ -21,7 +21,7 @@ public class BuildElementCommand implements Command {
     }
 
     @Override
-    public void runCommand(DrawingBoard controller) {
+    public void runCommand(DrawingBoard controller) throws UnperformedCommandException {
         Pencil pencil = controller.getPencil();
         Contract.assertThat(pencil.getEndPoint() != null,
                 "Le paramètre point ne doit pas être null");
@@ -59,7 +59,7 @@ public class BuildElementCommand implements Command {
         try {
             element = builder.build();
         } catch (BadGraphicContextException e) {
-            e.printStackTrace();
+            throw new UnperformedCommandException("Impossible de construire l'élément.", e);
         }
 
         controller.setSelectedElement(element);

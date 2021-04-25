@@ -28,7 +28,7 @@ public class FindWithFilterCommand implements Command {
     }
 
     @Override
-    public void runCommand(DrawingBoard controller) {
+    public void runCommand(DrawingBoard controller) throws UnperformedCommandException {
         controller.getLayerRoot().accept(filter);
         result = filter.getResult();
     }

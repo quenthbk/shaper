@@ -20,7 +20,7 @@ public class AddElementCommand implements Command {
     }
 
     @Override
-    public void runCommand(DrawingBoard controller) {
+    public void runCommand(DrawingBoard controller) throws UnperformedCommandException {
         GraphicElement element = controller.getSelectedElement();
         Contract.assertThat(element != null,
                 "L'élément ne doit pas être null");

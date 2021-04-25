@@ -2,24 +2,43 @@ package fr.univ.shaper.gui.model;
 
 import fr.univ.shaper.core.element.GraphicElement;
 import fr.univ.shaper.core.element.Layer;
-import fr.univ.shaper.file.Director;
 import fr.univ.shaper.gui.command.Command;
+import fr.univ.shaper.gui.command.UnperformedCommandException;
 import fr.univ.shaper.util.Contract;
+
+import java.awt.*;
 
 public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard {
 
-    private Layer layerRoot;
+    private final Layer layerRoot;
 
     private GraphicElement selectedElement;
 
     private final Pencil pencil;
 
-    private Director director;
+    private final Dimension dimension;
 
-    public DrawingBoardImpl(Pencil pencil) {
+    public DrawingBoardImpl(Dimension dimension, Pencil pencil) {
         Contract.assertThat(pencil != null, "le crayon ne doit pas être null");
+        Contract.assertThat(dimension != null, "La dimension ne doit pas être null");
         layerRoot = new Layer();
+        layerRoot.setWidth((int) dimension.getWidth());
+        layerRoot.setHeight((int) dimension.getHeight());
+        this.dimension = dimension;
         this.pencil = pencil;
+    }
+
+    public DrawingBoardImpl(Layer layer, Pencil pencil) {
+        Contract.assertThat(pencil != null, "le crayon ne doit pas être null");
+        Contract.assertThat(layer != null, "Le calque ne doit pas être null");
+        layerRoot = layer;
+        dimension = new Dimension(layer.getWidth(), layer.getHeight());
+        this.pencil = pencil;
+    }
+
+    @Override
+    public Dimension getDimension() {
+        return dimension;
     }
 
     @Override
@@ -30,26 +49,6 @@ public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard
     @Override
     public Layer getLayerRoot() {
         return layerRoot;
-    }
-
-    @Override
-    public void setLayerRoot(Layer root) {
-        Contract.assertThat(root != null, "Le Layer situé à la racine ne peut pas être null");
-        Layer old = layerRoot;
-        layerRoot = root;
-        firePropertyChange("layerRoot", old, layerRoot);
-    }
-
-    @Override
-    public Director getDirector() {
-        return director;
-    }
-
-    @Override
-    public void setDirector(Director director) {
-        Director old = this.director;
-        this.director = director;
-        firePropertyChange("director", old, director);
     }
 
     @Override
@@ -70,18 +69,8 @@ public class DrawingBoardImpl extends AbstractListenable implements DrawingBoard
     }
 
     @Override
-    public void run(Command command) {
+    public void run(Command command) throws UnperformedCommandException {
         Contract.assertThat(command != null, "Le commande ne doit pas être null");
         command.runCommand(this);
-    }
-
-    @Override
-    public boolean isNew() {
-        return director == null || ! director.fileIsPresent();
-    }
-
-    @Override
-    public boolean unsaved() {
-        return true;
     }
 }

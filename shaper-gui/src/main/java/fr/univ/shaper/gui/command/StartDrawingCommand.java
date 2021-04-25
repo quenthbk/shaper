@@ -20,7 +20,7 @@ public class StartDrawingCommand implements Command {
     }
 
     @Override
-    public void runCommand(DrawingBoard controller) {
+    public void runCommand(DrawingBoard controller) throws UnperformedCommandException {
         controller.getPencil().setStartPoint(point);
     }
 }

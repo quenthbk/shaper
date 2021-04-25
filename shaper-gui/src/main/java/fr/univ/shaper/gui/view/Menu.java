@@ -1,23 +1,16 @@
 package fr.univ.shaper.gui.view;
 
-import fr.univ.shaper.core.DefaultGraphicBuilder;
-import fr.univ.shaper.core.GraphicBuilder;
-import fr.univ.shaper.core.GraphicFactoryHandler;
-import fr.univ.shaper.gui.model.DrawingBoard;
-import fr.univ.shaper.gui.command.NewCommand;
-import fr.univ.shaper.gui.command.OpenFileXmlCommand;
-import fr.univ.shaper.gui.command.SaveAsXmlCommand;
-import fr.univ.shaper.gui.command.SaveCommand;
+import fr.univ.shaper.gui.command.*;
+import fr.univ.shaper.gui.model.DrawingBoardHandler;
 import fr.univ.shaper.util.Contract;
+import fr.univ.shaper.xml.DirectorXML;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
+import java.awt.*;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.awt.event.InputEvent.SHIFT_DOWN_MASK;
 import static java.awt.event.KeyEvent.CTRL_DOWN_MASK;
 
 public class Menu extends JMenuBar {
@@ -36,7 +29,10 @@ public class Menu extends JMenuBar {
     static private final String EDIT_CUT = "Couper";
     static private final String EDIT_UNDO = "Retour";
 
-    private final DrawingBoard drawingBoard;
+    static public final int DEFAULT_DRAWING_AREA_HEIGHT = 600;
+    static public final int DEFAULT_DRAWING_AREA_WIDTH = 800;
+
+    private final DrawingBoardHandler drawingBoardHandler;
 
     private final JFileChooser fileChooser = new JFileChooser();
 
@@ -44,11 +40,11 @@ public class Menu extends JMenuBar {
 
     private final Map<String, JMenuItem>  editItem;
 
-    public Menu(DrawingBoard drawingBoard) {
-        Contract.assertThat(drawingBoard != null, "Le drawingBoard ne doit pas être null");
+    public Menu(DrawingBoardHandler drawingBoardHandler) {
+        Contract.assertThat(drawingBoardHandler != null, "Le drawingBoard ne doit pas être null");
         this.fileItem = new HashMap<>();
         this.editItem = new HashMap<>();
-        this.drawingBoard = drawingBoard;
+        this.drawingBoardHandler = drawingBoardHandler;
 
         createViewAndPlaceComponent();
         createController();
@@ -87,37 +83,55 @@ public class Menu extends JMenuBar {
         fileItem
                 .get(FILE_NEW)
                 .addActionListener(l -> {
-            drawingBoard.run(new NewCommand());
-        });
+                    drawingBoardHandler.createNewDrawingBoard(
+                            new Dimension(DEFAULT_DRAWING_AREA_WIDTH, DEFAULT_DRAWING_AREA_HEIGHT));
+                });
 
         fileItem.get(FILE_OPEN).addActionListener(l -> {
-            int result = fileChooser.showOpenDialog(this);
+            int result = 0;
+            result = fileChooser.showOpenDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
-                drawingBoard.run(new OpenFileXmlCommand(fileChooser.getSelectedFile(),
-                        new DefaultGraphicBuilder(GraphicFactoryHandler.newInstance())));
+                try {
+                    drawingBoardHandler.openDrawingBoard(fileChooser.getSelectedFile(), new DirectorXML());
+                } catch (java.io.IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 errorHandler("Opération annulée");
             }
         });
 
         fileItem.get(FILE_SAVE_AS).addActionListener(l -> {
-            int result = fileChooser.showSaveDialog(this);
+            int result = 0;
+            result = fileChooser.showSaveDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
-                drawingBoard.run(new SaveAsXmlCommand(fileChooser.getSelectedFile()));
+                try {
+                    drawingBoardHandler.saveDrawingBoard(fileChooser.getSelectedFile(), new DirectorXML());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 errorHandler("Opération annulée");
             }
         });
 
         fileItem.get(FILE_SAVE).addActionListener(l -> {
-            if (! drawingBoard.isNew()) {
-                drawingBoard.run(new SaveCommand());
+            if (! drawingBoardHandler.drawIsNew()) {
+                try {
+                    drawingBoardHandler.saveDrawingBoard();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 int result = fileChooser.showSaveDialog(this);
                 if (result == JFileChooser.APPROVE_OPTION) {
-                    drawingBoard.run(new SaveAsXmlCommand(fileChooser.getSelectedFile()));
+                    try {
+                        drawingBoardHandler.saveDrawingBoard(fileChooser.getSelectedFile(), new DirectorXML());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    errorHandler("Opération annulée");
+                    errorHandler("Opération de sauvegarde annulée");
                 }
             }
         });
