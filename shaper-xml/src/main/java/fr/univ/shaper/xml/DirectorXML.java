@@ -21,6 +21,8 @@ import java.nio.charset.StandardCharsets;
 
 public class DirectorXML implements Director {
 
+    private final static boolean USE_DTD = false;
+
     private final Charset charset = StandardCharsets.UTF_8;
 
     private File file;
@@ -29,6 +31,7 @@ public class DirectorXML implements Director {
 
     public DirectorXML() {
         saxFactory =  SAXParserFactory.newInstance();
+        saxFactory.setValidating(USE_DTD);
     }
 
     @Override
@@ -130,9 +133,13 @@ public class DirectorXML implements Director {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"")
                 .append(charset)
-                .append("\"?>\n")
-                .append("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">\n")
-                .append("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\" ")
+                .append("\"?>\n");
+
+        if (USE_DTD) {
+            builder.append("<!DOCTYPE drawing SYSTEM \"drawing.dtd\">\n");
+        }
+
+        builder.append("<drawing xmlns=\"http://www.univ-rouen.fr/drawing\" ")
                 .append("width=\"")
                 .append(layerRoot.getWidth())
                 .append("\" height=\"")

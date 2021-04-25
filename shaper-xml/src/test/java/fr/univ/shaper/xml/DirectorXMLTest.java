@@ -1,8 +1,12 @@
 package fr.univ.shaper.xml;
 
+import fr.univ.shaper.core.DefaultGraphicBuilder;
+import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.core.element.GraphicFactory;
 import fr.univ.shaper.core.element.Layer;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -14,11 +18,14 @@ public class DirectorXMLTest {
 
     private final GraphicFactoryHandler handler = GraphicFactoryHandler.newInstance();
 
+    private final GraphicBuilder builder = new DefaultGraphicBuilder(handler);
+
     private final DirectorXML director = new DirectorXML();
 
     private final Layer element = getDemoGroups(handler.getDefaultFactory());
 
     @Test
+    @Order(1)
     public void saveAs_shouldSaveWithFilenameValid() throws IOException {
         // GIVEN
         File file = new File( "test.xml");
@@ -27,6 +34,18 @@ public class DirectorXMLTest {
         // WHEN
         director.saveAs(file, element);
         // THEN
+    }
+
+    @Test
+    @Order(2)
+    public void load_shouldSaveWithFilenameValid() throws IOException {
+        // GIVEN
+        File file = new File( "test.xml");
+
+        // WHEN
+        Layer result = director.load(file, builder);
+        // THEN
+        Assertions.assertThat(result.toString()).isEqualTo(element.toString());
     }
 
     private static Layer getDemoGroups(GraphicFactory factory) {
