@@ -55,8 +55,6 @@ public class MirrorVisitor implements GraphicVisitor {
         double width = rectangle.getWidth();
         rectangle.setX0(root.getWidth() - rectangle.getX0() - width);
         rectangle.setX1(root.getWidth() - rectangle.getX1() + width);
-        //rectangle.setY0(rectangle.getY1());
-        //rectangle.setY1(rectangle.getY0());
     }
 
     private void visitCircle(Circle circle) {
