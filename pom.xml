@@ -26,6 +26,7 @@
     <module>shaper-xml</module>
     <module>shaper-gui</module>
     <module>shaper-converter</module>
+    <module>shaper-mirror</module>
   </modules>
 
   <!-- =============================================================== -->

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <drawing xmlns="http://www.univ-rouen.fr/drawing" width="500" height="500">
 <circle color="-16777216" >
-  <point x="53.0" y="47.0" />
+  <point x="447.0" y="47.0" />
   <radius>30.01666203960727</radius>
 </circle>
 <circle color="-16777216" >
-  <point y="232.0" x="242.0" />
+  <point y="232.0" x="258.0" />
   <radius>32.64965543462902</radius>
 </circle>
 <circle color="-16777216" >
-  <point x="431.0" y="438.0" />
+  <point x="69.0" y="438.0" />
   <radius>28.635642126552707</radius>
 </circle>
 <rectangle color="-16777216" >
-  <point y="219.0" x="38.0" />
-  <point y="257.0" x="110.0" />
+  <point y="219.0" x="390.0" />
+  <point y="257.0" x="462.0" />
 </rectangle>
 <line color="-16777216" >
-  <point y="35.0" x="383.0" />
-  <point y="79.0" x="451.0" />
+  <point y="35.0" x="117.0" />
+  <point y="79.0" x="49.0" />
 </line>
 </drawing>

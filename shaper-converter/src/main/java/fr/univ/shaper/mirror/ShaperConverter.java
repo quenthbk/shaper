@@ -1,4 +1,4 @@
-package fr.univ.shaper.converter;
+package fr.univ.shaper.mirror;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.element.GraphicFactory;
