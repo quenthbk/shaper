@@ -14,16 +14,12 @@ import java.util.Stack;
 
 public class ConverterVisitor implements GraphicVisitor {
 
-    public Stack<Layer> src;
-
     public Stack<Layer> dest;
 
     public GraphicFactory factory;
 
     public ConverterVisitor(GraphicFactory factory) {
         Contract.assertThat(factory != null, "La factory ne doit pas être null");
-        src = new Stack<>();
-        src.push(new Layer());
         dest = new Stack<>();
         dest.push(new Layer());
         this.factory = factory;
@@ -32,6 +28,8 @@ public class ConverterVisitor implements GraphicVisitor {
     @Override
     public void visitLayer(Layer element) {
         Layer layer = factory.createLayer();
+        layer.setHeight(element.getHeight());
+        layer.setWidth(element.getWidth());
         dest.peek().append(layer);
         dest.push(layer);
         element.getChildren().forEach(e -> e.accept(this));
@@ -69,7 +67,7 @@ public class ConverterVisitor implements GraphicVisitor {
     }
 
     public Layer getResult() {
-        return dest.pop();
+        return dest.peek();
     }
 
     private void visitRectangle(Rectangle rectangle) {

@@ -23,9 +23,15 @@ public class ShaperConverter {
     }
 
     public void convert(File src, File dest) throws IOException {
+        // lecture du fichier src
         Layer layer = director.load(src, builder);
         ConverterVisitor visitor = new ConverterVisitor(factory);
+        // parcourir les éléments endant de l'élément parent
         layer.getChildren().forEach(e -> e.accept(visitor));
+        Layer result = visitor.getResult();
+        result.setWidth(layer.getWidth());
+        result.setHeight(layer.getHeight());
+        // sauvegarde dans le fichier dest
         director.saveAs(dest, visitor.getResult());
     }
 }
