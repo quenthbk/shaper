@@ -1,4 +1,4 @@
-package fr.univ.shaper.surface;
+package fr.univ.shaper.converter;
 
 import fr.univ.shaper.core.GraphicBuilder;
 import fr.univ.shaper.core.element.GraphicFactory;
@@ -26,7 +26,7 @@ public class ShaperConverter {
         // lecture du fichier src
         Layer layer = director.load(src, builder);
         ConverterVisitor visitor = new ConverterVisitor(factory);
-        // parcourir les éléments endant de l'élément parent
+        // parcourir les éléments enfants de l'élément parent
         layer.getChildren().forEach(e -> e.accept(visitor));
         Layer result = visitor.getResult();
         result.setWidth(layer.getWidth());

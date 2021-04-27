@@ -1,7 +1,7 @@
 package fr.univ.shaper;
 
 
-import fr.univ.shaper.surface.MirrorConverter;
+import fr.univ.shaper.mirror.MirrorConverter;
 import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.xml.DirectorXML;
