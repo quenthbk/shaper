@@ -55,6 +55,11 @@
           <artifactId>shaper-gui</artifactId>
           <version>0.0.1-SNAPSHOT</version>
       </dependency>
+      <dependency>
+        <groupId>fr.univ.shaper</groupId>
+        <artifactId>shaper-mirror</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+      </dependency>
 
         <!-- ===== Bibliothèques tierces ===== -->
 

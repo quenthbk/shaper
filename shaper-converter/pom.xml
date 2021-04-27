@@ -16,7 +16,7 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <main.class>fr.univ.shaper.MirrorApp</main.class>
+    <main.class>fr.univ.shaper.ConverterApp</main.class>
   </properties>
 
   <dependencies>
