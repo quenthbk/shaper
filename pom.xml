@@ -27,6 +27,7 @@
     <module>shaper-gui</module>
     <module>shaper-converter</module>
     <module>shaper-mirror</module>
+    <module>shaper-surface</module>
   </modules>
 
   <!-- =============================================================== -->

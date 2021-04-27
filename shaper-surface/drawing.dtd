@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT drawing (circle|line|rectangle|layer)*>
+<!ATTLIST drawing xmlns CDATA #FIXED "http://www.univ-rouen.fr/drawing">
+<!ATTLIST drawing width CDATA #REQUIRED>
+<!ATTLIST drawing height CDATA #REQUIRED>
+
+<!ENTITY % color "CDATA">
+
+<!ELEMENT circle (noisy*,point,radius)>
+	<!ATTLIST circle color %color; #REQUIRED>
+
+<!ELEMENT line (noisy*,point,point)>
+	<!ATTLIST line color %color; #REQUIRED>
+
+<!ELEMENT rectangle (noisy*,point,point)>
+	<!ATTLIST rectangle color %color; #REQUIRED>
+
+<!ELEMENT layer (circle|line|rectangle|layer)*>
+		<!ATTLIST layer width CDATA #REQUIRED>
+		<!ATTLIST layer height CDATA #REQUIRED>
+<!ATTLIST layer x CDATA #IMPLIED>
+<!ATTLIST layer y CDATA #IMPLIED>
+
+
+<!ELEMENT point EMPTY>
+	<!ATTLIST point x CDATA #REQUIRED>
+	<!ATTLIST point y CDATA #REQUIRED>
+
+<!ELEMENT noisy EMPTY>
+	<!ATTLIST noisy noiseX CDATA #IMPLIED>
+	<!ATTLIST noisy noiseY CDATA #IMPLIED>
+
+<!ELEMENT radius (#PCDATA)>
