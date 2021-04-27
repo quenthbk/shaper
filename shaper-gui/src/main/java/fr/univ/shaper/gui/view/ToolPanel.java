@@ -18,7 +18,6 @@ import java.util.Map;
 
 public class ToolPanel extends JPanel {
 
-    private static final int BUTTON_SELECT = 0;
     private static final int BUTTON_SHAPE = 1;
     private static final int BUTTON_TYPE = 2;
     private static final int BUTTON_COLOR = 3;
@@ -38,7 +37,6 @@ public class ToolPanel extends JPanel {
     }
 
     private void createView() {
-        createButton(BUTTON_SELECT, "select", "select");
         createButton(BUTTON_SHAPE, "cercle", DrawingConstants.CIRCLE);
         createButton(BUTTON_SHAPE, "rectangle", DrawingConstants.RECTANGLE);
         createButton(BUTTON_SHAPE, "ligne", DrawingConstants.LINE);
@@ -49,13 +47,6 @@ public class ToolPanel extends JPanel {
     }
 
     private void createController() {
-        for (JButton button : buttons.get(BUTTON_SELECT)) {
-            button.addActionListener(actionEvent -> {
-                JButton j = (JButton) actionEvent.getSource();
-                System.out.println("Graphic Tool : " + j.getName());
-            });
-        }
-
         for (JButton button : buttons.get(BUTTON_SHAPE)) {
             button.addActionListener(actionEvent -> {
                 JButton j = (JButton) actionEvent.getSource();

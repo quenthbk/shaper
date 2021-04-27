@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<drawing xmlns="http://www.univ-rouen.fr/drawing" width="0" height="0">
+<drawing xmlns="http://www.univ-rouen.fr/drawing" width="500" height="500">
 <circle color="-16777216" >
   <point y="47.0" x="53.0" />
   <radius>30.01666203960727</radius>
