@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<drawing xmlns="http://www.univ-rouen.fr/drawing" width="800" height="600">
+<rectangle color="-16777216" >
+  <point x="155.06324172599952" y="90.40037149679108" />
+  <point x="452.1527014856472" y="282.3531749676158" />
+  <noisy noiseY="4.950185758091131" noiseX="50.46670954585484" />
+</rectangle>
+<circle color="-16777216" >
+  <point y="151.0" x="365.0" />
+  <radius>40.162171256046406</radius>
+</circle>
+</drawing>
