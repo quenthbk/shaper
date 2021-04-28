@@ -16,7 +16,7 @@ public class GraphicFactoryHandler {
     /**
      * L'instance unique de cette classe
      */
-    static public GraphicFactoryHandler instance;
+    static private GraphicFactoryHandler instance;
 
     /**
      * Le suffix des classes graphique factory
