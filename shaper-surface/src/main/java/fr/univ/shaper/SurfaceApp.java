@@ -1,7 +1,7 @@
 package fr.univ.shaper;
 
 
-import fr.univ.shaper.surface.SurfaceConverter;
+import fr.univ.shaper.surface.SurfaceCalculate;
 import fr.univ.shaper.core.DefaultGraphicBuilder;
 import fr.univ.shaper.core.GraphicFactoryHandler;
 import fr.univ.shaper.xml.DirectorXML;
@@ -24,7 +24,7 @@ public class SurfaceApp {
         String src = args[0];
 
         try {
-            new SurfaceConverter(
+            new SurfaceCalculate(
                     new DirectorXML(),
                     new DefaultGraphicBuilder(handler))
                     .calcul(new File(src));

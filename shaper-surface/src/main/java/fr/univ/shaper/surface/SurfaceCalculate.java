@@ -7,13 +7,13 @@ import fr.univ.shaper.file.Director;
 import java.io.File;
 import java.io.IOException;
 
-public class SurfaceConverter {
+public class SurfaceCalculate {
 
     private final Director director;
 
     private final GraphicBuilder builder;
 
-    public SurfaceConverter(Director director, GraphicBuilder builder) {
+    public SurfaceCalculate(Director director, GraphicBuilder builder) {
         this.director = director;
         this.builder = builder;
     }
