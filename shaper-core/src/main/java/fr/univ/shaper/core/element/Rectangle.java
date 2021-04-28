@@ -15,40 +15,82 @@ public abstract class Rectangle extends AbstractShape {
         this.y1 = y1;
     }
 
+    /**
+     * @return la coordonnée x du point de début
+     */
     public double getX0() {
         return x0;
     }
 
+    /**
+     * Modifie la coordonnée x du point de début
+     *
+     * @param x0 coordonnée x du point de début
+     */
     public void setX0(double x0) {
         this.x0 = x0;
     }
 
+    /**
+     * @return la coordonnée y du point de début
+     */
     public double getY0() {
         return y0;
     }
 
+    /**
+     * Modifie la coordonnée y du point de début
+     *
+     * @param y0 coordonnée y du point de début
+     */
     public void setY0(double y0) {
         this.y0 = y0;
     }
 
+    /**
+     * @return la coordonnée x du point de fin
+     */
     public double getX1() {
         return x1;
     }
 
+    /**
+     * Modifie la coordonnée x du point de fin
+     *
+     * @param x1 coordonnée x du point de fin
+     */
     public void setX1(double x1) {
         this.x1 = x1;
     }
 
+    /**
+     * @return la coordonnée y du point de fin
+     */
     public double getY1() {
         return y1;
     }
 
+    /**
+     * Modifie la coordonnée y du point de fin
+     *
+     * @param y1 coordonnée y du point de fin
+     */
     public void setY1(double y1) {
         this.y1 = y1;
     }
 
+    /**
+     * Calcule et renvoie longueur du rectangle
+     *
+     * @return la longueur du rectangle
+     */
     public double getWidth() { return Math.abs(x1-x0); }
 
+    /**
+     * Calcule et renvoie hauteur du rectangle
+     *
+     * @return la hauteur du rectangle
+     */
     public double getHeight() { return Math.abs(y1-y0); }
 
     @Override

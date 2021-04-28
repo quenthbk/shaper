@@ -3,6 +3,9 @@ package fr.univ.shaper.core.element;
 import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.core.exception.IllegalParentException;
 
+/**
+ * Interface représentant un élément Graphique
+ */
 public interface GraphicElement {
 
 

@@ -4,6 +4,9 @@ import fr.univ.shaper.util.Contract;
 
 import java.awt.Color;
 
+/**
+ * Implémentation des méthodes de Shape
+ */
 abstract class AbstractShape implements Shape {
 
     private Color color;

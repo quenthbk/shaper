@@ -5,6 +5,9 @@ import fr.univ.shaper.util.Contract;
 
 import java.awt.geom.Point2D;
 
+/**
+ * Commencer à dessiner un élément graphique
+ */
 public class StartDrawingCommand implements Command {
 
     private Point2D point;

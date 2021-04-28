@@ -5,6 +5,9 @@ import fr.univ.shaper.core.GraphicVisitor;
 import fr.univ.shaper.gui.model.DrawingBoard;
 import fr.univ.shaper.util.Contract;
 
+/**
+ * Ajoute l'élément selectionné au calque racine
+ */
 public class AddElementCommand implements Command {
 
     private GraphicVisitor visitor;

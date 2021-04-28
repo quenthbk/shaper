@@ -3,6 +3,9 @@ package fr.univ.shaper.core.element;
 import java.awt.Color;
 import java.util.Objects;
 
+/**
+ * Un Cercle Abstrait contenant l'implémentation des getter et setter
+ */
 public abstract class Circle extends AbstractShape {
 
     private double cx, cy, radius;
@@ -14,26 +17,56 @@ public abstract class Circle extends AbstractShape {
         this.radius = radius;
     }
 
+    /**
+     * La coordonnée X du centre
+     *
+     * @return coordonnée x du centre
+     */
     public double getCx() {
         return cx;
     }
 
+    /**
+     * Modifie la coordonnée X du centre
+     *
+     * @param cx coordonnée x du centre
+     */
     public void setCx(double cx) {
         this.cx = cx;
     }
 
+    /**
+     * La coordonnée Y du centre
+     *
+     * @return coordonnée Y du centre
+     */
     public double getCy() {
         return cy;
     }
 
+    /**
+     * Modifie la coordonnée Y du centre
+     *
+     * @param cy coordonnée Y du centre
+     */
     public void setCy(double cy) {
         this.cy = cy;
     }
 
+    /**
+     * Renvoie le rayon du cercle
+     *
+     * @return le rayon du cercle
+     */
     public double getRadius() {
         return radius;
     }
 
+    /**
+     * Modifie le rayon du cercle
+     *
+     * @param radius le rayon du cercle
+     */
     public void setRadius(double radius) {
         this.radius = radius;
     }

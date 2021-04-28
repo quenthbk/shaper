@@ -1,5 +1,8 @@
 package fr.univ.shaper.gui.command;
 
+/**
+ * UnperformedCommandException est émise si une commande a échoué
+ */
 public class UnperformedCommandException extends Exception {
 
     public UnperformedCommandException(String message) {

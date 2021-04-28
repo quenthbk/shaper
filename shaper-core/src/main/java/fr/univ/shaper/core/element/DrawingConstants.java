@@ -1,9 +1,9 @@
 package fr.univ.shaper.core.element;
 
+/**
+ * Les constantes utilisées pour nommer les composants et attributs Shaper
+ */
 public class DrawingConstants {
-
-    // Dependency Inversion principle non respecté !
-
     static final public String POINT = "point";
     static final public String POINT_X = "x";
     static final public String POINT_Y = "y";
@@ -20,5 +20,4 @@ public class DrawingConstants {
     static final public String LINE = "line";
     static final public String WIDTH = "width";
     static final public String HEIGHT = "height";
-
 }

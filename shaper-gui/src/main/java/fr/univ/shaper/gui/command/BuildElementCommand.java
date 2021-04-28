@@ -11,6 +11,9 @@ import fr.univ.shaper.util.Contract;
 
 import java.awt.*;
 
+/**
+ * Construit un élément graphique
+ */
 public class BuildElementCommand implements Command {
 
     private final GraphicBuilder builder;

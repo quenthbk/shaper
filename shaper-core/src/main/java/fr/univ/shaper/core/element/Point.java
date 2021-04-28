@@ -1,8 +1,18 @@
 package fr.univ.shaper.core.element;
 
+/**
+ * Représente un point
+ */
 public class Point {
 
+    /**
+     * La coordonnée x
+     */
     private double x;
+
+    /**
+     * La coordonnée y
+     */
     private double y;
 
     public Point(double x, double y) {
