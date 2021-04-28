@@ -5,18 +5,18 @@
   <parent>
     <groupId>fr.univ.shaper</groupId>
     <artifactId>shaper</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>shaper-mirror</artifactId>
-  <version>1.0.0</version>
+  <artifactId>shaper-surface</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>shaper-mirror</name>
+  <name>shaper-surface</name>
   <url>http://maven.apache.org</url>
 
   <properties>
-    <main.class>fr.univ.shaper.MirrorApp</main.class>
+    <main.class>fr.univ.shaper.SurfaceApp</main.class>
   </properties>
 
   <dependencies>

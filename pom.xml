@@ -4,7 +4,7 @@
 
   <groupId>fr.univ.shaper</groupId>
   <artifactId>shaper</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <description>
     Projet Architecture Logiciel. Patrons de Conception.
@@ -27,6 +27,7 @@
     <module>shaper-gui</module>
     <module>shaper-converter</module>
     <module>shaper-mirror</module>
+    <module>shaper-surface</module>
   </modules>
 
   <!-- =============================================================== -->
@@ -38,27 +39,32 @@
       <dependency>
           <groupId>fr.univ.shaper</groupId>
           <artifactId>shaper-core</artifactId>
-          <version>0.1.0</version>
+          <version>1.0.0</version>
       </dependency>
       <dependency>
         <groupId>fr.univ.shaper</groupId>
         <artifactId>shaper-converter</artifactId>
-        <version>0.1.0</version>
+        <version>1.0.0</version>
       </dependency>
       <dependency>
           <groupId>fr.univ.shaper</groupId>
           <artifactId>shaper-xml</artifactId>
-          <version>0.0.3</version>
+          <version>1.0.0</version>
       </dependency>
       <dependency>
           <groupId>fr.univ.shaper</groupId>
           <artifactId>shaper-gui</artifactId>
-          <version>0.0.1-SNAPSHOT</version>
+          <version>1.0.0</version>
       </dependency>
       <dependency>
         <groupId>fr.univ.shaper</groupId>
         <artifactId>shaper-mirror</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>fr.univ.shaper</groupId>
+        <artifactId>shaper-surface</artifactId>
+        <version>1.0.0</version>
       </dependency>
 
         <!-- ===== Bibliothèques tierces ===== -->
